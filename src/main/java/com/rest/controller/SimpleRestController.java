@@ -5,6 +5,8 @@ import com.rest.domain.Customer;
 import com.rest.dto.CustomerDto;
 import com.rest.dto.Greeting;
 import com.rest.mapper.CustomerMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,11 +23,14 @@ public class SimpleRestController {
 
     private final AtomicLong counter = new AtomicLong();
 
+    private static Logger logger = LoggerFactory.getLogger(SimpleRestController.class);
+
     @Autowired
     private CustomerMapper customerMapper;
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name",defaultValue = "world")String name){
+        logger.error(name);
         return new Greeting(counter.incrementAndGet(),String.format(template,name));
     }
 

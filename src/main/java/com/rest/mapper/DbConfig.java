@@ -23,7 +23,7 @@ public class DbConfig {
         druidDataSource.setMaxWait(6000);
         druidDataSource.setTimeBetweenEvictionRunsMillis(6000);
         druidDataSource.setMinEvictableIdleTimeMillis(30000);
-        druidDataSource.setValidationQuery("SELECT 1");
+        druidDataSource.setValidationQuery("SELECT 1 from dual");
         druidDataSource.setTestWhileIdle(true);
         druidDataSource.setTestOnBorrow(true);
         druidDataSource.setTestOnReturn(true);
