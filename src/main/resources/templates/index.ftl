@@ -8,31 +8,32 @@
     <link href="/css/blog.css" rel="stylesheet">
 </head>
 <body>
-    <div class="blog-masthead">
-        <div class="container">
-            <nav class="blog-nav">
-                <a class="blog-nav-item" href="#">Home</a>
-                <a class="blog-nav-item" id="archives" href="#">archives</a>
-                <a class="blog-nav-item" id="about" href="#">about</a>
-            </nav>
-        </div>
+<#include "header.ftl">
+<div class="container">
+    <div class="blog-header">
+        <h1 class="blog-title">The Bruce ge Blog</h1>
     </div>
 
-    <div class="container">
-        <div class="blog-header">
-            <h1 class="blog-title">The Bruce ge Blog</h1>
-        </div>
-
-        <div  class="row">
-            <div class="col-sm-8 blog-main">
-                <div id="blogdata">
-                    <#--adddata to this position-->
-                </div>
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            <div id="blogdata">
+            <#--adddata to this position-->
+            <#list contents as co>
+            <div class="blog-post">
+                <h2 class="blog-post-title">${co.title}</h2>
+                <p class="blog-post-meta">${co.startDate}<a href="#">Mark</a></p>
+            ${co.content}
+            </#list>
+            </div>
 
                 <nav>
                     <ul class="pager">
-                        <li id="previous"><a href="#">Previous</a></li>
-                        <li id="next"><a href="#">Next</li>
+                    <#if previousLink??>
+                        <li id="previous"><a href="${previousLink}">Previous</a></li>
+                    </#if>
+                    <#if nextLink??>
+                        <li id="next"><a href="${nextLink}">Next</li>
+                    </#if>
                     </ul>
                 </nav>
             </div>
@@ -43,73 +44,6 @@
             </div>
         </div>
     </div>
-
-
     <script src="/js/jquery-3.1.1.min.js"></script>
-
-<#--shall add with navigationBar which is from the request size.-->
-<script>
-    $(document).ready(function () {
-        var pagesize=5;
-        var curpage=1
-        //get from server.
-        getdata();
-
-        function getdata() {
-            $.ajax({
-                url: "/getPage",
-                data: {
-                    page: curpage,
-                    pagesize: pagesize
-                },
-                type: "GET",
-                dataType: "json",
-            }).done(function (json) {
-                console.log(json.length);
-                if (json.length == 0) {
-                    curpage--;
-                    alert("there is no data");
-                    return;
-                }
-                var blogdata = "";
-                for (i = 0; i < json.length; i++) {
-                    blogdata += "<div class=\"blog-post\"><h2 class=\"blog-post-title\">";
-                    blogdata += json[i].title;
-                    blogdata += "<\/h2>";
-                    blogdata += "<p class=\"blog-post-meta\">";
-                    var d = new Date(json[i].startDate);
-                    var datestring = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " +
-                            d.getHours() + ":" + d.getMinutes();
-                    blogdata += datestring;
-                    blogdata += " by <a href=\"#\">Mark<\/a><\/p>";
-                    blogdata += json[i].content;
-                }
-                $("#blogdata").html(blogdata);
-            }).fail(function (xhr, status, errorThrown) {
-                alert("sorry, there was a probelm")
-            });
-        }
-
-            $("#previous").click(function () {
-                curpage--;
-                if(curpage<=0){
-                    curpage=1;
-                    alert("no data");
-                    return;
-                }
-                getdata();
-            })
-
-            $("#next").click(function () {
-                curpage++;
-                getdata();
-            })
-
-            $("#archives").click(function () {
-                //
-            })
-
-    })
-</script>
 </body>
 </html>

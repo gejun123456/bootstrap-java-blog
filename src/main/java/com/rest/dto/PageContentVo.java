@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by bruce.ge on 2016/11/6.
  */
-public class PageContentDto {
+public class PageContentVo {
 
 //文章的内容
     private String title;
@@ -14,7 +14,7 @@ public class PageContentDto {
 
     private String link;
 
-    private Date startDate;
+    private String startDate;
 
     public String getTitle() {
         return title;
@@ -40,11 +40,11 @@ public class PageContentDto {
         this.link = link;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 }

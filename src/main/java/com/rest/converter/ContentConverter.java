@@ -3,10 +3,11 @@ package com.rest.converter;
 import com.google.common.collect.Lists;
 import com.rest.Request.AddContentRequest;
 import com.rest.domain.Content;
-import com.rest.dto.PageContentDto;
+import com.rest.dto.PageContentVo;
 import com.rest.utils.MarkDownUtil;
 import org.springframework.util.CollectionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,25 +15,26 @@ import java.util.List;
  * Created by bruce.ge on 2016/11/6.
  */
 public class ContentConverter {
-    public static List<PageContentDto> convetToPageDto(List<Content> contents){
-        List<PageContentDto> pageContentDtos = Lists.newArrayList();
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-mm-dd");
+    public static List<PageContentVo> convetToPageDto(List<Content> contents){
+        List<PageContentVo> pageContentVos = Lists.newArrayList();
         if(CollectionUtils.isEmpty(contents)){
-            return pageContentDtos;
+            return pageContentVos;
         }
 
         for(Content s : contents){
-            PageContentDto dto = convertToPage(s);
-            pageContentDtos.add(dto);
+            PageContentVo dto = convertToPage(s);
+            pageContentVos.add(dto);
         }
-        return pageContentDtos;
+        return pageContentVos;
     }
 
-    private static PageContentDto convertToPage(Content s) {
-        PageContentDto dto = new PageContentDto();
+    private static PageContentVo convertToPage(Content s) {
+        PageContentVo dto = new PageContentVo();
         dto.setTitle(s.getTitle());
         dto.setContent(s.getHtml_content());
         dto.setLink(buildLink(s));
-        dto.setStartDate(s.getAddtime());
+        dto.setStartDate(dateFormat.format(s.getAddtime()));
         return dto;
     }
 //get content by id.
