@@ -20,7 +20,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rest.mapper.ContentMapper">
+
+    <sql id="select">
+        SELECT id, title,source_content,html_content,updatetime,addtime
+        FROM content
+    </sql>
     <insert id="addContent" useGeneratedKeys="true" keyProperty="id">
         insert INTO content(title,source_content,html_content,updatetime,addtime) VALUES (#{title},#{source_content},#{html_content},now(),now())
     </insert>
+
+    <select id="getPage" resultType="Content">
+      <include refid="select"></include>
+        ORDER BY addtime desc limit #{start},#{limit}
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT count(*) from content
+    </select>
 </mapper>
