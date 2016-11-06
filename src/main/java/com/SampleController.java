@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ComponentScan
 public class SampleController {
     @RequestMapping("/")
-    @ResponseBody
     String home(){
-        return "hello world";
+        return "index";
     }
 
     public static void main(String[] args) {
