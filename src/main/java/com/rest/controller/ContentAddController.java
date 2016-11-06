@@ -16,4 +16,9 @@ public class ContentAddController {
         //which shall redirect when ok.
         return true;
     }
+
+    @RequestMapping("/add")
+    public String addPage(){
+        return "add";
+    }
 }

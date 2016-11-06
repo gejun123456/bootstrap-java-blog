@@ -24,11 +24,15 @@
             <h1 class="blog-title">The Bruce ge Blog</h1>
         </div>
 
-        <div class="row">
+        <div  class="row">
             <div class="col-sm-8 blog-main">
+                <div id="blogdata">
+                    <#--adddata to this position-->
+                </div>
+
                 <nav>
                     <ul class="pager">
-                        <li><a href="#">Previous</a> </li>
+                        <li><a href="#">Previous</a></li>
                         <li><a href="#">Next</a> </li>
                     </ul>
                 </nav>
@@ -53,25 +57,42 @@
     <script src="/js/jquery-3.1.1.min.js"></script>
 
 <#--shall add with navigationBar which is from the request size.-->
-</li>
 <script>
     $(document).ready(function () {
         var pagesize=5;
+        var curpage=1
         //get from server.
-        $.ajax({
-            url:"/getPage",
-            data:{
-                page:1,
-                pagesize:pagesize
-            },
-            type:"GET",
-            dataType:"json",
-        }).done(function (json) {
-            console.log(json.length);
-            $("#a1").html(json[0].title)
-        }).fail(function (xhr, status, errorThrown) {
-            alert("sorry, there was a probelm")
-        });
+        getdata();
+
+        function getdata() {
+            $.ajax({
+                url:"/getPage",
+                data:{
+                    page:curpage,
+                    pagesize:pagesize
+                },
+                type:"GET",
+                dataType:"json",
+            }).done(function (json) {
+                console.log(json.length);
+                var blogdata = "";
+                for(i=0;i<json.length;i++){
+                    blogdata+="<div class=\"blog-post\"><h2 class=\"blog-post-title\">";
+                    blogdata+=json[i].title;
+                    blogdata+="<\/h2>";
+                    blogdata+="<p class=\"blog-post-meta\">";
+                    var d = new Date(json[i].startDate);
+                    var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
+                            d.getHours() + ":" + d.getMinutes();
+                    blogdata+=datestring;
+                    blogdata+=" by <a href=\"#\">Mark<\/a><\/p>";
+                    blogdata+= json[i].content;
+                }
+                $("#blogdata").html(blogdata);
+            }).fail(function (xhr, status, errorThrown) {
+                alert("sorry, there was a probelm")
+            });
+        }
     })
 </script>
 </body>
