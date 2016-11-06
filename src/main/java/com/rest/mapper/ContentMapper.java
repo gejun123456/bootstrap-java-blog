@@ -16,4 +16,6 @@ public interface ContentMapper {
     List<Content> getPage(@Param("start") int start,@Param("limit") int limit);
 
     int getCount();
+
+    Content findById(int id);
 }

@@ -19,8 +19,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rest.mapper.CustomerMapper">
-    <select id="selectById" resultType="com.rest.domain.Customer">
-        select * from CUSTOMERS where ID = #{id}
+<mapper namespace="com.rest.mapper.ContentTimeMapper">
+
+    <sql id="select">
+        SELECT id,year,month,day,content_id
+        FROM contenttime
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert INTO contenttime(year,month,day,content_id) VALUES (#{year},#{month},#{day},#{content_id})
+    </insert>
+    <select id="getDistinctYears" resultType="java.lang.Integer">
+        SELECT DISTINCT (year) from contenttime ORDER BY year desc
+    </select>
+    <select id="findByYear" resultType="com.rest.domain.Archives">
+        SELECT b.id,b.addtime,b.title from contenttime a INNER JOIN content b ON a.year=#{year} and a.content_id = b.id order by b.addtime desc
     </select>
 </mapper>

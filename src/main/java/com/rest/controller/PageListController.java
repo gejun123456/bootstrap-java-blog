@@ -3,7 +3,7 @@ package com.rest.controller;
 import com.google.common.collect.Lists;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
-import com.rest.dto.PageContentVo;
+import com.rest.vo.PageContentVo;
 import com.rest.mapper.ContentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +37,6 @@ public class PageListController {
         return count/pageSize;
     }
 
-    // TODO: 2016/11/6 shall add with archived. need to refacter to mutiple page.
-    @RequestMapping("/getarchives")
-    public String getArchives(){
-        return "archives";
-    }
 
     @RequestMapping("/page/{pageNo}")
     public ModelAndView getPage(@PathVariable("pageNo") int pageNo){

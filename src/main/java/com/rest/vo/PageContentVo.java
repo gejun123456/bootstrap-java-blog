@@ -1,4 +1,4 @@
-package com.rest.dto;
+package com.rest.vo;
 
 import java.util.Date;
 
