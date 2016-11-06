@@ -11,8 +11,8 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <div>
-                <lebel for="tilte">title:</lebel>
-                <input type="text" id="source_title">
+                <label for="tilte">title:</label>
+                <input type="text" class="form-control" id="source_title">
                 </div>
                 <label for="source">source:</label>
                 <textarea class="form-control" rows="20" id="source"></textarea>
@@ -21,7 +21,6 @@
         </div>
 
         <div class="col-sm-2">
-            convert
         </div>
 
         <div class="col-sm-5">
@@ -38,11 +37,32 @@
 <script>
     $(document).ready(function () {
         var converter = new showdown.Converter();
-        $("#source").keydown(function () {
+        $("#source").keyup(function () {
             var text = $("#source").val();
             var html = converter.makeHtml(text);
+            html = "<h2>"+$("#source_title").val()+"</h2>"+html;
             $("#output").html(html)
         })
+
+        $("#source").keydown(function (e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == 9) {
+                e.preventDefault();
+                var start = $(this).get(0).selectionStart;
+                var end = $(this).get(0).selectionEnd;
+
+                // set textarea value to: text before caret + tab + text after caret
+                $(this).val($(this).val().substring(0, start)
+                        + "\t"
+                        + $(this).val().substring(end));
+
+                // put caret at right position again
+                $(this).get(0).selectionStart =
+                        $(this).get(0).selectionEnd = start + 1;
+            }
+        })
+
+
         $("#savebutton").click(function () {
             var title = $("#source_title").val();
             var text = $("#source").val();
