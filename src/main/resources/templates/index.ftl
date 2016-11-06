@@ -11,10 +11,9 @@
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
-                <a class="blog-nav-item active" href="#">Home</a>
-                <a class="blog-nav-item" href="#">New features</a>
-                <a class="blog-nav-item" href="#">Press</a>
-                <a class="blog-nav-item" href="#">about</a>
+                <a class="blog-nav-item" href="#">Home</a>
+                <a class="blog-nav-item" id="archives" href="#">archives</a>
+                <a class="blog-nav-item" id="about" href="#">about</a>
             </nav>
         </div>
     </div>
@@ -39,15 +38,7 @@
             </div>
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-                <div class="sidebar-module sidebar-module-inset">
-                    <h4>about</h4>
-                    <p>I'm bruce ge.</p>
-                </div>
                 <div class="sidebar-module">
-                    <h4>Archives</h4>
-                    <ol class="list-unstyled">
-                        <li><a href="#">March 2014</a> </li>
-                    </ol>
                 </div>
             </div>
         </div>
@@ -113,6 +104,11 @@
                 curpage++;
                 getdata();
             })
+
+            $("#archives").click(function () {
+                //
+            })
+
     })
 </script>
 </body>

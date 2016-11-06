@@ -36,4 +36,10 @@ public class PageListController {
         int count = contentMapper.getCount();
         return count/pageSize;
     }
+
+    // TODO: 2016/11/6 shall add with archived. need to refacter to mutiple page.
+    @RequestMapping("/getarchives")
+    public String getArchives(){
+        return "archives";
+    }
 }
