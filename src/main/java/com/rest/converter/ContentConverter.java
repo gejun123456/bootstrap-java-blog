@@ -1,10 +1,13 @@
 package com.rest.converter;
 
 import com.google.common.collect.Lists;
+import com.rest.Request.AddContentRequest;
 import com.rest.domain.Content;
 import com.rest.dto.PageContentDto;
+import com.rest.utils.MarkDownUtil;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,5 +38,15 @@ public class ContentConverter {
 //get content by id.
     private static String buildLink(Content s) {
         return "/pagecontent/"+s.getId();
+    }
+
+    public static Content convertToContent(AddContentRequest request) {
+        Content content = new Content();
+        content.setTitle(request.getTitle());
+        content.setSource_content(request.getSourceContent());
+        content.setHtml_content(MarkDownUtil.convertToHtml(request.getSourceContent()));
+        content.setAddtime(new Date());
+        content.setUpdatetime(new Date());
+        return content;
     }
 }

@@ -8,4 +8,19 @@ public class AddContentRequest {
 
     private String sourceContent;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSourceContent() {
+        return sourceContent;
+    }
+
+    public void setSourceContent(String sourceContent) {
+        this.sourceContent = sourceContent;
+    }
 }

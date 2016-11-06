@@ -32,8 +32,8 @@
 
                 <nav>
                     <ul class="pager">
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">Next</a> </li>
+                        <li id="previous"><a href="#">Previous</a></li>
+                        <li id="next"><a href="#">Next</li>
                     </ul>
                 </nav>
             </div>
@@ -66,33 +66,53 @@
 
         function getdata() {
             $.ajax({
-                url:"/getPage",
-                data:{
-                    page:curpage,
-                    pagesize:pagesize
+                url: "/getPage",
+                data: {
+                    page: curpage,
+                    pagesize: pagesize
                 },
-                type:"GET",
-                dataType:"json",
+                type: "GET",
+                dataType: "json",
             }).done(function (json) {
                 console.log(json.length);
+                if (json.length == 0) {
+                    curpage--;
+                    alert("there is no data");
+                    return;
+                }
                 var blogdata = "";
-                for(i=0;i<json.length;i++){
-                    blogdata+="<div class=\"blog-post\"><h2 class=\"blog-post-title\">";
-                    blogdata+=json[i].title;
-                    blogdata+="<\/h2>";
-                    blogdata+="<p class=\"blog-post-meta\">";
+                for (i = 0; i < json.length; i++) {
+                    blogdata += "<div class=\"blog-post\"><h2 class=\"blog-post-title\">";
+                    blogdata += json[i].title;
+                    blogdata += "<\/h2>";
+                    blogdata += "<p class=\"blog-post-meta\">";
                     var d = new Date(json[i].startDate);
-                    var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
+                    var datestring = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " +
                             d.getHours() + ":" + d.getMinutes();
-                    blogdata+=datestring;
-                    blogdata+=" by <a href=\"#\">Mark<\/a><\/p>";
-                    blogdata+= json[i].content;
+                    blogdata += datestring;
+                    blogdata += " by <a href=\"#\">Mark<\/a><\/p>";
+                    blogdata += json[i].content;
                 }
                 $("#blogdata").html(blogdata);
             }).fail(function (xhr, status, errorThrown) {
                 alert("sorry, there was a probelm")
             });
         }
+
+            $("#previous").click(function () {
+                curpage--;
+                if(curpage<=0){
+                    curpage=1;
+                    alert("no data");
+                    return;
+                }
+                getdata();
+            })
+
+            $("#next").click(function () {
+                curpage++;
+                getdata();
+            })
     })
 </script>
 </body>
