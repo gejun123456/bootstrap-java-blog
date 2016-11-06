@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Created by bruce.ge on 2016/10/23.
@@ -13,10 +17,17 @@ import javax.sql.DataSource;
 public class DbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
+        File file = new File("\\env\\databaseconfig");
+        Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8");
-        druidDataSource.setUsername("root");
-        druidDataSource.setPassword("root");
+        druidDataSource.setUrl(prop.getProperty("url"));
+        druidDataSource.setUsername(prop.getProperty("username"));
+        druidDataSource.setPassword(prop.getProperty("password"));
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);
         druidDataSource.setMaxActive(20);
