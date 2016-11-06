@@ -14,8 +14,8 @@ public class DbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://103.50.253.208:3306/world?serverTimezone=GMT%2b8");
-        druidDataSource.setUsername("bruce");
+        druidDataSource.setUrl("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8");
+        druidDataSource.setUsername("root");
         druidDataSource.setPassword("root");
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);

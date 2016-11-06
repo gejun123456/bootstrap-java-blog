@@ -1,6 +1,8 @@
 package com;
 
 import basic.AbstractTest;
+import com.rest.domain.Content;
+import com.rest.mapper.ContentMapper;
 import com.rest.mapper.CustomerMapper;
 import com.rest.utils.GsonUtils;
 import org.assertj.core.api.Assertions;
@@ -24,8 +26,21 @@ public class MybatisApplicationTest{
 
     @Autowired
     private CustomerMapper customerMapper;
+
+    @Autowired
+    private ContentMapper contentMapper;
     @Test
     public void test(){
         GsonUtils.printToGson(customerMapper.selectById(1));
+    }
+
+    @Test
+    public void testInsert(){
+        Content content = new Content();
+        content.setTitle("nimei");
+        content.setSource_content("hehe");
+        content.setHtml_content("hehe");
+        int i = contentMapper.addContent(content);
+        System.out.println(content.getId());
     }
 }
