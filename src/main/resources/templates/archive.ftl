@@ -10,10 +10,6 @@
 <body>
 <#include "header.ftl">
 <div class="container">
-    <div class="blog-header">
-        <h1 class="blog-title">The Bruce ge Blog</h1>
-    </div>
-
     <div class="row">
         <div class="col-sm-8 blog-main">
         <#list years as year>

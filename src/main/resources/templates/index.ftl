@@ -10,19 +10,19 @@
 <body>
 <#include "header.ftl">
 <div class="container">
-    <div class="blog-header">
-        <h1 class="blog-title">The Bruce ge Blog</h1>
-    </div>
-
     <div class="row">
         <div class="col-sm-8 blog-main">
+            <#--<div>-->
+                <#--<h1><a href="/">&lt;Bruce ge&gt</a></h1>-->
+            <#--</div>-->
             <div id="blogdata">
             <#--adddata to this position-->
             <#list contents as co>
             <div class="blog-post">
                 <h2 class="blog-post-title">${co.title}</h2>
-                <p class="blog-post-meta">${co.startDate}<a href="#">Mark</a></p>
+                <p class="blog-post-meta">${co.startDate}</p>
             ${co.content}
+                <br>
             </#list>
             </div>
 

@@ -17,12 +17,8 @@
             </div>
             <div id="blogdata">
             <#--adddata to this position-->
-            <div class="blog-post">
-                <h2 class="blog-post-title">${vo.title}</h2>
-                <p class="blog-post-meta">${vo.addtime}</p>
-            ${vo.content}
-        </div>
-    </div>
-    <script src="/js/jquery-3.1.1.min.js"></script>
+                email:gejun123456@gmail.com
+            </div>
+            <script src="/js/jquery-3.1.1.min.js"></script>
 </body>
 </html>
