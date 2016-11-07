@@ -17,24 +17,19 @@
         <#--<h1><a href="/">&lt;Bruce ge&gt</a></h1>-->
         <#--</div>-->
         <#--adddata to this position-->
-        <#list contents as co>
-            <div class="blog-post">
-                <h2 class="blog-post-title">${co.title}</h2>
-                <p class="blog-post-meta">${co.startDate}</p>
-            ${co.content}
-                <br>
-            </div>
+            <br>
+        <#if !hasContent>
+            <h2>Query result is empty</h2>
+        <#else>
+        <h1>There are ${resultlen} result</h1>
+        <br>
+        <#list result as co>
+            <h1><a href="${co.link}">${co.marktitle}</a> </h1>
+            <p>${co.markContent}</p>
+        <br>
         </#list>
-            <nav>
-                <ul class="pager">
-                <#if previousLink??>
-                    <li id="previous"><a href="${previousLink}">Previous</a></li>
-                </#if>
-                <#if nextLink??>
-                    <li id="next"><a href="${nextLink}">Next</a></li>
-                </#if>
-                </ul>
-            </nav>
+        </#if>
+
         </div>
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
             <div class="container">
