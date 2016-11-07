@@ -158,7 +158,6 @@ public class LuceneUtils {
             return queryResults;
         }
         int totalHits = search.totalHits;
-        System.out.println(totalHits);
         if(search.scoreDocs.length==0){
             return queryResults;
         }

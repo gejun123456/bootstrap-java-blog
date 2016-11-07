@@ -19,7 +19,6 @@ import java.util.List;
 public class SearchController {
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam("query") String query){
-        System.out.println(query);
         List<QueryResult> queryResults = LuceneUtils.query(query);
         List<QueryResultVo> resultVos = buildResultVo(queryResults);
         ModelAndView s = new ModelAndView("searchPage");
