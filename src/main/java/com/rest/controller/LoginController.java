@@ -22,7 +22,8 @@ public class LoginController {
         if(username.equals("bruce")&&password.equals("123")){
             session.setAttribute("login",true);
             Cookie cookie = new Cookie("logininfo", "aabbcc");
-            cookie.setMaxAge(36000);
+            //save for 100 day.
+            cookie.setMaxAge(60*60*24*100);
             response.addCookie(cookie);
             return "redirect:/add";
         } else {
