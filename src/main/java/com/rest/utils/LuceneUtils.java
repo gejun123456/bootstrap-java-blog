@@ -132,6 +132,8 @@ public class LuceneUtils {
                 initreader();
             }catch (Exception e){
                 logger.error("init read failed maybe there is no content in index",e);
+                //shall reset instead of everytime can't work.
+                reader=null;
                 return queryResults;
             }
         }
