@@ -17,7 +17,8 @@ import java.util.Properties;
 public class DbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
-        File file = new File("\\env\\databaseconfig");
+
+        File file = new File("/env/databaseconfig");
         Properties prop = new Properties();
         try {
             prop.load(new FileInputStream(file));

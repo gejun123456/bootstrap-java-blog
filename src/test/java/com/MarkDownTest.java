@@ -9,6 +9,8 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import org.junit.Test;
 import org.pegdown.PegDownProcessor;
 
+import java.io.File;
+
 /**
  * Created by bruce.ge on 2016/11/6.
  */
@@ -28,5 +30,6 @@ public class MarkDownTest {
         PegDownProcessor processor = new PegDownProcessor();
         String s = processor.markdownToHtml("###youknowit");
         System.out.println(s);
+        System.out.println(File.separator);
     }
 }

@@ -19,4 +19,15 @@ create TABLE content(
   addtime DATETIME not null,
   PRIMARY KEY (id),
   INDEX addtime (addtime)
-)ENGINE=InnoDB DEFAULT CHARSET=UTF8
+)ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE `contenttime` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `year` smallint(6) NOT NULL,
+  `month` tinyint(4) NOT NULL,
+  `day` tinyint(4) NOT NULL,
+  `content_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `year` (`year`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
