@@ -44,6 +44,13 @@
             $("#output").html(html)
         })
 
+        $("#source_title").keyup(function () {
+            var text = $("#source").val();
+            var html = converter.makeHtml(text);
+            html = "<h2>"+$("#source_title").val()+"</h2>"+html;
+            $("#output").html(html)
+        })
+
         $("#source").keydown(function (e) {
             var keyCode = e.keyCode || e.which;
             if (keyCode == 9) {
@@ -61,7 +68,6 @@
                         $(this).get(0).selectionEnd = start + 1;
             }
         })
-
 
         $("#savebutton").click(function () {
             var title = $("#source_title").val();
