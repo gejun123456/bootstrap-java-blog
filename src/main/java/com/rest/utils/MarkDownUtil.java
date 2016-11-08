@@ -33,12 +33,4 @@ public class MarkDownUtil {
         }
         return res.toString();
     }
-
-    public static void main(String[] args) {
-        System.out.println(removeMark("###helllo#"));
-        System.out.println(removeMark("[hello]"));
-    }
-
-
-
 }
