@@ -23,7 +23,7 @@ public class LoginController {
             session.setAttribute("login",true);
             Cookie cookie = new Cookie("logininfo", "aabbcc");
             //save for 100 day.
-            cookie.setMaxAge(60*60*24*100);
+            cookie.setMaxAge(60*60*24*99);
             response.addCookie(cookie);
             return "redirect:/add";
         } else {
