@@ -6,6 +6,7 @@ import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
+import com.rest.utils.LuceneUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,8 @@ public class ContentAddController {
         time.setDay(calendar.get(Calendar.DAY_OF_MONTH));
         time.setContent_id(content.getId());
         contentTimeMapper.insert(time);
+        //add data to lucene.
+        LuceneUtils.addSource(request.getTitle(),request.getSourceContent(),content.getId());
         return true;
     }
 
