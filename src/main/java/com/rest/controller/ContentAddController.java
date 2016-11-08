@@ -6,13 +6,17 @@ import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by bruce.ge on 2016/11/6.
@@ -42,7 +46,14 @@ public class ContentAddController {
     }
 
     @RequestMapping("/add")
-    public String addPage(){
-        return "add";
+    public String addPage(HttpSession httpSession, @CookieValue(value = "logininfo",required = false) String loginInfo){
+        Object login = httpSession.getAttribute("login");
+        if(login!=null && (Boolean) login) {
+            return "add";
+        } else if(StringUtils.isNotBlank(loginInfo)&&loginInfo.equals("aabbcc")){
+            return "add";
+        } else {
+            return "redirect:/loginPage";
+        }
     }
 }
