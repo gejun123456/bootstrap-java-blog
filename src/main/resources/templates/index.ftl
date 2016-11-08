@@ -22,7 +22,6 @@
                 <h2 class="blog-post-title">${co.title}</h2>
                 <p class="blog-post-meta">${co.startDate}</p>
             ${co.content}
-                <br>
             </div>
         </#list>
             <nav>

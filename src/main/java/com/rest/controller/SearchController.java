@@ -3,6 +3,7 @@ package com.rest.controller;
 import com.google.common.collect.Lists;
 import com.rest.dto.QueryResult;
 import com.rest.utils.LuceneUtils;
+import com.rest.utils.MarkDownUtil;
 import com.rest.vo.QueryResultVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
