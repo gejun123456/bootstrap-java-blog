@@ -20,8 +20,7 @@
         <#list contents as co>
             <div class="blog-post">
                 <h2 class="blog-post-title">${co.title}</h2>
-                <p class="blog-post-meta">${co.startDate}</p>
-            ${co.content}
+                <p class="blog-post-meta">${co.startDate}</p>${co.content}
             </div>
         </#list>
             <nav>
