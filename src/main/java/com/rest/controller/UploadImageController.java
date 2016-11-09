@@ -2,6 +2,7 @@ package com.rest.controller;
 
 import com.rest.storage.StorageFileNotFoundException;
 import com.rest.storage.StorageService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -55,6 +56,16 @@ public class UploadImageController {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message","You successfully uploaded "+file.getOriginalFilename() + "!");
         return "redirect:/listFile";
+    }
+
+
+    @PostMapping("/uploadImage")
+    @ResponseBody
+    public String uploadImage(@RequestParam("image_file")MultipartFile file, HttpServletRequest request){
+        String newName = String.valueOf(System.currentTimeMillis())+file.getOriginalFilename();
+        storageService.storeFileWithName(file,newName);
+        return "http://"+request.getHeader("Host")
+                +"/files/"+newName;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

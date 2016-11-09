@@ -50,6 +50,18 @@ public class FileSystemStorageService implements StorageService{
     }
 
     @Override
+    public void storeFileWithName(MultipartFile file, String name) {
+        try{
+            if(file.isEmpty()){
+                throw new StorageExceptioin("Failed to store empty file "+file.getOriginalFilename());
+            }
+            Files.copy(file.getInputStream(),this.rootLocation.resolve(name));
+        }catch (IOException e){
+            throw new StorageExceptioin("Failed to store file "  + file.getOriginalFilename());
+        }
+    }
+
+    @Override
     public Stream<Path> loadAll() {
         try{
             return Files.walk(this.rootLocation,1).filter(path->!path.equals(this.rootLocation))

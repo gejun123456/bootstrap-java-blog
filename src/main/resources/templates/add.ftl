@@ -26,7 +26,8 @@
                                 class="glyphicon glyphicon-header"></span></button>
                     </div>
                     <div class="btn-group">
-                        <button class="btn-default btn-sm btn" type="button" title="URL/Link (Ctrl+L)" tabindex="4"><span class="glyphicon glyphicon-link"></span>
+                        <button class="btn-default btn-sm btn" type="button" title="URL/Link (Ctrl+L)" tabindex="4">
+                            <span class="glyphicon glyphicon-link"></span>
                         </button>
                     <#--link button modal-->
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -49,6 +50,38 @@
 
                         <button class="btn-default btn-sm btn" type="button" title="Image (Ctrl+G)" tabindex="5"><span
                                 class="glyphicon glyphicon-picture"></span></button>
+                    <#--modal for image-->
+                        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <form id="form" enctype="multipart/form-data" role="form">
+                                        <div class="modal-body">
+                                            <div>
+                                                <label for="tilte">url:</label>
+                                                <input class="form-control" id="image_link" name="image_link"
+                                                       type="text"/>
+                                            </div>
+                                            <div>
+                                                <label for="tilte">title(optional):</label>
+                                                <input class="form-control" name="image_title" id="image_title" type="text"/>
+                                            </div>
+
+                                            <div>
+                                                <input type="file" name="image_file" id="image_file"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type ="submit" class="btn btn-primary" id="image_save">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="btn-group">
                         <button class="btn-default btn-sm btn" type="button" title="Unordered List (Ctrl+U)"
@@ -189,18 +222,70 @@
             com.focus();
         })
 
-
-        $('#myModal').on('hide.bs.modal', function (e) {
+        $('#imageModal').on('hidden.bs.modal', function (e) {
             var com = $('#source');
             com.focus();
+        })
+
+        $('#imageModal').on('shown.bs.modal', function (e) {
+            $("#image_file").val("");
+            $("#image_link").val("http://");
+            $("#image_link").focus();
+            $("#image_link").prop("selectionStart", 8);
         })
 
         $('#myModal').on('shown.bs.modal', function (e) {
             $("#link_url").val("http://");
             $("#link_url").focus();
-            $("#link_url").prop("selectionStart",8);
+            $("#link_url").prop("selectionStart", 8);
         })
 
+        function dealWithImage(response) {
+            var url = response;
+            $("#imageModal").modal('hide');
+            var com = $('#source');
+            var start = com.prop("selectionStart");
+            var end = com.prop("selectionEnd");
+            var text = '![' + $("#image_title").val() + ']' + '(' + url + ')';
+            var c = text.length;
+            com.val(com.val().substring(0, end) + text + com.val().substring(end));
+            com.prop("selectionStart", end);
+            com.prop("selectionEnd", end + c);
+            refresh();
+        }
+
+        $('#form').submit(function (e) {
+            if($("#image_file").get(0).files.length == 0){
+                //shall use with value of url
+                dealWithImage($("#image_link").val());
+                e.preventDefault();
+                return;
+            }
+            var form = $(this);
+            var formdata= false;
+            if(window.FormData){
+                formdata = new FormData(form[0]);
+            }
+            var formAction = form.attr('action');
+            $.ajax({
+                type:'POST',
+                url:'uploadImage',
+                cache:false,
+                data:formdata?formdata:form.serialize(),
+                contentType:false,
+                processData:false,
+
+                success:function (response) {
+                    if(response!='error'){
+                        console.log(response);
+                        dealWithImage(response);
+                    } else {
+                        alert('nimabi buxing');
+                    }
+                }
+            });
+            e.preventDefault();
+        })
 
         function dealWithLink() {
             var url = $("#link_url").val();
@@ -232,6 +317,11 @@
                 //the link //need to output the modal.
 //                dealWithLink(com,start,end);
                 $('#myModal').modal({
+                    keyboard: true
+                })
+                return;
+            } else if (message = 5) {
+                $('#imageModal').modal({
                     keyboard: true
                 })
                 return;
