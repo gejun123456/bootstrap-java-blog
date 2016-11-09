@@ -301,6 +301,30 @@
             refresh();
         }
 
+        function dealWithUnOrder(com, start, end) {
+            if(end==0){
+                com.val("- ");
+                com.prop("selectionStart", end+2);
+                com.prop("selectionEnd", end +2);
+            } else {
+                com.val(com.val().substring(0,end)+"\n-"+" "+com.val().substring(end));
+                com.prop("selectionStart", end+3);
+                com.prop("selectionEnd", end +3);
+            }
+        }
+
+        function dealWithOrder(com, start, end) {
+            if(end==0){
+                com.val("1. ");
+                com.prop("selectionStart", end+3);
+                com.prop("selectionEnd", end +3);
+            } else {
+                com.val(com.val().substring(0,end)+"\n1."+" "+com.val().substring(end));
+                com.prop("selectionStart", end+4);
+                com.prop("selectionEnd", end +4);
+            }
+        }
+
         $(".btn-default.btn-sm.btn").click(function () {
             var message = $(this).attr('tabindex');
             var com = $('#source');
@@ -320,11 +344,15 @@
                     keyboard: true
                 })
                 return;
-            } else if (message = 5) {
+            } else if (message ==5) {
                 $('#imageModal').modal({
                     keyboard: true
                 })
                 return;
+            } else if(message==6){
+                dealWithUnOrder(com,start,end);
+            } else if(message==7){
+                dealWithOrder(com,start,end);
             }
             com.focus();
             refresh();
