@@ -1,13 +1,4 @@
 
-CREATE TABLE CUSTOMERS(
-   ID   INT              NOT NULL,
-   NAME VARCHAR (20)     NOT NULL,
-   AGE  INT              NOT NULL,
-   ADDRESS  CHAR (25) ,
-   SALARY   DECIMAL (18, 2),
-   PRIMARY KEY (ID)
-);
-
 INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1,"bruce",24,"shanghai",200);
 
 create TABLE content(

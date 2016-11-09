@@ -4,7 +4,6 @@ import com.rest.converter.BaseConverter;
 import com.rest.domain.Customer;
 import com.rest.dto.CustomerDto;
 import com.rest.dto.Greeting;
-import com.rest.mapper.CustomerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class SimpleRestController {
 
     private static Logger logger = LoggerFactory.getLogger(SimpleRestController.class);
 
-    @Autowired
-    private CustomerMapper customerMapper;
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name",defaultValue = "world")String name){
@@ -34,10 +31,5 @@ public class SimpleRestController {
         return new Greeting(counter.incrementAndGet(),String.format(template,name));
     }
 
-    @RequestMapping("/getCustomer")
-    public CustomerDto getCustomer(@RequestParam(value = "id") int id){
-        Customer customer = customerMapper.selectById(id);
-        return BaseConverter.convert(customer);
-    }
 
 }
