@@ -68,7 +68,8 @@
                                             </div>
                                             <div>
                                                 <label for="tilte">title(optional):</label>
-                                                <input class="form-control" name="image_title" id="image_title" type="text"/>
+                                                <input class="form-control" name="image_title" id="image_title"
+                                                       type="text"/>
                                             </div>
 
                                             <div>
@@ -76,7 +77,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type ="submit" class="btn btn-primary" id="image_save">Save</button>
+                                            <button type="submit" class="btn btn-primary" id="image_save">Save</button>
                                         </div>
                                     </form>
                                 </div>
@@ -255,28 +256,28 @@
         }
 
         $('#form').submit(function (e) {
-            if($("#image_file").get(0).files.length == 0){
+            if ($("#image_file").get(0).files.length == 0) {
                 //shall use with value of url
                 dealWithImage($("#image_link").val());
                 e.preventDefault();
                 return;
             }
             var form = $(this);
-            var formdata= false;
-            if(window.FormData){
+            var formdata = false;
+            if (window.FormData) {
                 formdata = new FormData(form[0]);
             }
             var formAction = form.attr('action');
             $.ajax({
-                type:'POST',
-                url:'uploadImage',
-                cache:false,
-                data:formdata?formdata:form.serialize(),
-                contentType:false,
-                processData:false,
+                type: 'POST',
+                url: 'uploadImage',
+                cache: false,
+                data: formdata ? formdata : form.serialize(),
+                contentType: false,
+                processData: false,
 
-                success:function (response) {
-                    if(response!='error'){
+                success: function (response) {
+                    if (response != 'error') {
                         console.log(response);
                         dealWithImage(response);
                     } else {
@@ -302,27 +303,75 @@
         }
 
         function dealWithUnOrder(com, start, end) {
-            if(end==0){
+            if (end == 0) {
                 com.val("- ");
-                com.prop("selectionStart", end+2);
-                com.prop("selectionEnd", end +2);
+                com.prop("selectionStart", end + 2);
+                com.prop("selectionEnd", end + 2);
             } else {
-                com.val(com.val().substring(0,end)+"\n-"+" "+com.val().substring(end));
-                com.prop("selectionStart", end+3);
-                com.prop("selectionEnd", end +3);
+                com.val(com.val().substring(0, end) + "\n-" + " " + com.val().substring(end));
+                com.prop("selectionStart", end + 3);
+                com.prop("selectionEnd", end + 3);
             }
         }
 
         function dealWithOrder(com, start, end) {
-            if(end==0){
+            if (end == 0) {
                 com.val("1. ");
-                com.prop("selectionStart", end+3);
-                com.prop("selectionEnd", end +3);
+                com.prop("selectionStart", end + 3);
+                com.prop("selectionEnd", end + 3);
             } else {
-                com.val(com.val().substring(0,end)+"\n1."+" "+com.val().substring(end));
-                com.prop("selectionStart", end+4);
-                com.prop("selectionEnd", end +4);
+                com.val(com.val().substring(0, end) + "\n1." + " " + com.val().substring(end));
+                com.prop("selectionStart", end + 4);
+                com.prop("selectionEnd", end + 4);
             }
+        }
+
+        function dealWithQuote(com, start, end) {
+            if (end == 0) {
+                com.val("> ");
+                com.prop("selectionStart", end + 2);
+                com.prop("selectionEnd", end + 2);
+            } else {
+                com.val(com.val().substring(0, end) + "\n>" + " " + com.val().substring(end));
+                com.prop("selectionStart", end + 3);
+                com.prop("selectionEnd", end + 3);
+            }
+        }
+
+        function dealWithCode(com, start, end) {
+            if (start == end) {
+                com.val(com.val().substring(0, start) + "``" + com.val().substring(end));
+                com.prop("selectionStart", start + 1);
+                com.prop("selectionEnd", start + 1);
+                return;
+            } else {
+                if(start!=0){
+                    var c = com.val().charAt(start-1);
+                    if(c!=" "&&c!="\n"&&c!="\t"){
+                        com.val(com.val().substring(0,start)+"`"+com.val().substring(start,end)+"`"+com.val().substring(end));
+                        com.prop("selectionStart", start + 1);
+                        com.prop("selectionEnd", end + 1);
+                        return;
+                    }
+                }
+                //other situation just use \t.
+                var begin = com.val().substring(0,start);
+                var endtext = com.val().substring(end);
+                var ss = com.val().substring(start,end)
+                var sslater = "\n\t";
+//                最好ss的开头是一个字符
+                for(var x = 0;x<ss.length;x++){
+                    sslater+=ss[x];
+                    if(ss[x]=='\n'&&x!=ss.length-1){
+                        sslater+="\t"
+                    }
+                }
+                com.val(begin+sslater+endtext);
+                com.prop("selectionStart", start+sslater.length);
+                com.prop("selectionEnd", start+sslater.length);
+
+            }
+
         }
 
         $(".btn-default.btn-sm.btn").click(function () {
@@ -344,15 +393,19 @@
                     keyboard: true
                 })
                 return;
-            } else if (message ==5) {
+            } else if (message == 5) {
                 $('#imageModal').modal({
                     keyboard: true
                 })
                 return;
-            } else if(message==6){
-                dealWithUnOrder(com,start,end);
-            } else if(message==7){
-                dealWithOrder(com,start,end);
+            } else if (message == 6) {
+                dealWithUnOrder(com, start, end);
+            } else if (message == 7) {
+                dealWithOrder(com, start, end);
+            } else if (message == 9) {
+                dealWithQuote(com, start, end);
+            } else if (message == 8) {
+                dealWithCode(com, start, end);
             }
             com.focus();
             refresh();
