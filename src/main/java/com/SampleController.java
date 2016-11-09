@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SampleController {
     @RequestMapping("/")
     String home(){
-        return "redirect:page/1";
+        return "forward:/page/1";
     }
 
     public static void main(String[] args) {

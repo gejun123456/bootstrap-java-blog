@@ -60,7 +60,7 @@ fabric.properties
 *.class
 
 # Mobile Tools for Java (J2ME)
-.mtj.tmp/
+.mtj.tmp/ls
 
 # Package Files #
 *.war
