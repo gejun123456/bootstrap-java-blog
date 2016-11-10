@@ -45,6 +45,7 @@
 
     </div>
 </div>
+<#include "footer.ftl">
 <script type="text/javascript">
     function validate() {
         //If the form value is "" (nothing)

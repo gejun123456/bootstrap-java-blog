@@ -19,6 +19,15 @@ h6, .h6 {
   color: #333;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  text-align: center;
+}
+
 
 /*
  * Override Bootstrap's default container.

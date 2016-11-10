@@ -14,12 +14,16 @@
         <div class="col-sm-8 blog-main">
             <div id="blogdata">
             <#--adddata to this position-->
-            <div class="blog-post">
-                <h2 class="blog-post-title">${vo.title}</h2>
-                <p class="blog-post-meta">${vo.addtime}</p>
-            ${vo.content}
+                <div class="blog-post">
+                    <h2 class="blog-post-title">${vo.title}</h2>
+                    <p class="blog-post-meta">${vo.addtime}</p>
+                ${vo.content}
+                </div>
+            </div>
         </div>
     </div>
-    <script src="/js/jquery-3.1.1.min.js"></script>
+</div>
+<#include "footer.ftl">
+<script src="/js/jquery-3.1.1.min.js"></script>
 </body>
 </html>
