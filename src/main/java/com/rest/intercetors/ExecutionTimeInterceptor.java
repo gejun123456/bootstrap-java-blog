@@ -20,6 +20,8 @@ public class ExecutionTimeInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         long endTime = System.currentTimeMillis();
         long useTime = endTime - (Long) httpServletRequest.getAttribute("startTime");
+        //wy there no thing.
+        modelAndView.addObject("useTime",useTime);
         modelAndView.addObject("useTime", useTime);
     }
 
