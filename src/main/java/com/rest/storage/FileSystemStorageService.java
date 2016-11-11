@@ -61,6 +61,7 @@ public class FileSystemStorageService implements StorageService{
     @Override
     public List<String> loadAll() {
         try{
+//            changed from java1.8
             List<String> all = Lists.newArrayList();
             DirectoryStream<Path> paths = Files.newDirectoryStream(rootLocation);
             for (Path a : paths){
