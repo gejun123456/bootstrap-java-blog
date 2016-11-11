@@ -9,7 +9,7 @@ configFolder=resources
 logFile=initServer.log
 dstLogFile=$logFile
 
-destFile=/opt/mycode/my-java-blog/target/attchment-1.0.jar
+destFile=attchment-1.0.jar
 
 whatToFind="Tomcat started"
 msgLogFileCreated="$logFile created"
