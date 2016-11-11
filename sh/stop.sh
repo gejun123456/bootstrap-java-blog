@@ -44,12 +44,18 @@ function stopServer(){
     fi
     echo "go to check the status of the server"
 
-    curl localhost:$serverPort
-#check if 7 is exit status if is 7 means it's still alived.
-    while [ "$?" = "0" ]
+#    curl localhost:$serverPort
+##check if 7 is exit status if is 7 means it's still alived.
+#    while [ "$?" = "0" ]
+#    do
+#        echo "the server still lived"
+#        curl localhost:$serverPort
+#    done
+    portlived=$(netstat -lnt | awk '$6 == "LISTEN" && $4 ~ ".'"$serverPort"'"')
+    while [[ $portlived = *"LISTEN"* ]]
     do
-        echo "the server still lived"
-        curl localhost:$serverPort
+        echo "the port is still listen"
+        portlived=$(netstat -lnt | awk '$6 == "LISTEN" && $4 ~ ".'"$serverPort"'"')
     done
     echo "the server is stopped"
 }
