@@ -17,13 +17,6 @@ msgAppStarted="Application Started... exiting buffer!"
 
 ### Functions
 #######
-function stopServer(){
-    echo ""
-    echo "Stopping process on port:$serverPort"
-    curl -X POST localhost:$serverPort/shutdown
-    echo ""
-}
-
 
 function deleteFiles(){
     echo "Deleting files"
@@ -63,6 +56,5 @@ function watch(){
         done
 }
 
-stopServer
 run
 watch
