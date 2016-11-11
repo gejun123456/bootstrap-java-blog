@@ -1,5 +1,6 @@
 package com.rest.storage;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -7,13 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -62,10 +62,14 @@ public class FileSystemStorageService implements StorageService{
     }
 
     @Override
-    public Stream<Path> loadAll() {
+    public List<String> loadAll() {
         try{
-            return Files.walk(this.rootLocation,1).filter(path->!path.equals(this.rootLocation))
-                    .map(path->this.rootLocation.relativize(path));
+            List<String> all = Lists.newArrayList();
+            DirectoryStream<Path> paths = Files.newDirectoryStream(rootLocation);
+            for (Path a : paths){
+                all.add(a.getFileName().toString());
+            }
+            return all;
         }catch (Exception e){
             throw new StorageExceptioin("Failed to read stored file",e);
         }

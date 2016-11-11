@@ -1,5 +1,6 @@
 package com.rest.controller;
 
+import com.google.common.collect.Lists;
 import com.rest.storage.StorageFileNotFoundException;
 import com.rest.storage.StorageService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,9 +35,11 @@ public class UploadImageController {
 
     @GetMapping("/listFile")
     public String listuploadFile(Model model) throws IOException{
-        model.addAttribute("files",storageService.loadAll().map(path -> MvcUriComponentsBuilder
-        .fromMethodName(UploadImageController.class,"serveFile",path.getFileName().toString()).build().toString()).
-        collect(Collectors.toList()));
+        List<String>  urls = Lists.newArrayList();
+        for(String file: storageService.loadAll()){
+            urls.add(MvcUriComponentsBuilder.fromMethodName(UploadImageController.class,"serveFile",file).build().toString());
+        }
+        model.addAttribute("files",urls);
 
         return "uploadForm";
     }

@@ -29,10 +29,13 @@ public class SampleController {
     }
 
     @Bean
-    CommandLineRunner init(StorageService storageService){
-        return (args -> {
-            storageService.deleteAll();
-            storageService.init();
-        });
+    CommandLineRunner init(final StorageService storageService){
+        return new CommandLineRunner(){
+            @Override
+            public void run(String... args) throws Exception {
+                storageService.deleteAll();
+                storageService.init();
+            }
+        };
     }
 }
