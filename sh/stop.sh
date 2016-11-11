@@ -20,7 +20,8 @@ msgAppStarted="Application Started... exiting buffer!"
 moveold(){
     mkdir old
     echo "move file to old diretory"
-    mv $destFile old/attchment_${now}.jar
+    echo "$now"
+    mv $destFile old/attchment_old${now}.jar
 }
 
 
