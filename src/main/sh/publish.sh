@@ -9,7 +9,7 @@ configFolder=resources
 
 #Constans
 logFile=initServer.log
-dstLogFile=$destAbsPath/$logFile
+dstLogFile=$logFile
 
 destFile=target/attchment-1.0.jar
 
@@ -22,7 +22,7 @@ msgAppStarted="Application Started... exiting buffer!"
 function stopServer(){
     echo ""
     echo "Stopping process on port:$serverPort"
-    fuser -n tcp -k $serverPort > redirection &
+    curl -X POST localhost:$serverPort/shutdown
     echo ""
 }
 
@@ -60,9 +60,8 @@ function watch(){
                     pkill tail
                 fi
         done
-
-
-
 }
+
+stopServer
 
 
