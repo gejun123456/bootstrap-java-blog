@@ -22,7 +22,10 @@ public class ExecutionTimeInterceptor implements HandlerInterceptor {
         //the controller might riderect so there is nothing.
         if(httpServletRequest.getAttribute("startTime")!=null){
             long useTime = endTime - (Long) httpServletRequest.getAttribute("startTime");
-            modelAndView.addObject("useTime", useTime);
+            //ajax request has no modelAndView
+            if(modelAndView!=null) {
+                modelAndView.addObject("useTime", useTime);
+            }
         }
     }
 
