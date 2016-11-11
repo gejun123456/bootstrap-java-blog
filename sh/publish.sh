@@ -21,7 +21,6 @@ msgAppStarted="Application Started... exiting buffer!"
 function deleteFiles(){
     echo "Deleting files"
     rm -rf *
-
     echo ""
 }
 
@@ -34,7 +33,11 @@ function deleteFiles(){
 #
 #    echo " "
 #}
-
+function movefile(){
+    echo "move from deploy to the source"
+    mv todeploy/$destFile $destFile
+    echo "file moved"
+}
 function run(){
     rm -r $dstLogFile
     touch $dstLogFile
@@ -56,5 +59,6 @@ function watch(){
         done
 }
 
+movefile
 run
 watch
