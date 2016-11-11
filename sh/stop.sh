@@ -32,10 +32,26 @@ moveold(){
 
 
 function stopServer(){
-    echo ""
+#first check if is alived
+    echo "stop server started, first the check if it's alived now"
+    curl localhost:$serverPort
+    if [ "$?" = "0" ]
+    then echo "the server alived go stop it"
     echo "Stopping process on port:$serverPort"
     mm=$(curl -X POST localhost:$serverPort/shutdown)
+    #post ended"
     echo $mm
+    fi
+    echo "go to check the status of the server"
+
+    curl localhost:$serverPort
+#check if 7 is exit status if is 7 means it's still alived.
+    while [ "$?" = "0" ]
+    do
+        echo "the server still lived"
+        curl localhost:$serverPort
+    done
+    echo "the server is stopped"
 }
 
 stopServer
