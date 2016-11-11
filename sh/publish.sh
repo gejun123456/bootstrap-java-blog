@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-env=$1
-serverPort=$2
-projectName=$3
-configFile=$4
+serverPort=$1
+projectName=$2
+configFile=$3
 
-destAbsPath=/home/rcoli/Desktop/$projectName/$env
 configFolder=resources
 
 #Constans
 logFile=initServer.log
 dstLogFile=$logFile
 
-destFile=target/attchment-1.0.jar
+destFile=/opt/mycode/my-java-blog/target/attchment-1.0.jar
 
-whatToFind="Started"
+whatToFind="Tomcat started"
 msgLogFileCreated="$logFile created"
 msgAppStarted="Application Started... exiting buffer!"
 
@@ -45,17 +43,20 @@ function deleteFiles(){
 #}
 
 function run(){
-    nohup nice java -jar $destFile --server.port=$serverPort > $dstLogFile 2>&1 &
+    rm -r $dstLogFile
+    touch $dstLogFile
+    nohup nice java -jar $destFile --server.port=$serverPort >> $dstLogFile 2>&1 &
     echo "COMMAND:nohup nice java -jar $destFile --server.port=$serverPort > $dstLogFile 2>&1 &"
     echo ""
 }
 
 function watch(){
     tail -f $dstLogFile |
-        while IFS= read Line
+        while IFS= read line
             do
                 echo "$msgBuffer" "$line"
-                if [["$line"==*"$whatToFind"*]];
+
+                if [[ "$line" == *"$whatToFind"* ]];
                     then echo $msgAppstarted
                     pkill tail
                 fi
@@ -63,5 +64,5 @@ function watch(){
 }
 
 stopServer
-
-
+run
+watch
