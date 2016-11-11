@@ -18,12 +18,12 @@ msgAppStarted="Application Started... exiting buffer!"
 
 #first move data for archive and dothings.
 moveold(){
-    if [-d "old"]
+    if [ -d "old" ]
     then echo "old exist"
     else
         mkdir old
     fi
-    if [-f $destFile]
+    if [ -f $destFile ]
     then
         echo "move file to old diretory"
         mv $destFile old/attchment_old${now}.jar
