@@ -2,7 +2,8 @@
 serverPort=$1
 projectName=$2
 configFile=$3
-now=${date+ "%m_%d_%Y"}
+now=$(date +"%Y_%m_%d")
+echo $now
 
 configFolder=resources
 
