@@ -2,7 +2,7 @@
 serverPort=$1
 projectName=$2
 configFile=$3
-now=${date+"%m_%d_%Y"}
+now=${date+ "%m_%d_%Y"}
 
 configFolder=resources
 
@@ -19,8 +19,8 @@ msgAppStarted="Application Started... exiting buffer!"
 #first move data for archive and dothings.
 moveold(){
     mkdir old
-    echo "move file to old directory"
-    mv $destFile old/attchment${now}.jar
+    echo "move file to old diretory"
+    mv $destFile old/attchment_${now}.jar
 }
 
 
