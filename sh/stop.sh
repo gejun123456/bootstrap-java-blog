@@ -34,7 +34,8 @@ moveold(){
 function stopServer(){
     echo ""
     echo "Stopping process on port:$serverPort"
-    mm = $(curl -X POST localhost:$serverPort/shutdown)
+    mm=$(curl -X POST localhost:$serverPort/shutdown)
+    echo $mm
 }
 
 stopServer
