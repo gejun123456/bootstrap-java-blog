@@ -102,7 +102,7 @@ public class SearchService {
             MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer, boost);
             Query query = null;
             query = parser.parse(qs);
-            // TODO: 2016/11/12 figure out why it need to create every time. 
+            // TODO: 2016/11/12 figure out why it need to create every time.
             indexReader = DirectoryReader.open(indexWriter);
             IndexSearcher searcher = new IndexSearcher(indexReader);
             TopFieldDocs search = null;
