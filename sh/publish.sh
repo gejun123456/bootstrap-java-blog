@@ -42,7 +42,7 @@ function run(){
     rm -r $dstLogFile
     touch $dstLogFile
     nohup nice java -jar $destFile --server.port=$serverPort >> $dstLogFile 2>&1 &
-    echo "COMMAND:nohup nice java -jar $destFile --server.port=$serverPort > $dstLogFile 2>&1 &"
+    echo "COMMAND:nohup nice java -Djava.security.egd=file:/dev/./urandom -jar $destFile --server.port=$serverPort > $dstLogFile 2>&1 &"
     echo ""
 }
 
