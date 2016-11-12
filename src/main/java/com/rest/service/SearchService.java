@@ -21,6 +21,7 @@ import org.parboiled.common.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -47,11 +48,6 @@ public class SearchService {
 
     private IndexWriter indexWriter;
 
-    private DirectoryReader reader;
-
-    private DirectoryReader indexReader;
-
-    private IndexSearcher searcher;
     //fix with static when start.
 
     @PostConstruct
@@ -60,19 +56,14 @@ public class SearchService {
         analyzer = new StandardAnalyzer();
         //没问题 生成一个directory
         directory = FSDirectory.open(Paths.get("/tmp/testindex"));
-        reader = DirectoryReader.open(directory);
         indexWriterConfig = new IndexWriterConfig(analyzer);
         indexWriter = new IndexWriter(directory, indexWriterConfig);
-        indexReader = DirectoryReader.open(indexWriter);
-        searcher = new IndexSearcher(indexReader);
     }
 
     @PreDestroy
     public void destroy() throws IOException {
         logger.info("start destroy lucene service");
         indexWriter.close();
-        indexReader.close();
-        reader.close();
         logger.info("successfully closed");
     }
 
@@ -97,75 +88,78 @@ public class SearchService {
     }
 
     public List<QueryResult> query(String qs) {
-        //根据变量来控制
         List<QueryResult> queryResults = Lists.newArrayList();
-        // then build with parser.
-        //search by title or content.
-        String[] fields = {LuceneFieldConstant.TITLE, LuceneFieldConstant.CONTENT};
-        Map<String, Float> boost = new HashMap<String, Float>() {{
-            put(LuceneFieldConstant.TITLE, 2.0f);
-            put(LuceneFieldConstant.CONTENT, 1.0f);
-        }};
-        MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer, boost);
-        Query query = null;
+        DirectoryReader indexReader = null;
         try {
+            //根据变量来控制
+            // then build with parser.
+            //search by title or content.
+            String[] fields = {LuceneFieldConstant.TITLE, LuceneFieldConstant.CONTENT};
+            Map<String, Float> boost = new HashMap<String, Float>() {{
+                put(LuceneFieldConstant.TITLE, 2.0f);
+                put(LuceneFieldConstant.CONTENT, 1.0f);
+            }};
+            MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer, boost);
+            Query query = null;
             query = parser.parse(qs);
-        } catch (ParseException e) {
-            logger.error("create query by string:" + qs + "failed", e);
-            return queryResults;
-        }
-        TopFieldDocs search = null;
-        try {
+            // TODO: 2016/11/12 figure out why it need to create every time. 
+            indexReader = DirectoryReader.open(indexWriter);
+            IndexSearcher searcher = new IndexSearcher(indexReader);
+            TopFieldDocs search = null;
             search = searcher.search(query, 1000, Sort.RELEVANCE);
-        } catch (IOException e) {
-            logger.error("search catch exception, the string is:" + qs, e);
-            return queryResults;
-        }
-        int totalHits = search.totalHits;
-        if (search.scoreDocs.length == 0) {
-            return queryResults;
-        }
-        QueryScorer scorer = new QueryScorer(query);
-        Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
-        SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<B>", "</B>");
-        Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
-        highlighter.setTextFragmenter(fragmenter);
-        for (ScoreDoc scoreDoc : search.scoreDocs) {
-            Document doc = null;
-            try {
-                doc = searcher.doc(scoreDoc.doc);
-            } catch (IOException e) {
-                logger.error("search doc catch exception", e);
+            if (search.scoreDocs.length == 0) {
                 return queryResults;
             }
-            QueryResult result = new QueryResult();
-            String sId = doc.get(LuceneFieldConstant.STOREDID);
-            result.setId(Integer.valueOf(sId));
-            String title = doc.get(LuceneFieldConstant.TITLE);
-            result.setTitle(title);
-            try {
-                if (title != null) {
-                    TokenStream token = analyzer.tokenStream(LuceneFieldConstant.TITLE, new StringReader(title));
-                    String bestFragment = highlighter.getBestFragment(token, title);
-                    if (StringUtils.isNotEmpty(bestFragment)) {
-                        result.setTitle(bestFragment);
+            QueryScorer scorer = new QueryScorer(query);
+            Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
+            SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<B>", "</B>");
+            Highlighter highlighter = new Highlighter(simpleHTMLFormatter, scorer);
+            highlighter.setTextFragmenter(fragmenter);
+            for (ScoreDoc scoreDoc : search.scoreDocs) {
+                Document doc = null;
+                try {
+                    doc = searcher.doc(scoreDoc.doc);
+                    QueryResult result = new QueryResult();
+                    String sId = doc.get(LuceneFieldConstant.STOREDID);
+                    result.setId(Integer.valueOf(sId));
+                    String title = doc.get(LuceneFieldConstant.TITLE);
+                    result.setTitle(title);
+
+                    if (title != null) {
+                        TokenStream token = analyzer.tokenStream(LuceneFieldConstant.TITLE, new StringReader(title));
+                        String bestFragment = highlighter.getBestFragment(token, title);
+                        if (StringUtils.isNotEmpty(bestFragment)) {
+                            result.setTitle(bestFragment);
+                        }
                     }
-                }
-                String content = doc.get(LuceneFieldConstant.CONTENT);
-                if (content != null) {
-                    TokenStream token = analyzer.tokenStream(LuceneFieldConstant.CONTENT, new StringReader(content));
-                    String bestFragment = highlighter.getBestFragment(token, content);
-                    if (StringUtils.isNotEmpty(bestFragment)) {
-                        result.setMarkText(bestFragment);
+                    String content = doc.get(LuceneFieldConstant.CONTENT);
+                    if (content != null) {
+                        TokenStream token = analyzer.tokenStream(LuceneFieldConstant.CONTENT, new StringReader(content));
+                        String bestFragment = highlighter.getBestFragment(token, content);
+                        if (StringUtils.isNotEmpty(bestFragment)) {
+                            result.setMarkText(bestFragment);
+                        }
                     }
+
+                    queryResults.add(result);
+                } catch (Exception e) {
+                    logger.error("doc catch exception, the docId is {} the title is:{}", doc.get(LuceneFieldConstant.STOREDID), doc.get(LuceneFieldConstant.TITLE), e);
                 }
-            } catch (Exception e) {
-                logger.error("get best fragement catch exception", e);
-                return queryResults;
             }
-            queryResults.add(result);
+
+            return queryResults;
+        } catch (Exception e) {
+            logger.error("query with {} catch exception", qs, e);
+            return queryResults;
+        }finally {
+            if(indexReader!=null){
+                try {
+                    indexReader.close();
+                } catch (IOException e) {
+                    logger.error("indexReaderClose catch exception",e);
+                }
+            }
         }
-        return queryResults;
     }
 
 }
