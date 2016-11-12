@@ -2,9 +2,9 @@ package com.rest.controller;
 
 import com.google.common.collect.Lists;
 import com.rest.dto.QueryResult;
-import com.rest.utils.LuceneUtils;
-import com.rest.utils.MarkDownUtil;
+import com.rest.service.SearchService;
 import com.rest.vo.QueryResultVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +18,13 @@ import java.util.List;
  */
 @Controller
 public class SearchController {
+
+    @Autowired
+    private SearchService searchService;
+
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam("query") String query){
-        List<QueryResult> queryResults = LuceneUtils.query(query);
+        List<QueryResult> queryResults = searchService.query(query);
         List<QueryResultVo> resultVos = buildResultVo(queryResults);
         ModelAndView s = new ModelAndView("searchPage");
         boolean hasContent =false;

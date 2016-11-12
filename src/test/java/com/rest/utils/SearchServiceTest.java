@@ -1,6 +1,7 @@
 package com.rest.utils;
 
 import com.google.gson.Gson;
+import com.rest.service.SearchService;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -19,14 +20,14 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by bruce.ge on 2016/11/7.
  */
-public class LuceneUtilsTest {
+public class SearchServiceTest {
 
     private static Gson gson = new Gson();
+
+    private SearchService searchService = new SearchService();
     @Test
     public void testLucene() throws IOException {
         Analyzer standardAnalyzer = new StandardAnalyzer();
@@ -158,10 +159,10 @@ public class LuceneUtilsTest {
     @Test
     public void testMyUtils(){
         //来个正常的操作
-        LuceneUtils.addSource("hello","nimei wode tian",1);
-        LuceneUtils.addSource("ok hey you", "change your life guys",2);
-        LuceneUtils.addSource("oh yeah boy", "hello your life guys",2);
-        System.out.println(gson.toJson(LuceneUtils.query("hello")));
+        searchService.addSource("hello","nimei wode tian",1);
+        searchService.addSource("ok hey you", "change your life guys",2);
+        searchService.addSource("oh yeah boy", "hello your life guys",2);
+        System.out.println(gson.toJson(searchService.query("hello")));
     }
 
 }

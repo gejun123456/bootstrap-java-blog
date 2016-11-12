@@ -6,7 +6,7 @@ import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
-import com.rest.utils.LuceneUtils;
+import com.rest.service.SearchService;
 import com.rest.utils.MarkDownUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.function.BooleanSupplier;
 
 /**
  * Created by bruce.ge on 2016/11/6.
@@ -30,6 +28,9 @@ public class ContentAddController {
 
     @Autowired
     private ContentTimeMapper contentTimeMapper;
+
+    @Autowired
+    private SearchService searchService;
 
     @RequestMapping("/addContent")
     @ResponseBody
@@ -45,7 +46,7 @@ public class ContentAddController {
         time.setContent_id(content.getId());
         contentTimeMapper.insert(time);
         //add data to lucene.
-        LuceneUtils.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()),content.getId());
+        searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()),content.getId());
         return true;
     }
 
