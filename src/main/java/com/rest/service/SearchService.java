@@ -64,7 +64,7 @@ public class SearchService {
         indexWriterConfig = new IndexWriterConfig(analyzer);
         indexWriter = new IndexWriter(directory, indexWriterConfig);
         indexReader = DirectoryReader.open(indexWriter);
-        searcher = new IndexSearcher(reader);
+        searcher = new IndexSearcher(indexReader);
     }
 
     @PreDestroy
