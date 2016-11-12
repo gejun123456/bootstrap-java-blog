@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Paths;
@@ -48,19 +49,31 @@ public class SearchService {
 
     private DirectoryReader reader;
 
+    private DirectoryReader indexReader;
+
     private IndexSearcher searcher;
     //fix with static when start.
 
     @PostConstruct
     public void init() throws IOException {
+        logger.info("start init lucene service");
         analyzer = new StandardAnalyzer();
         //没问题 生成一个directory
         directory = FSDirectory.open(Paths.get("/tmp/testindex"));
         reader = DirectoryReader.open(directory);
         indexWriterConfig = new IndexWriterConfig(analyzer);
         indexWriter = new IndexWriter(directory, indexWriterConfig);
-        DirectoryReader indexReader = DirectoryReader.open(indexWriter);
+        indexReader = DirectoryReader.open(indexWriter);
         searcher = new IndexSearcher(reader);
+    }
+
+    @PreDestroy
+    public void destroy() throws IOException {
+        logger.info("start destroy lucene service");
+        indexWriter.close();
+        indexReader.close();
+        reader.close();
+        logger.info("successfully closed");
     }
 
     public void addSource(String title, String content, int id) {
