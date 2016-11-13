@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rest.mapper.UserPODao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.rest.domain.UserPO">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="cryptpasswod" property="cryptpasswod"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        username,
+        mobile,
+        email,
+        cryptpasswod
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO user_p_o
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.username != null"> username, </if>
+            <if test="pojo.mobile != null"> mobile, </if>
+            <if test="pojo.email != null"> email, </if>
+            <if test="pojo.cryptpasswod != null"> cryptpasswod, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.username != null"> #{pojo.username}, </if>
+            <if test="pojo.mobile != null"> #{pojo.mobile}, </if>
+            <if test="pojo.email != null"> #{pojo.email}, </if>
+            <if test="pojo.cryptpasswod != null"> #{pojo.cryptpasswod}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user_p_o(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.username},
+            #{pojo.mobile},
+            #{pojo.email},
+            #{pojo.cryptpasswod}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE user_p_o
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.username != null"> username = #{pojo.username}, </if>
+            <if test="pojo.mobile != null"> mobile = #{pojo.mobile}, </if>
+            <if test="pojo.email != null"> email = #{pojo.email}, </if>
+            <if test="pojo.cryptpasswod != null"> cryptpasswod = #{pojo.cryptpasswod} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM user_p_o
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.username != null"> AND username = #{pojo.username} </if>
+            <if test="pojo.mobile != null"> AND mobile = #{pojo.mobile} </if>
+            <if test="pojo.email != null"> AND email = #{pojo.email} </if>
+            <if test="pojo.cryptpasswod != null"> AND cryptpasswod = #{pojo.cryptpasswod} </if>
+        </where>
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM user_p_o where id = #{pojo.id}
+    </delete>
+</mapper>

@@ -3,7 +3,7 @@ package com.rest.dto;
 /**
  * Created by bruce.ge on 2016/11/7.
  */
-public class QueryResult {
+public class SearchResult {
     private int id;
 
     private String markText="";

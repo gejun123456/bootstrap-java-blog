@@ -1,5 +1,7 @@
 package com.rest.dto;
 
+import com.rest.domain.UserPO;
+
 /**
  * Created by bruce.ge on 2016/11/13.
  */
@@ -42,13 +44,13 @@ public final class UserDtoBuilder {
         return this;
     }
 
-    public UserDto build() {
-        UserDto userDto = new UserDto();
-        userDto.setId(id);
-        userDto.setAdmin(admin);
-        userDto.setUsername(username);
-        userDto.setMobile(mobile);
-        userDto.setEmail(email);
-        return userDto;
+    public UserPO build() {
+        UserPO userPO = new UserPO();
+        userPO.setId(id);
+        userPO.setAdmin(admin);
+        userPO.setUsername(username);
+        userPO.setMobile(mobile);
+        userPO.setEmail(email);
+        return userPO;
     }
 }

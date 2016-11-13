@@ -3,7 +3,7 @@ package com.rest.service;
 
 import com.google.common.collect.Lists;
 import com.rest.constant.LuceneFieldConstant;
-import com.rest.dto.QueryResult;
+import com.rest.dto.SearchResult;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -12,7 +12,6 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
@@ -21,7 +20,6 @@ import org.parboiled.common.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -87,8 +85,8 @@ public class SearchService {
         }
     }
 
-    public List<QueryResult> query(String qs) {
-        List<QueryResult> queryResults = Lists.newArrayList();
+    public List<SearchResult> query(String qs) {
+        List<SearchResult> searchResults = Lists.newArrayList();
         DirectoryReader indexReader = null;
         try {
             //根据变量来控制
@@ -108,7 +106,7 @@ public class SearchService {
             TopFieldDocs search = null;
             search = searcher.search(query, 1000, Sort.RELEVANCE);
             if (search.scoreDocs.length == 0) {
-                return queryResults;
+                return searchResults;
             }
             QueryScorer scorer = new QueryScorer(query);
             Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);
@@ -119,7 +117,7 @@ public class SearchService {
                 Document doc = null;
                 try {
                     doc = searcher.doc(scoreDoc.doc);
-                    QueryResult result = new QueryResult();
+                    SearchResult result = new SearchResult();
                     String sId = doc.get(LuceneFieldConstant.STOREDID);
                     result.setId(Integer.valueOf(sId));
                     String title = doc.get(LuceneFieldConstant.TITLE);
@@ -141,16 +139,16 @@ public class SearchService {
                         }
                     }
 
-                    queryResults.add(result);
+                    searchResults.add(result);
                 } catch (Exception e) {
                     logger.error("doc catch exception, the docId is {} the title is:{}", doc.get(LuceneFieldConstant.STOREDID), doc.get(LuceneFieldConstant.TITLE), e);
                 }
             }
 
-            return queryResults;
+            return searchResults;
         } catch (Exception e) {
             logger.error("query with {} catch exception", qs, e);
-            return queryResults;
+            return searchResults;
         }finally {
             if(indexReader!=null){
                 try {

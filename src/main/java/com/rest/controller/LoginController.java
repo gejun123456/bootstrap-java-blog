@@ -1,20 +1,17 @@
 package com.rest.controller;
 
 
-import com.rest.bean.UserBuilder;
 import com.rest.constant.CookieConstants;
 import com.rest.constant.SessionConstants;
 import com.rest.converter.UserConverter;
-import com.rest.dto.UserDto;
+import com.rest.domain.UserPO;
 import com.rest.service.LoginService;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +28,7 @@ public class LoginController {
     // should check wiht data. //get some common validator. for basic login. try to add some.
     public String login(HttpSession session, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password")String password,
                         @RequestParam(value = "backPage",defaultValue = "/")String backPage){
-        UserDto login = loginService.login(username, password);
+        UserPO login = loginService.login(username, password);
         if(login!=null){
             session.setAttribute(SessionConstants.USER, UserConverter.convertToUser(login));
             Cookie cookie = new Cookie(CookieConstants.USERNAME, username);

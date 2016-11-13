@@ -2,18 +2,18 @@ package com.rest.converter;
 
 import com.rest.bean.User;
 import com.rest.bean.UserBuilder;
-import com.rest.dto.UserDto;
+import com.rest.domain.UserPO;
 
 /**
  * Created by bruce.ge on 2016/11/13.
  */
 public class UserConverter {
-    public static User convertToUser(UserDto userDto) {
+    public static User convertToUser(UserPO userPO) {
         return UserBuilder.anUser().
-                withAdmin(userDto.isAdmin())
+                withAdmin(userPO.isAdmin())
                 .withLogin(true).
-                        withUserId(userDto.getId()).
-                        withUserName(userDto.getUsername())
+                        withUserId(userPO.getId()).
+                        withUserName(userPO.getUsername())
                 .build();
     }
 }

@@ -2,12 +2,16 @@ package com;
 
 import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
+import com.rest.domain.UserPO;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
+import com.rest.mapper.UserPODao;
 import com.rest.utils.GsonUtils;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
@@ -29,6 +33,9 @@ public class MybatisApplicationTest{
     @Autowired
     private ContentTimeMapper contentTimeMapper;
 
+    @Autowired
+    private UserPODao userPODao;
+
     @Test
     public void testInsert(){
         Content content = new Content();
@@ -48,6 +55,19 @@ public class MybatisApplicationTest{
         time.setContent_id(6);
         int insert = contentTimeMapper.insert(time);
         System.out.println(insert);
+    }
+
+
+    @Test
+    public void testInsertUserPo(){
+        UserPO po = new UserPO();
+        po.setAdmin(true);
+        po.setUsername("bruce");
+        po.setMobile("1233");
+        po.setEmail("xxx@163.com");
+        po.setCryptpasswod(BCrypt.hashpw("123", BCrypt.gensalt()));
+        int insert = userPODao.insert(po);
+        System.out.println(po.getId());
     }
 
 

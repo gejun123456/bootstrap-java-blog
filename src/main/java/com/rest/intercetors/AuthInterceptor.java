@@ -1,16 +1,14 @@
 package com.rest.intercetors;
 
-import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.bean.User;
 import com.rest.constant.CookieConstants;
 import com.rest.constant.SessionConstants;
 import com.rest.converter.UserConverter;
-import com.rest.dto.UserDto;
+import com.rest.domain.UserPO;
 import com.rest.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -104,7 +102,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
         } else {
             //will get lots of thing from database.
-            UserDto dto = loginService.loginByCookie(name, password);
+            UserPO dto = loginService.loginByCookie(name, password);
             if (dto == null) {
                 httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
             } else {

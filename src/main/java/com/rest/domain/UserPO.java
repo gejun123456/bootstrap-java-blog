@@ -1,9 +1,9 @@
-package com.rest.dto;
+package com.rest.domain;
 
 /**
  * Created by bruce.ge on 2016/11/13.
  */
-public class UserDto {
+public class UserPO {
     private int id;
 
     private boolean admin;
@@ -13,6 +13,8 @@ public class UserDto {
     private String mobile;
 
     private String email;
+
+    private String cryptpasswod;
 
     public int getId() {
         return id;
@@ -53,5 +55,13 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCryptpasswod() {
+        return cryptpasswod;
+    }
+
+    public void setCryptpasswod(String cryptpasswod) {
+        this.cryptpasswod = cryptpasswod;
     }
 }

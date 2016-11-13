@@ -13,7 +13,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-8 .col-md-8 blog-main">
         <#--<div>-->
         <#--<h1><a href="/">&lt;Bruce ge&gt</a></h1>-->
         <#--</div>-->

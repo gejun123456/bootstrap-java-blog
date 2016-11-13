@@ -1,6 +1,6 @@
 package com.rest.service;
 
-import com.rest.dto.UserDto;
+import com.rest.domain.UserPO;
 import com.rest.dto.UserDtoBuilder;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class LoginService {
-    public UserDto login(String userName, String password){
+    public UserPO login(String userName, String password){
         //logged to system.
         //todo shall add with database.
         String pw_hash = BCrypt.hashpw("123", BCrypt.gensalt());
@@ -24,7 +24,7 @@ public class LoginService {
     }
 
 //todo the cookie shall alway stay the same, shall change base on time. store in database to check.
-    public UserDto loginByCookie(String userName, String password){
+    public UserPO loginByCookie(String userName, String password){
         //logged to system.
         //todo shall add with database.
         if(userName.equals("bruce")&&password.equals("123")){

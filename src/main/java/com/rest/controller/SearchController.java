@@ -1,7 +1,7 @@
 package com.rest.controller;
 
 import com.google.common.collect.Lists;
-import com.rest.dto.QueryResult;
+import com.rest.dto.SearchResult;
 import com.rest.service.SearchService;
 import com.rest.vo.QueryResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class SearchController {
 
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam("query") String query){
-        List<QueryResult> queryResults = searchService.query(query);
-        List<QueryResultVo> resultVos = buildResultVo(queryResults);
+        List<SearchResult> searchResults = searchService.query(query);
+        List<QueryResultVo> resultVos = buildResultVo(searchResults);
         ModelAndView s = new ModelAndView("searchPage");
         boolean hasContent =false;
         if(!CollectionUtils.isEmpty(resultVos)){
@@ -37,15 +37,15 @@ public class SearchController {
         return s;
     }
 
-    private static List<QueryResultVo> buildResultVo(List<QueryResult> queryResults) {
+    private static List<QueryResultVo> buildResultVo(List<SearchResult> searchResults) {
         List<QueryResultVo> resultVos = Lists.newArrayList();
-        for (QueryResult result : queryResults){
+        for (SearchResult result : searchResults){
             resultVos.add(buildResultVo(result));
         }
         return resultVos;
     }
 
-    private static QueryResultVo buildResultVo(QueryResult result) {
+    private static QueryResultVo buildResultVo(SearchResult result) {
         QueryResultVo vo = new QueryResultVo();
         vo.setLink(buildLink(result.getId()));
         vo.setMarktitle(result.getTitle());
