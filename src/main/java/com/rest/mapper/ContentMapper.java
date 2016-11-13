@@ -20,4 +20,6 @@ public interface ContentMapper {
     Content findById(int id);
 
     int updateContent(@Param("pojo") Content content);
+
+    int deletebyId(@Param("pojo")Content content);
 }

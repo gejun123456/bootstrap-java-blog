@@ -8,6 +8,8 @@ import java.util.Date;
 public class PageContentVo {
 
 //文章的内容
+    private int id;
+
     private String title;
 
     private String content;
@@ -46,5 +48,13 @@ public class PageContentVo {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

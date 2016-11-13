@@ -56,7 +56,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
     private boolean goauth(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, User user, NeedAuth auth) throws IOException {
-        switch (auth.auth()) {
+        switch (auth.value()) {
             case LOGIN:
                 if (user.isLogin()) {
                     return true;

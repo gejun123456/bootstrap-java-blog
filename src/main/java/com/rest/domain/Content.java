@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by bruce.ge on 2016/11/6.
  */
 public class Content {
-    private int id;
+    private Integer id;
 
     private String title;
 
@@ -18,11 +18,11 @@ public class Content {
 
     private Date addtime;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

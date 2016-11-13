@@ -39,6 +39,9 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <delete id="deletebyId">
+      DELETE FROM content where id = #{pojo.id}
+    </delete>
 
     <select id="getPage" resultType="com.rest.domain.Content">
       <include refid="select"></include>

@@ -6,17 +6,17 @@ import java.util.Date;
  * Created by bruce.ge on 2016/11/6.
  */
 public class Archives {
-    private int id;
+    private Integer id;
 
     private Date addtime;
 
     private String title;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

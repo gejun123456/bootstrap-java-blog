@@ -32,23 +32,23 @@ public class EditController {
     private SearchService searchService;
 
     @RequestMapping("/edit/{id}")
-    @NeedAuth(auth = AuthEnum.ADMIN)
+    @NeedAuth(AuthEnum.ADMIN)
 //todo.    when two people edit the same article, how to inform each other. add lock to database?
-    public ModelAndView edit(@PathVariable("id") int id){
+    public ModelAndView edit(@PathVariable("id") int id) {
         Content byId = contentMapper.findById(id);
         //get the source content.
         ModelAndView edit = new ModelAndView("edit");
-        edit.addObject("title",byId.getTitle());
-        edit.addObject("source_content",byId.getSource_content());
-        edit.addObject("source_id",id);
+        edit.addObject("title", byId.getTitle());
+        edit.addObject("source_content", byId.getSource_content());
+        edit.addObject("source_id", id);
         return edit;
     }
 
 
     @RequestMapping("editContent")
-    @NeedAuth(auth = AuthEnum.ADMIN)
+    @NeedAuth(AuthEnum.ADMIN)
     @ResponseBody
-    public boolean editContent(EditContentRequest request){
+    public boolean editContent(EditContentRequest request) {
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.updateContent(content);
@@ -57,4 +57,15 @@ public class EditController {
         searchService.update(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
         return true;
     }
+
+    @RequestMapping("/delete/{id}")
+    @NeedAuth(AuthEnum.ADMIN)
+    public String delete(@PathVariable("id") int id) {
+        Content content = new Content();
+        content.setId(id);
+        contentMapper.deletebyId(content);
+        searchService.delete(id);
+        return "redirect:/";
+    }
+
 }

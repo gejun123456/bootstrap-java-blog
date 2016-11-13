@@ -21,8 +21,14 @@
         <#list contents as co>
             <div class="blog-post">
                 <h2 class="blog-post-title">${co.title}</h2>
-                <p class="blog-post-meta">${co.startDate}</p>${co.content}
+
+                <p class="blog-post-meta">${co.startDate} <a href="/edit/${co.id}">[编辑]</a>
+                    <a href="/delete/${co.id}">[删除]</a></p>
+            ${co.content}
             </div>
+            <#if admin??>
+
+            </#if>
         </#list>
             <nav>
                 <ul class="pager">
