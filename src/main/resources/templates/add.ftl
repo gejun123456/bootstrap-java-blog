@@ -65,18 +65,23 @@
                                     <form id="form" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
                                             <div>
-                                                <label for="tilte">url:</label>
-                                                <input class="form-control" id="image_link" name="image_link"
-                                                       type="text"/>
+                                                <label for="tilte">upload file or img url:</label>
+                                                <input class="form-control" id="image_link" name="image_link" type="text"/>
                                             </div>
                                             <div>
                                                 <label for="tilte">title(optional):</label>
                                                 <input class="form-control" name="image_title" id="image_title"
-                                                       type="text"/>
+                                                       type="text" >
                                             </div>
 
                                             <div>
+                                                <label for="exampleInputFile">image input:</label>
                                                 <input type="file" name="image_file" id="image_file"/>
+                                            </div>
+
+                                            <div>
+                                                <label for="image_width">image width(optional):</label>
+                                                <input type="text" name="image_width" id="image_width"/>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -250,7 +255,13 @@
             var com = $('#source');
             var start = com.prop("selectionStart");
             var end = com.prop("selectionEnd");
-            var text = '![' + $("#image_title").val() + ']' + '(' + url + ')';
+            var width = $('#image_width').val()
+            var text = '![' + $("#image_title").val() + ']' + '(' + url ;
+            if(!isNaN(width)){
+                text += ' ='+width+'x*'+')';
+            } else {
+                text+=')';
+            }
             var c = text.length;
             com.val(com.val().substring(0, end) + text + com.val().substring(end));
             com.prop("selectionStart", end);
