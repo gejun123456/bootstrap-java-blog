@@ -16,4 +16,6 @@ public interface ContentTimeMapper {
     List<Integer>  getDistinctYears();
 
     List<Archives> findByYear(int year);
+
+    int deleteByContentId(int id);
 }

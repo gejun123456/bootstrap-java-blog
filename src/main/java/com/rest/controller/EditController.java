@@ -8,6 +8,7 @@ import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
+import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
 import com.rest.utils.MarkDownUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ import java.util.Calendar;
 public class EditController {
     @Autowired
     private ContentMapper contentMapper;
+
+    @Autowired
+    private ContentTimeMapper contentTimeMapper;
 
     @Autowired
     private SearchService searchService;
@@ -64,6 +68,7 @@ public class EditController {
         Content content = new Content();
         content.setId(id);
         contentMapper.deletebyId(content);
+        contentTimeMapper.deleteByContentId(id);
         searchService.delete(id);
         return "redirect:/";
     }

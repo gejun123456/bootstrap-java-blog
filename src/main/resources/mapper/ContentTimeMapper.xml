@@ -28,6 +28,9 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert INTO contenttime(year,month,day,content_id) VALUES (#{year},#{month},#{day},#{content_id})
     </insert>
+    <delete id="deleteByContentId">
+        DELETE FROM contenttime where content_id =#{id}
+    </delete>
     <select id="getDistinctYears" resultType="java.lang.Integer">
         SELECT DISTINCT (year) from contenttime ORDER BY year desc
     </select>
