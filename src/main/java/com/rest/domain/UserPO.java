@@ -1,12 +1,14 @@
 package com.rest.domain;
 
+import org.springframework.context.annotation.Bean;
+
 /**
  * Created by bruce.ge on 2016/11/13.
  */
 public class UserPO {
-    private int id;
+    private Integer id;
 
-    private boolean admin;
+    private Boolean admin;
 
     private String username;
 
@@ -16,11 +18,11 @@ public class UserPO {
 
     private String cryptpasswod;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -28,7 +30,7 @@ public class UserPO {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 

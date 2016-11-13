@@ -3,21 +3,34 @@ package com.rest.service;
 import com.rest.domain.UserPO;
 import com.rest.dto.UserDtoBuilder;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by bruce.ge on 2016/11/13.
  */
 @Service
 public class LoginService {
+    @Autowired
+    private UserPOService userPOService;
+
     public UserPO login(String userName, String password){
         //logged to system.
         //todo shall add with database.
-        String pw_hash = BCrypt.hashpw("123", BCrypt.gensalt());
+        UserPO query = new UserPO();
+        query.setUsername(userName);
+        List<UserPO> select = userPOService.select(query);
+        if(select.size()==0){
+            return null;
+        }
         //find from database.  //when it signed, it saved into the database.
-        BCrypt.checkpw(password,pw_hash);
-        if(userName.equals("bruce")&&password.equals("123")){
-            return UserDtoBuilder.anUserDto().withId(1).withAdmin(true).withMobile("123").withUsername("bruce").withEmail("xxx@163.com")
+        UserPO selected = select.get(0);
+        boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
+        if(checkpw){
+            return UserDtoBuilder.anUserDto().withId(selected.getId()).withAdmin(true).withMobile(selected.getMobile()).withUsername(selected.getUsername())
+                    .withEmail(selected.getEmail())
                     .build();
         }
         return null;

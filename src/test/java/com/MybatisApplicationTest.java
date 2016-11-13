@@ -70,5 +70,4 @@ public class MybatisApplicationTest{
         System.out.println(po.getId());
     }
 
-
 }
