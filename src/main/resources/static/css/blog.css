@@ -20,7 +20,7 @@ h6, .h6 {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -62,6 +62,12 @@ h6, .h6 {
 .blog-nav-item:focus {
   color: #fff;
   text-decoration: none;
+}
+
+.blog-header-form {
+  display: inline-block;
+  margin-bottom: 0px;
+  padding-left:10px;
 }
 
 /* Active state gets a caret at the bottom */
@@ -175,5 +181,5 @@ h6, .h6 {
 }
 
 .blog-nav-right {
-  margin-left: 60%;
+  margin-left: 40%;
 }

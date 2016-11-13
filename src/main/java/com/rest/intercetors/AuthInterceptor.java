@@ -89,6 +89,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         Cookie[] cookies = httpServletRequest.getCookies();
         String name = null;
         String password = null;
+        if(cookies==null){
+            httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
+            return;
+        }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(CookieConstants.USERNAME)) {
                 name = cookie.getValue();
@@ -112,6 +116,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         //do something to get.
+        if(modelAndView==null){
+            return;
+        }
         User user = (User) httpServletRequest.getSession().getAttribute(SessionConstants.USER);
         if (user != null) {
             if (user.isAdmin()) {

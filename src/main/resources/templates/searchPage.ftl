@@ -31,18 +31,6 @@
         </#if>
 
         </div>
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-            <div class="container">
-                <div class="row">
-                    <div class="search">
-                        <form action="/search" onsubmit="return validate();">
-                            <input type="text" id="query" name="query" class="form-control input-sm" placeholder="Search"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 <#include "footer.ftl">

@@ -11,6 +11,7 @@
 <body>
 <#include "header.ftl">
 <div class="container">
+
     <div class="row">
         <div class="col-sm-8 blog-main">
         <#--<div>-->
@@ -34,15 +35,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-            <div class="row">
-                <div class="search">
-                    <form action="/search" onsubmit="return validate();">
-                        <input type="text" id="query" name="query" class="form-control input-sm" placeholder="Search"/>
-                    </form>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 </div>
