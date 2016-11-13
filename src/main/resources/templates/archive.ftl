@@ -17,7 +17,12 @@
                 <h2>${year}</h2>
             </div>
             <#list archiveMap[year] as yearac>
-                <p>${yearac.adddate} >> <a href="${yearac.link}">${yearac.title}</a> </p>
+                <p>${yearac.adddate} >> <a href="${yearac.link}">${yearac.title}</a>
+                    <#if admin??>
+                        <a href="/edit/${yearac.id}">[编辑]</a>
+                        <a href="/delete/${yearac.id}">[删除]</a>
+                    </#if>
+                </p>
             </#list>
         </#list>
         </div>

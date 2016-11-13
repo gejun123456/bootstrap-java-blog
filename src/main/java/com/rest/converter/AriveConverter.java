@@ -27,6 +27,7 @@ public class AriveConverter {
         vo.setAdddate(dateFormat.format(archives.getAddtime()));
         vo.setTitle(archives.getTitle());
         vo.setLink(buildLink(archives.getId()));
+        vo.setId(archives.getId());
         return vo;
     }
 

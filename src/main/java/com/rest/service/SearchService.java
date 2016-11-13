@@ -11,6 +11,7 @@ import org.apache.lucene.document.*;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
@@ -160,4 +161,34 @@ public class SearchService {
         }
     }
 
+    public void update(String title, String content, int id) {
+        Document doc = new Document();
+        //add field title,id, and content.
+        Field idf = new IntPoint(ID, id);
+        Field storedId = new StoredField(STOREDID, id);
+        Field titlef = new TextField(TITLE, title, Field.Store.YES);
+        Field contentf = new TextField(CONTENT, content, Field.Store.YES);
+        doc.add(idf);
+        doc.add(storedId);
+        doc.add(titlef);
+        doc.add(contentf);
+        try {
+            delete(id);
+            indexWriter.addDocument(doc);
+            indexWriter.commit();
+        } catch (IOException e) {
+            logger.error("doc add failed,", e);
+        }
+    }
+
+
+    public void delete(int id){
+        Query query = IntPoint.newExactQuery(ID, id);
+        try {
+            indexWriter.deleteDocuments(query);
+            indexWriter.commit();
+        } catch (IOException e) {
+            logger.error("delete failed, the id is {}",id,e);
+        }
+    }
 }

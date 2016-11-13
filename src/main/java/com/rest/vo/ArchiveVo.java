@@ -10,6 +10,7 @@ public class ArchiveVo {
 
     private String link;
 
+    private int id;
     public String getAdddate() {
         return adddate;
     }
@@ -32,5 +33,13 @@ public class ArchiveVo {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

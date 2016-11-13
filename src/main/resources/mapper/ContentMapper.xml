@@ -28,6 +28,17 @@
     <insert id="addContent" useGeneratedKeys="true" keyProperty="id">
         insert INTO content(title,source_content,html_content,updatetime,addtime) VALUES (#{title},#{source_content},#{html_content},now(),now())
     </insert>
+    <update id="updateContent">
+        UPDATE content
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.title != null"> title = #{pojo.title}, </if>
+            <if test="pojo.source_content != null"> source_content = #{pojo.source_content}, </if>
+            <if test="pojo.html_content != null"> html_content = #{pojo.html_content}, </if>
+            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
 
     <select id="getPage" resultType="com.rest.domain.Content">
       <include refid="select"></include>

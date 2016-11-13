@@ -18,4 +18,6 @@ public interface ContentMapper {
     int getCount();
 
     Content findById(int id);
+
+    int updateContent(@Param("pojo") Content content);
 }

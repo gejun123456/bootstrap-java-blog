@@ -10,13 +10,14 @@
 </head>
 <body>
 <#include "header.ftl">
+<input type="hidden" id="source_id" value="${source_id}">
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
             <div class="form-group">
                 <div>
                     <label for="tilte">title:</label>
-                    <input type="text" class="form-control" id="source_title">
+                    <input type="text" class="form-control" id="source_title" value="${title}">
                 </div>
                 <label for="source">source:</label>
                 <div class="md-header btn-toolbar">
@@ -99,7 +100,7 @@
                     </div>
                 </div>
 
-                <textarea class="form-control" rows="20" id="source"></textarea>
+                <textarea class="form-control" rows="20" id="source">${source_content}</textarea>
             </div>
             <button type="button" class="btn btn-default navbar-btn" id="savebutton">保存</button>
         </div>
@@ -122,6 +123,7 @@
 <script>
     $(document).ready(function () {
         var converter = new showdown.Converter();
+        refresh();
         $("#source").keyup(function () {
             refresh()
         })
@@ -162,10 +164,11 @@
             console.log(text);
 //            send ajax request to save the content.
             $.ajax({
-                url: "/addContent",
+                url: "/editContent",
                 data: {
                     title: title,
-                    sourceContent: text
+                    sourceContent: text,
+                    id:$("#source_id").val()
                 },
                 type: "POST",
                 dataType: "json",
