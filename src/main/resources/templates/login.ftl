@@ -9,9 +9,7 @@
 </head>
 <div class="container">
     <#--todo shall fix the page.-->
-    <#if logindd??>
-        ${logindd}
-    </#if>
+
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
@@ -19,6 +17,12 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <a href="#" class="active" id="login-form-link">Login</a>
+
+                        </div>
+
+                        <div class="col-xs-6">
+                            <a href="#" id="register-form-link">register</a>
+
                         </div>
                     </div>
                     <hr>
@@ -34,10 +38,16 @@
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <#--the default is remember-->
-                                <#--<div class="form-group text-center">-->
-                                    <#--<input type="checkbox" tabindex="3" class="" name="remember" id="remember">-->
-                                    <#--<label for="remember"> Remember Me</label>-->
-                                <#--</div>-->
+                                <div class="form-group text-center">
+                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                    <label for="remember"> Remember Me</label>
+                                </div>
+                            <#if logindd??>
+                            <div>
+                                <p class="text-danger text-center">${logindd}</p>
+                            </div>
+
+                            </#if>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
@@ -55,6 +65,29 @@
                                     <#--</div>-->
                                 <#--</div>-->
                             </form>
+
+                            <form id="register-form" action="/register" method="post" role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="signup_username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="signup_password" tabindex="2" class="form-control" placeholder="Password">
+                                </div>
+                            <#--the default is remember-->
+                            <#--<div class="form-group text-center">-->
+                            <#--<input type="checkbox" tabindex="3" class="" name="remember" id="remember">-->
+                            <#--<label for="remember"> Remember Me</label>-->
+                            <#--</div>-->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" id="register-submit" tabindex="4" class="form-control btn btn-login" value="register">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -62,30 +95,29 @@
         </div>
     </div>
 </div>
-
+<script src="/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
-    $(function() {
-
-        $('#login-form-link').click(function(e) {
-            $("#login-form").delay(100).fadeIn(100);
-            $("#register-form").fadeOut(100);
+    $(document).ready(function() {
+        $('#login-form-link').click(function (e) {
+            $("#register-form").hide();
+            $("#login-form").show();
             $('#register-form-link').removeClass('active');
             $(this).addClass('active');
             e.preventDefault();
         });
-        $('#register-form-link').click(function(e) {
-            $("#register-form").delay(100).fadeIn(100);
-            $("#login-form").fadeOut(100);
+        $('#register-form-link').click(function (e) {
+            $("#login-form").hide();
+            $("#register-form").show();
             $('#login-form-link').removeClass('active');
             $(this).addClass('active');
             e.preventDefault();
         });
+    })
 
-    });
 
 </script>
 
-<script src="/js/jquery-3.1.1.min.js"></script>
+
 <body>
 </body>
 

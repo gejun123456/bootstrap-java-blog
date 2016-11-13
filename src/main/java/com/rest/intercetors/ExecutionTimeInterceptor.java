@@ -2,6 +2,7 @@ package com.rest.intercetors;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,8 @@ public class ExecutionTimeInterceptor implements HandlerInterceptor {
         if(httpServletRequest.getAttribute("startTime")!=null){
             long useTime = endTime - (Long) httpServletRequest.getAttribute("startTime");
             //ajax request has no modelAndView
-            if(modelAndView!=null) {
-                modelAndView.addObject("useTime", useTime);
+            if(modelAndView!=null &&!modelAndView.getViewName().startsWith("redirect")) {
+                modelAndView.getModelMap().addAttribute("usetime",useTime);
             }
         }
     }

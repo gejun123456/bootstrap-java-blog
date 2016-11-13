@@ -114,7 +114,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         //do something to get.
-        if(modelAndView==null){
+        if(modelAndView==null||modelAndView.getViewName().startsWith("redirect")){
             return;
         }
         User user = (User) httpServletRequest.getSession().getAttribute(SessionConstants.USER);

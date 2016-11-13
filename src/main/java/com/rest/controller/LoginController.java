@@ -27,18 +27,21 @@ public class LoginController {
     @RequestMapping("/login")
     // should check wiht data. //get some common validator. for basic login. try to add some.
     public String login(HttpSession session, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password")String password,
-                        @RequestParam(value = "backPage",defaultValue = "/")String backPage){
+                        @RequestParam(value = "backPage",defaultValue = "/")String backPage,@RequestParam(value = "remember",required = false) String remember){
         UserPO login = loginService.login(username, password);
         if(login!=null){
             session.setAttribute(SessionConstants.USER, UserConverter.convertToUser(login));
-            Cookie cookie = new Cookie(CookieConstants.USERNAME, username);
-            //save for 100 day.
-            cookie.setMaxAge(60*60*24*99);
-            response.addCookie(cookie);
-            Cookie pass = new Cookie(CookieConstants.PASSWORD, password);
-            //save for 100 day.
-            pass.setMaxAge(60*60*24*99);
-            response.addCookie(pass);
+            //try to add cookie.
+            if(remember!=null) {
+                Cookie cookie = new Cookie(CookieConstants.USERNAME, username);
+                //save for 100 day.
+                cookie.setMaxAge(60 * 60 * 24 * 99);
+                response.addCookie(cookie);
+                Cookie pass = new Cookie(CookieConstants.PASSWORD, password);
+                //save for 100 day.
+                pass.setMaxAge(60 * 60 * 24 * 99);
+                response.addCookie(pass);
+            }
             return "redirect:"+ backPage;
         } else {
             return "redirect:/loginPage?fail=1";
@@ -49,7 +52,7 @@ public class LoginController {
     @RequestMapping("/loginPage")
     public String loginPage(ModelMap modelMap,@RequestParam(value = "fail",required = false) String fail){
         if(StringUtils.isNotBlank(fail)) {
-            modelMap.addAttribute("logindd", "failed");
+            modelMap.addAttribute("logindd", "login fail, please input right message");
          }
         return "login";
     }
