@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta username="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Blog Template for Bootstrap</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/login.css" rel="stylesheet">
@@ -39,7 +39,7 @@
                                 </div>
                                 <#--the default is remember-->
                                 <div class="form-group text-center">
-                                    <input type="checkbox" tabindex="3" class="" username="remember" id="remember">
+                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                     <label for="remember"> Remember Me</label>
                                 </div>
                             <#if logindd??>
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" username="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" username="login-submit" id="register-submit" tabindex="4" class="form-control btn btn-login" value="register">
+                                            <input type="submit" name="login-submit" id="register-submit" tabindex="4" class="form-control btn btn-login" value="register">
                                         </div>
                                     </div>
                                 </div>
