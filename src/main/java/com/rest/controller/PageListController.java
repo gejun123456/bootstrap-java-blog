@@ -5,6 +5,10 @@ import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.vo.PageContentVo;
 import com.rest.mapper.ContentMapper;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,14 @@ public class PageListController {
     @RequestMapping("/getPage")
     //穿一个page参数
     public List<PageContentVo> getList(@RequestParam("page") int page, @RequestParam(value = "pagesize",defaultValue = "10") int pageSize){
+        //shiro test code.
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        if(currentUser.isAuthenticated()){
+            UsernamePasswordToken token = new UsernamePasswordToken("aaa","bbb");
+            token.setRememberMe(true);
+            currentUser.login(token);
+        }
         int start = (page-1)*pageSize;
         int limit = pageSize;
         List<Content> pages = contentMapper.getPage(start, limit);

@@ -1,6 +1,7 @@
 package com.rest.controller;
 
 import com.rest.Request.AddContentRequest;
+import com.rest.annotation.NeedAuth;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
@@ -34,31 +35,26 @@ public class ContentAddController {
 
     @RequestMapping("/addContent")
     @ResponseBody
-    public boolean addContent(AddContentRequest request){
+    @NeedAuth
+    public boolean addContent(AddContentRequest request) {
         //which shall redirect when ok.
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.addContent(content);
         ContentTime time = new ContentTime();
         time.setYear(calendar.get(Calendar.YEAR));
-        time.setMonth(calendar.get(Calendar.MONTH)+1);
+        time.setMonth(calendar.get(Calendar.MONTH) + 1);
         time.setDay(calendar.get(Calendar.DAY_OF_MONTH));
         time.setContent_id(content.getId());
         contentTimeMapper.insert(time);
         //add data to lucene.
-        searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()),content.getId());
+        searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
         return true;
     }
 
+    @NeedAuth(redirectBack = true)
     @RequestMapping("/add")
-    public String addPage(HttpSession httpSession, @CookieValue(value = "logininfo",required = false) String loginInfo){
-        Object login = httpSession.getAttribute("login");
-        if(login!=null && (Boolean) login) {
-            return "add";
-        } else if(StringUtils.isNotBlank(loginInfo)&&loginInfo.equals("aabbcc")){
-            return "add";
-        } else {
-            return "redirect:/loginPage";
-        }
+    public String addPage() {
+        return "add";
     }
 }

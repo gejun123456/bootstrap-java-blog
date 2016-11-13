@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Blog Template for Bootstrap</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/blog.css" rel="stylesheet">
     <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
 </head>
+<body>
+<#include "header.ftl">
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
@@ -112,7 +115,7 @@
         </div>
     </div>
 </div>
-
+</body>
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/js/showdown.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
