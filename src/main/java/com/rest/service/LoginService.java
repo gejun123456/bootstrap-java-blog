@@ -2,7 +2,7 @@ package com.rest.service;
 
 import com.rest.domain.UserPO;
 import com.rest.dto.UserDtoBuilder;
-import org.mindrot.jbcrypt.BCrypt;
+import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
