@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta username="viewport" content="width=device-width,initial-scale=1">
     <title>Blog Template for Bootstrap</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/blog.css" rel="stylesheet">
@@ -67,17 +67,17 @@
                                         <div class="modal-body">
                                             <div>
                                                 <label for="tilte">url:</label>
-                                                <input class="form-control" id="image_link" name="image_link"
+                                                <input class="form-control" id="image_link" username="image_link"
                                                        type="text"/>
                                             </div>
                                             <div>
                                                 <label for="tilte">title(optional):</label>
-                                                <input class="form-control" name="image_title" id="image_title"
+                                                <input class="form-control" username="image_title" id="image_title"
                                                        type="text"/>
                                             </div>
 
                                             <div>
-                                                <input type="file" name="image_file" id="image_file"/>
+                                                <input type="file" username="image_file" id="image_file"/>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

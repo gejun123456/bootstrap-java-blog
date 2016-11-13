@@ -29,9 +29,14 @@ public class LoginService {
         UserPO selected = select.get(0);
         boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
         if(checkpw){
-            return UserDtoBuilder.anUserDto().withId(selected.getId()).withAdmin(true).withMobile(selected.getMobile()).withUsername(selected.getUsername())
-                    .withEmail(selected.getEmail())
-                    .build();
+            UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
+                    .withEmail(selected.getEmail());
+            if(userName.equals("bruce")){
+                userDtoBuilder.withAdmin(true);
+            } else {
+                userDtoBuilder.withAdmin(false);
+            }
+            return userDtoBuilder.build();
         }
         return null;
     }

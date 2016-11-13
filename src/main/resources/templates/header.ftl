@@ -12,7 +12,7 @@
             <div class="col-md-4">
                     <a id="my" href="/add"><img src="/img/mypic.jpg"></a>
                     <form class="blog-header-form" action="/search" onsubmit="return validate();">
-                        <input type="text" id="query" name="query" class="form-control" placeholder="Search"/>
+                        <input type="text" id="query" username="query" class="form-control" placeholder="Search"/>
                     </form>
             </div>
         </div>
