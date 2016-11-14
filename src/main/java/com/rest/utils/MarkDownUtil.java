@@ -2,6 +2,7 @@ package com.rest.utils;
 
 import com.alibaba.druid.support.logging.Log;
 import com.rest.constant.MarkDownConstant;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.mozilla.javascript.Context;
@@ -73,7 +74,7 @@ public class MarkDownUtil {
                     }
                     while(!toHandleRequest.isEmpty()){
                         MarkdownRequest request = toHandleRequest.poll();
-                        String  content = request.getContent();
+                        String content = StringEscapeUtils.escapeEcmaScript(request.getContent());
                         Object o = context.evaluateString(scope, "converter.makeHtml('" + content + "')", content, 1, null);
                         //可能两次放了相同的进来, 最好定一个只
                         //又客户端来生成对应的count.

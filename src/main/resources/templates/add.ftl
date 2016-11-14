@@ -101,6 +101,8 @@
                                 class="glyphicon glyphicon-asterisk"></span></button>
                         <button class="btn-default btn-sm btn" type="button" title="Quote (Ctrl+Q)" tabindex="9"><span
                                 class="glyphicon glyphicon-comment"></span></button>
+                        <button class="btn-default btn-sm btn" type="button" title="Quote (Ctrl+Q)" tabindex="10"><span
+                                class="glyphicon glyphicon-comment"></span></button>
                     </div>
                 </div>
 
@@ -389,6 +391,11 @@
 
         }
 
+        function dealWithMore(com, start, end) {
+            com.val(com.val().substring(0,end)+"<!-more->"+com.val().substring(end));
+            com.prop("selectionStart", end+9);
+            com.prop("selectionEnd", end+9);
+        };
         $(".btn-default.btn-sm.btn").click(function () {
             var message = $(this).attr('tabindex');
             var com = $('#source');
@@ -421,6 +428,8 @@
                 dealWithQuote(com, start, end);
             } else if (message == 8) {
                 dealWithCode(com, start, end);
+            } else if(message ==10){
+                dealWithMore(com,start,end);
             }
             com.focus();
             refresh();

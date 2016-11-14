@@ -34,7 +34,7 @@ public class SampleController {
         return new CommandLineRunner(){
             @Override
             public void run(String... args) throws Exception {
-//                no need to delete file. 
+//                no need to delete file.
                 storageService.init();
             }
         };

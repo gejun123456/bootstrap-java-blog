@@ -1,5 +1,6 @@
 package com;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.AttributeProvider;
@@ -67,8 +68,12 @@ public class MarkDownTest {
             ScriptableObject.putProperty(scope,"out",wrappedOut);
             String code = "var converter = new showdown.Converter();";
             context.evaluateString(scope, code, "<mem>", 1, null);
-            Object o2 = context.evaluateString(scope, "converter.makeHtml('(![](http://localhost:8080/files/1479141611049IMG_20161023_111154.jpg =100x*)\n" +
-                    "价格more <!-more-> 呵呵 不信不行')", "nima", 1, null);
+            String content = "(![](http://localhost:8080/files/1479141611049IMG_20161023_111154.jpg =100x*)\n" +
+                    "                    价格more <!-more-> 呵呵 不信不行";
+            String s =
+                    StringEscapeUtils.escapeEcmaScript(content);
+            System.out.println(s);
+            Object o2 = context.evaluateString(scope, "converter.makeHtml('(![](http:\\/\\/localhost:8080\\/files\\/1479141611049IMG_20161023_111154.jpg =100x*)\\n                    \\u4EF7\\u683Cmore <!-more-> \\u5475\\u5475 \\u4E0D\\u4FE1\\u4E0D\\u884C')", "nima", 1, null);
             System.out.println(context.toString(o2));
 
 //            Context context = Context.enter();
@@ -92,5 +97,11 @@ public class MarkDownTest {
             Context.exit();
         }
 
+    }
+
+    @Test
+    public void testStringscape(){
+        String more ="<!–more–>";
+        System.out.println(StringEscapeUtils.escapeEcmaScript(more));
     }
 }
