@@ -68,8 +68,7 @@ public class UploadImageController {
     public String uploadImage(@RequestParam("image_file")MultipartFile file, HttpServletRequest request){
         String newName = String.valueOf(System.currentTimeMillis())+file.getOriginalFilename();
         storageService.storeFileWithName(file,newName);
-        return "http://"+request.getHeader("Host")
-                +"/files/"+newName;
+        return "/files/"+newName;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
