@@ -131,6 +131,7 @@
 <script src="/js/mymarkdown.js"></script>
 <script>
     $(document).ready(function () {
+        refresh();
         $('#form').submit(function (e) {
             if ($("#image_file").get(0).files.length == 0) {
                 //shall use with value of url
