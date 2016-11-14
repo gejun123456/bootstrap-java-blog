@@ -31,6 +31,7 @@ public class LoginService {
         if(checkpw){
             UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
                     .withEmail(selected.getEmail());
+//            todo remove default bruce.
             if(userName.equals("bruce")){
                 userDtoBuilder.withAdmin(true);
             } else {
@@ -42,13 +43,34 @@ public class LoginService {
     }
 
 //todo the cookie shall alway stay the same, shall change base on time. store in database to check.
+//    try store cookie value in database. then use it to check.
     public UserPO loginByCookie(String userName, String password){
         //logged to system.
+        //to check if it equal to the value.
         //todo shall add with database.
-        if(userName.equals("bruce")&&password.equals("123")){
-            return UserDtoBuilder.anUserDto().withId(1).withAdmin(true).withMobile("123").withUsername("bruce").withEmail("xxx@163.com")
-                    .build();
+        UserPO query = new UserPO();
+        query.setUsername(userName);
+        query.setPasswordcookie(password);
+        List<UserPO> select = userPOService.select(query);
+        if(select.size()==0){
+            return null;
         }
-        return null;
+        UserPO selected = select.get(0);
+        UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
+                .withEmail(selected.getEmail());
+        if(userName.equals("bruce")){
+            return userDtoBuilder.withAdmin(true).build();
+        } else {
+            return userDtoBuilder.withAdmin(false).build();
+        }
+    }
+
+    //update cookie value in database.
+    public void updateCookie(String random, Integer id) {
+        UserPO po = new UserPO();
+        //default为""
+        po.setId(id);
+        po.setPasswordcookie(random);
+        userPOService.update(po);
     }
 }

@@ -6,6 +6,8 @@ import com.rest.constant.SessionConstants;
 import com.rest.converter.UserConverter;
 import com.rest.domain.UserPO;
 import com.rest.service.LoginService;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +34,18 @@ public class LoginController {
         if(login!=null){
             session.setAttribute(SessionConstants.USER, UserConverter.convertToUser(login));
             //try to add cookie.
+            //try to set cookie by database. update database when new cookie is generated.
             if(remember!=null) {
                 Cookie cookie = new Cookie(CookieConstants.USERNAME, username);
-                //save for 100 day.
-                cookie.setMaxAge(60 * 60 * 24 * 99);
+                //save for 7 day.
+                cookie.setMaxAge(60 * 60 * 24 * 7);
                 response.addCookie(cookie);
-                Cookie pass = new Cookie(CookieConstants.PASSWORD, password);
+                String random = RandomStringUtils.random(33);
+                Cookie pass = new Cookie(CookieConstants.PASSWORD, random);
+                //then go to update the database with the cookie vlaue.
+                loginService.updateCookie(random,login.getId());
                 //save for 100 day.
-                pass.setMaxAge(60 * 60 * 24 * 99);
+                pass.setMaxAge(60 * 60 * 24 *7);
                 response.addCookie(pass);
             }
 //            can add in session.

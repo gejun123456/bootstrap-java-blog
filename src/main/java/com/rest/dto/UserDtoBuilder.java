@@ -11,6 +11,7 @@ public final class UserDtoBuilder {
     private String username;
     private String mobile;
     private String email;
+    private String passwordcookie;
 
     private UserDtoBuilder() {
     }
@@ -34,6 +35,11 @@ public final class UserDtoBuilder {
         return this;
     }
 
+    public UserDtoBuilder withPasswordCookie(String passwordcookie) {
+        this.passwordcookie = passwordcookie;
+        return this;
+    }
+
     public UserDtoBuilder withMobile(String mobile) {
         this.mobile = mobile;
         return this;
@@ -51,6 +57,7 @@ public final class UserDtoBuilder {
         userPO.setUsername(username);
         userPO.setMobile(mobile);
         userPO.setEmail(email);
+        userPO.setPasswordcookie(passwordcookie);
         return userPO;
     }
 }

@@ -18,6 +18,7 @@ public class UserPO {
 
     private String cryptpasswod;
 
+    private String passwordcookie;
     public Integer getId() {
         return id;
     }
@@ -65,5 +66,14 @@ public class UserPO {
 
     public void setCryptpasswod(String cryptpasswod) {
         this.cryptpasswod = cryptpasswod;
+    }
+
+
+    public String getPasswordcookie() {
+        return passwordcookie;
+    }
+
+    public void setPasswordcookie(String passwordcookie) {
+        this.passwordcookie = passwordcookie;
     }
 }

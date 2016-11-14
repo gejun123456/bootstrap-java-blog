@@ -6,5 +6,5 @@ package com.rest.constant;
 public class CookieConstants {
     public static final String USERNAME = "username";
 
-    public static final String PASSWORD="password";
+    public static final String PASSWORD="bfgesseaaedd_llwjskk";
 }

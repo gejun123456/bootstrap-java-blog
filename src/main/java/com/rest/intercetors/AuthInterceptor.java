@@ -88,23 +88,24 @@ public class AuthInterceptor implements HandlerInterceptor {
     private void setSessionOnCookie(HttpServletRequest httpServletRequest) {
         Cookie[] cookies = httpServletRequest.getCookies();
         String name = null;
-        String password = null;
+        String password_cookie = null;
         if(cookies==null){
             httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
             return;
         }
+// TODO: 2016/11/14 never stop username and password the direct way
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(CookieConstants.USERNAME)) {
                 name = cookie.getValue();
             } else if (cookie.getName().equals(CookieConstants.PASSWORD)) {
-                password = cookie.getValue();
+                password_cookie = cookie.getValue();
             }
         }
-        if (name == null || password == null) {
+        if (name == null || password_cookie == null) {
             httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
         } else {
             //will get lots of thing from database.
-            UserPO dto = loginService.loginByCookie(name, password);
+            UserPO dto = loginService.loginByCookie(name, password_cookie);
             if (dto == null) {
                 httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
             } else {

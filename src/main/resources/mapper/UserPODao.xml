@@ -3,13 +3,13 @@
 <mapper namespace="com.rest.mapper.UserPODao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="com.rest.domain.UserPO">
-        <result column="id" property="id"/>
-        <result column="username" property="username"/>
-        <result column="mobile" property="mobile"/>
-        <result column="email" property="email"/>
-        <result column="cryptpasswod" property="cryptpasswod"/>
-    </resultMap>
+    <!--<resultMap id="AllColumnMap" type="com.rest.domain.UserPO">-->
+        <!--<result column="id" property="id"/>-->
+        <!--<result column="username" property="username"/>-->
+        <!--<result column="mobile" property="mobile"/>-->
+        <!--<result column="email" property="email"/>-->
+        <!--<result column="cryptpasswod" property="cryptpasswod"/>-->
+    <!--</resultMap>-->
 
 <!--auto generated Code-->
     <sql id="all_column">
@@ -60,17 +60,18 @@
     <update id="update">
         UPDATE user_p_o
         <set>
-            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+--             does it need to be here. shall add other method like update method. update with two object.
             <if test="pojo.username != null"> username = #{pojo.username}, </if>
             <if test="pojo.mobile != null"> mobile = #{pojo.mobile}, </if>
             <if test="pojo.email != null"> email = #{pojo.email}, </if>
             <if test="pojo.cryptpasswod != null"> cryptpasswod = #{pojo.cryptpasswod} </if>
+            <if test="pojo.passwordcookie != null"> cryptpasswod = #{pojo.passwordcookie} </if>
         </set>
          WHERE id = #{pojo.id}
     </update>
 
 <!--auto generated Code-->
-    <select id="select" resultMap="AllColumnMap">
+    <select id="select" resultType="com.rest.domain.UserPO">
         SELECT <include refid="all_column"/>
         FROM user_p_o
         <where>
