@@ -40,7 +40,7 @@ public class LoginController {
                 //save for 7 day.
                 cookie.setMaxAge(60 * 60 * 24 * 7);
                 response.addCookie(cookie);
-                String random = RandomStringUtils.random(33);
+                String random = RandomStringUtils.random(33,true,true);
                 Cookie pass = new Cookie(CookieConstants.PASSWORD, random);
                 //then go to update the database with the cookie vlaue.
                 loginService.updateCookie(random,login.getId());
