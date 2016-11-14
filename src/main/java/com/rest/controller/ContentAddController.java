@@ -41,6 +41,12 @@ public class ContentAddController {
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.addContent(content);
+        if(content.getSource_content()!=content.getHtml_content()){
+            Content update = new Content();
+            update.setId(content.getId());
+            update.setIndex_content(content.getIndex_content()+"<a href=/getArticle/"+content.getId()+">readMore</a>");
+            contentMapper.updateContent(update);
+        }
         ContentTime time = new ContentTime();
         time.setYear(calendar.get(Calendar.YEAR));
         time.setMonth(calendar.get(Calendar.MONTH) + 1);

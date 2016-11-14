@@ -18,6 +18,8 @@ public class Content {
 
     private Date addtime;
 
+    private String index_content;
+
     public Integer getId() {
         return id;
     }
@@ -64,5 +66,14 @@ public class Content {
 
     public void setAddtime(Date addtime) {
         this.addtime = addtime;
+    }
+
+
+    public String getIndex_content() {
+        return index_content;
+    }
+
+    public void setIndex_content(String index_content) {
+        this.index_content = index_content;
     }
 }

@@ -1,5 +1,6 @@
 package com.rest.utils;
 
+import com.rest.constant.MarkDownConstant;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.pegdown.PegDownProcessor;
@@ -12,7 +13,8 @@ public class MarkDownUtil {
     private static PegDownProcessor processor = new PegDownProcessor();
 
     public static String convertToHtml(String content){
-        return processor.markdownToHtml(content);
+        String ss = content.replace(MarkDownConstant.MORE, "");
+        return processor.markdownToHtml(ss);
     }
 
     //remove markdown syntax on things.

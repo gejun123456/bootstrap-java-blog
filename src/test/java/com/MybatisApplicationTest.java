@@ -65,8 +65,9 @@ public class MybatisApplicationTest{
         po.setUsername("bruce");
         po.setMobile("1233");
         po.setEmail("xxx@163.com");
-        po.setCryptpasswod(BCrypt.hashpw("123", BCrypt.gensalt()));
-        int insert = userPODao.insert(po);
+        String hashpw = BCrypt.hashpw("123", BCrypt.gensalt());
+        System.out.println(hashpw);
+        po.setCryptpasswod(hashpw);
         System.out.println(po.getId());
     }
 

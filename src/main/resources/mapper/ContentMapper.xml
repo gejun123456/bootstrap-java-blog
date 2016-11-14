@@ -22,11 +22,11 @@
 <mapper namespace="com.rest.mapper.ContentMapper">
 
     <sql id="select">
-        SELECT id, title,source_content,html_content,updatetime,addtime
+        SELECT id, title,source_content,html_content,updatetime,addtime,index_content
         FROM content
     </sql>
     <insert id="addContent" useGeneratedKeys="true" keyProperty="id">
-        insert INTO content(title,source_content,html_content,updatetime,addtime) VALUES (#{title},#{source_content},#{html_content},now(),now())
+        insert INTO content(title,source_content,html_content,index_content,updatetime,addtime) VALUES (#{title},#{source_content},#{html_content},#{index_content},now(),now())
     </insert>
     <update id="updateContent">
         UPDATE content
@@ -36,6 +36,7 @@
             <if test="pojo.source_content != null"> source_content = #{pojo.source_content}, </if>
             <if test="pojo.html_content != null"> html_content = #{pojo.html_content}, </if>
             <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime} </if>
+            <if test="pojo.index_content != null"> index_content = #{pojo.index_content} </if>
         </set>
         WHERE id = #{pojo.id}
     </update>
