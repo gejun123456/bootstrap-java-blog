@@ -64,7 +64,8 @@ public class AuthInterceptor implements HandlerInterceptor {
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
-                        httpServletResponse.sendRedirect(auth.redirectPage() + "?backpage=" + httpServletRequest.getServletPath());
+                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE,httpServletRequest.getServletPath());
+                        httpServletResponse.sendRedirect(auth.redirectPage());
                     }
                     return false;
                 }
@@ -75,7 +76,8 @@ public class AuthInterceptor implements HandlerInterceptor {
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
-                        httpServletResponse.sendRedirect(auth.redirectPage() + "?backpage=" + httpServletRequest.getServletPath());
+                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE,httpServletRequest.getServletPath());
+                        httpServletResponse.sendRedirect(auth.redirectPage());
                     }
                     return false;
                 }

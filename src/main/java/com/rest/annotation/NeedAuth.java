@@ -18,5 +18,6 @@ public @interface NeedAuth {
     @AliasFor("auth")
     AuthEnum value() default AuthEnum.LOGIN;
 
+    //是否认证完成后要返回原来的页面
     boolean redirectBack() default false;
 }

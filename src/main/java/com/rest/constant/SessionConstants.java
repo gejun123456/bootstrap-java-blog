@@ -5,4 +5,6 @@ package com.rest.constant;
  */
 public class SessionConstants {
     public static final String USER = "user";
+
+    public static final String AUTHBACKPAGE="backpage";
 }

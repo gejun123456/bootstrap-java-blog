@@ -34,13 +34,19 @@ public class ContentConverter {
     private static PageContentVo convertToPage(Content s) {
         PageContentVo dto = new PageContentVo();
         dto.setTitle(s.getTitle());
-        dto.setContent(s.getHtml_content());
+        dto.setContent(buildContent(s.getHtml_content()));
         dto.setLink(buildLink(s));
         dto.setStartDate(dateFormat.format(s.getAddtime()));
         dto.setId(s.getId());
         return dto;
     }
-//get content by id.
+
+    // TODO: 2016/11/14 need add with readmore.
+    private static String buildContent(String html_content) {
+        return html_content;
+    }
+
+    //get content by id.
     private static String buildLink(Content s) {
         return "/pagecontent/"+s.getId();
     }

@@ -27,7 +27,7 @@ public class LoginController {
     @RequestMapping("/login")
     // should check wiht data. //get some common validator. for basic login. try to add some.
     public String login(HttpSession session, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password")String password,
-                        @RequestParam(value = "backPage",defaultValue = "/")String backPage,@RequestParam(value = "remember",required = false) String remember){
+                        @RequestParam(value = "remember",required = false) String remember){
         UserPO login = loginService.login(username, password);
         if(login!=null){
             session.setAttribute(SessionConstants.USER, UserConverter.convertToUser(login));
@@ -42,7 +42,15 @@ public class LoginController {
                 pass.setMaxAge(60 * 60 * 24 * 99);
                 response.addCookie(pass);
             }
-            return "redirect:"+ backPage;
+//            can add in session.
+            Object attribute = session.getAttribute(SessionConstants.AUTHBACKPAGE);
+            if(attribute !=null) {
+                String back = (String) attribute;
+                session.removeAttribute(SessionConstants.AUTHBACKPAGE);
+                return "redirect:" + back;
+            } else {
+                return "redirect:/";
+            }
         } else {
             return "redirect:/loginPage?fail=1";
         }
