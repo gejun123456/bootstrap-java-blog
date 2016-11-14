@@ -68,7 +68,9 @@ public class ContentConverter {
         if (getmore == -1) {
             return html_content;
         } else {
+            //could total get it from source. instead get it from database.
             String beformore = sourceContent.substring(0, getmore);
+            beformore+="...";
             return MarkDownUtil.convertToHtml(beformore);
         }
     }
