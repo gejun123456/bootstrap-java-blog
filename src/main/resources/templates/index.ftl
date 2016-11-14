@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -20,21 +20,14 @@
         <#--adddata to this position-->
         <#list contents as co>
             <div class="blog-post">
-                <h2 class="blog-post-title">${co.title}</h2>
-
+                 <h3><a  href="/getArticle/${co.id}">${co.title}</a></h3>
             <p class="blog-post-meta">${co.startDate}
                 <#if admin??>
                     <a href="/edit/${co.id}">[编辑]</a>
                     <a href="/delete/${co.id}">[删除]</a></p>
                 </#if>
             ${co.content}
-                <#if co.addMore>
-                    <div class="more">
-                        <a href="/getArticle/${co.id}" title="Title Link">
-                            Read More <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    </div>
-                </#if>
+
             </div>
             <#if admin??>
 

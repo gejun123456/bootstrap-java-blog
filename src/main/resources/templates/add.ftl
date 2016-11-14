@@ -257,7 +257,8 @@
             var end = com.prop("selectionEnd");
             var width = $('#image_width').val()
             var text = '![' + $("#image_title").val() + ']' + '(' + url ;
-            if(!isNaN(width)){
+            console.log(width);
+            if(!isNaN(width) && width!=""){
                 text += ' ='+width+'x*'+')';
             } else {
                 text+=')';
@@ -284,7 +285,7 @@
             var formAction = form.attr('action');
             $.ajax({
                 type: 'POST',
-                url: 'uploadImage',
+                url: '/uploadImage',
                 cache: false,
                 data: formdata ? formdata : form.serialize(),
                 contentType: false,

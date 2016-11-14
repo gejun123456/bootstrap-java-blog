@@ -28,11 +28,7 @@ h6, .h6 {
   text-align: center;
 }
 
-.form-blog-inline{
-  display: inline-block;
-  width: 60%;
-  float: right;
-}
+
 
 
 /*
@@ -43,6 +39,11 @@ h6, .h6 {
   .container {
     width: 970px;
   }
+}
+
+.article_title {
+  text-decoration: none;
+  color: #333;
 }
 
 
