@@ -22,12 +22,19 @@
             <div class="blog-post">
                 <h2 class="blog-post-title">${co.title}</h2>
 
-                <p class="blog-post-meta">${co.startDate}
-            <#if admin??>
+            <p class="blog-post-meta">${co.startDate}
+                <#if admin??>
                     <a href="/edit/${co.id}">[编辑]</a>
                     <a href="/delete/${co.id}">[删除]</a></p>
-            </#if>
+                </#if>
             ${co.content}
+                <#if co.addMore>
+                    <div class="more">
+                        <a href="/getArticle/${co.id}" title="Title Link">
+                            Read More <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </div>
+                </#if>
             </div>
             <#if admin??>
 

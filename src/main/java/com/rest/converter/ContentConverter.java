@@ -39,6 +39,8 @@ public class ContentConverter {
         dto.setContent(s.getIndex_content());
         dto.setLink(buildLink(s));
         dto.setStartDate(dateFormat.format(s.getAddtime()));
+        //means addmore to check with the thing.
+        dto.setAddMore(s.getHtml_content().length()!=s.getIndex_content().length());
         dto.setId(s.getId());
         return dto;
     }

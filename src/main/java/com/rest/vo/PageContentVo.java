@@ -18,6 +18,8 @@ public class PageContentVo {
 
     private String startDate;
 
+    private boolean addMore;
+
     public String getTitle() {
         return title;
     }
@@ -56,5 +58,14 @@ public class PageContentVo {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public boolean isAddMore() {
+        return addMore;
+    }
+
+    public void setAddMore(boolean addMore) {
+        this.addMore = addMore;
     }
 }
