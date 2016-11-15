@@ -137,6 +137,7 @@ public class MarkDownUtil {
 
     //remove markdown syntax on things.
     public static String removeMark(String sourceContent) {
+        sourceContent = sourceContent.replace(MarkDownConstant.MORE,"");
         StringBuilder res = new StringBuilder();
         char last = ' ';
         for (int i = 0; i < sourceContent.length(); i++) {

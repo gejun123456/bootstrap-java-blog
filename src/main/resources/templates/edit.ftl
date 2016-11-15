@@ -103,7 +103,7 @@
                                 class="glyphicon glyphicon-asterisk"></span></button>
                         <button class="btn-default btn-sm btn" type="button" title="Quote (Ctrl+Q)" tabindex="9"><span
                                 class="glyphicon glyphicon-comment"></span></button>
-                        <button class="btn-default btn-sm btn" type="button" title="Quote (Ctrl+Q)" tabindex="10"><span
+                        <button class="btn-default btn-sm btn" type="button" title="More (Ctrl+M)" tabindex="10"><span
                                 class="glyphicon">M</span></button>
                     </div>
                 </div>

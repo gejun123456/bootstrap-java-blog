@@ -1,7 +1,5 @@
 var converter = new showdown.Converter();
-$("#source").keyup(function () {
-    refresh()
-})
+
 
 function refresh() {
     var text = $("#source").val();
@@ -14,23 +12,6 @@ $("#source_title").keyup(function () {
     refresh()
 })
 
-$("#source").keydown(function (e) {
-    var keyCode = e.keyCode || e.which;
-    if (keyCode == 9) {
-        e.preventDefault();
-        var start = $(this).get(0).selectionStart;
-        var end = $(this).get(0).selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
-        $(this).val($(this).val().substring(0, start)
-            + "\t"
-            + $(this).val().substring(end));
-
-        // put caret at right position again
-        $(this).get(0).selectionStart =
-            $(this).get(0).selectionEnd = start + 1;
-    }
-})
 
 $("#savebutton").click(function () {
     var title = $("#source_title").val();
@@ -271,6 +252,65 @@ $(".btn-default.btn-sm.btn").click(function () {
     com.focus();
     refresh();
 })
+
+$("#source").keydown(function (e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 9) {
+        e.preventDefault();
+        var start = $(this).get(0).selectionStart;
+        var end = $(this).get(0).selectionEnd;
+
+        // set textarea value to: text before caret + tab + text after caret
+        $(this).val($(this).val().substring(0, start)
+            + "\t"
+            + $(this).val().substring(end));
+
+        // put caret at right position again
+        $(this).get(0).selectionStart =
+            $(this).get(0).selectionEnd = start + 1;
+    } else if (e.ctrlKey) {
+        var com = $('#source');
+        var start = com.prop("selectionStart");
+        var end = com.prop("selectionEnd");
+        if (keyCode == 66) {
+            dealWithB(com, start, end);
+        } else if(keyCode==73){
+            dealwithI(com,start,end);
+        } else if(keyCode==72){
+            e.preventDefault();
+            dealwithHead(com,start,end);
+        } else if(keyCode==76){
+            e.preventDefault();
+            $('#myModal').modal({
+                keyboard: true
+            })
+        } else if(keyCode==71){
+            e.preventDefault();
+            $('#imageModal').modal({
+                keyboard: true
+            })
+        } else if(keyCode==85){
+            e.preventDefault();
+            dealWithUnOrder(com, start, end);
+        } else if(keyCode==79){
+            e.preventDefault();
+            dealWithOrder(com, start, end);
+        } else if(keyCode==75){
+            dealWithCode(com, start, end);
+        } else if(keyCode==81){
+            dealWithQuote(com, start, end);
+        } else if(keyCode==77){
+            dealWithMore(com, start, end);
+        }
+    }
+})
+
+
+$("#source").keyup(sourceKeyup);
+
+function sourceKeyup(e) {
+    refresh()
+}
 
 
 
