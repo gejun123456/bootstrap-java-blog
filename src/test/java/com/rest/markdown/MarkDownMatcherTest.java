@@ -12,12 +12,7 @@ import java.util.regex.Pattern;
 public class MarkDownMatcherTest {
     @Test
     public void testReplace(){
-        String m = "wokao taiceleba\n" +
-                "![](/files/1479225098974IMG_20161023_111154.jpg =200x*)\n" +
-                "\n" +
-                "nimaya baozha\n" +
-                "\n" +
-                "[http://www.baidu.com](http://www.baidu.com)";
+        String m = "[a][b](cc)";
 
         String m_a = "[htpp://]](www.aaa.com)";
 
@@ -33,6 +28,7 @@ public class MarkDownMatcherTest {
             int start = matcher.start();
             u+=m.substring(end,start);
             end = matcher.end();
+            System.out.println("aa"+String.valueOf(start)+" "+end);
         }
         //去除了图片的效果。how to deal with better.
         u+=m.substring(end);
