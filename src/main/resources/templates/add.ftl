@@ -127,7 +127,11 @@
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/js/showdown.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/autosize.min.js"></script>
 <script src="/js/mymarkdown.js"></script>
+
+
+
 <script>
     $(document).ready(function () {
 
