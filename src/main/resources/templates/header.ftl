@@ -10,7 +10,11 @@
                 </nav>
             </div>
             <div class="col-md-4">
-                    <a id="my" href="/add"><img src="/img/mypic.jpg"></a>
+                    <#if login??>
+                    <a class="blog-nav-item" id="my" href="/add">add</a>
+                    <#else>
+                    <a class="blog-nav-item" id="login" href="/loginPage">login</a>
+                    </#if>
                     <form class="blog-header-form" action="/search" onsubmit="return validate();">
                         <input type="text" id="query" name="query" class="form-control" placeholder="Search"/>
                     </form>

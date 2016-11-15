@@ -125,6 +125,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (user.isAdmin()) {
                 modelAndView.addObject("admin", true);
             }
+            if(user.isLogin()){
+                modelAndView.addObject("login",true);
+            }
         }
     }
 
