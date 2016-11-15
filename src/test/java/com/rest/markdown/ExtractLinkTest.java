@@ -81,5 +81,12 @@ public class ExtractLinkTest {
         Assertions.assertThat(extract("[][[lllll]((http://www.baidu.com0[hello](hahah)")).isEqualTo("[][lllll");
         Assertions.assertThat(extract("[a [bcd](www.baidu.com)")).isEqualTo("[a bcd");
         Assertions.assertThat(extract("[abcd](www.baidu.com)")).isEqualTo("abcd");
+        System.out.println(extract("我日了狗，看行不行再说\n" +
+                "别给我搜出来呀\n" +
+                "![](/files/1479239072199IMG_20161023_111154.jpg =200x*)\n" +
+                "<!-more->\n" +
+                "相当蛋疼[http://www.baidu.com](http://www.baidu.com)"));
+
+        Assertions.assertThat(extract("![](/files/1479239072199IMG_20161023_111154.jpg =200x*)")).isEqualTo("!");
     }
 }

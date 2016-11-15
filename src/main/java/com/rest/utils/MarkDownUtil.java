@@ -138,6 +138,10 @@ public class MarkDownUtil {
     //remove markdown syntax on things.
     public static String removeMark(String sourceContent) {
         sourceContent = sourceContent.replace(MarkDownConstant.MORE,"");
+        //将连接和图片中的东西给搞定
+        //todo  if such []() exist in code the code will be deleted. so much thing to delete.
+        //shall check with them.
+        sourceContent = extract(sourceContent);
         StringBuilder res = new StringBuilder();
         char last = ' ';
         for (int i = 0; i < sourceContent.length(); i++) {
@@ -153,5 +157,74 @@ public class MarkDownUtil {
             }
         }
         return res.toString();
+    }
+
+    public static String extract(String s) {
+        int status = 0;
+        int start = 0;
+        String result = "";
+        int matchstart = -1;
+        int matchEnd = -1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (status) {
+                case 0:
+                    if (c == '[') {
+                        status = 1;
+                        matchstart = i;
+                    } else {
+                        result += s.substring(start, i + 1);
+                        start = i + 1;
+                    }
+                    break;
+                case 1:
+                    if(c==']'){
+                        status=2;
+                        matchEnd=i;
+                    } else if(c=='['){
+                        status=1;
+                        result+=s.substring(start,i);
+                        start=i;
+                        matchstart=i;
+                    } else {
+                        //this time this is safe.
+                        status=1;
+                    }
+                    break;
+                case 2:
+                    if(c=='('){
+                        status=3;
+                    } else if(c==']'){
+                        status=2;
+                        matchEnd=i;
+                    } else if(c=='['){
+                        status=1;
+                        matchstart=i;
+                        result+=s.substring(start,i);
+                        start=i;
+                    } else {
+                        status=0;
+                        result+=s.substring(start,i+1);
+                        start=i+1;
+                    }
+                    break;
+                case 3:
+                    if(c==')'){
+                        //find a match store the value into it.
+                        result+=s.substring(matchstart+1,matchEnd);
+                        status=0;
+                        start=i+1;
+                    } else{
+                        //无法回头.
+                        status=3;
+                    }
+                    break;
+            }
+            //check the final status.
+        }
+        if(status!=3){
+            result+=s.substring(start);
+        }
+        return result;
     }
 }
