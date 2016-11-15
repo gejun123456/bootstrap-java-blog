@@ -1,2 +1,4 @@
-# my-java-blog
+# my-java-blog  
+
+[![Build Status](https://travis-ci.org/gejun123456/my-java-blog.svg?branch=master)](https://travis-ci.org/gejun123456/my-java-blog)
 <h1> write based on springboot java blog </h1>
