@@ -13,25 +13,7 @@ $("#source_title").keyup(function () {
 })
 
 
-$("#savebutton").click(function () {
-    var title = $("#source_title").val();
-    var text = $("#source").val();
-    console.log(title)
-    console.log(text);
-//            send ajax request to save the content.
-    $.ajax({
-        url: "/addContent",
-        data: {
-            title: title,
-            sourceContent: text
-        },
-        type: "POST",
-        dataType: "json",
-    }).done(function (json) {
-        console.log(json);
-        window.location.href = "/";
-    })
-})
+
 
 function dealWithB(com, start, end) {
     if (start == end) {
@@ -296,6 +278,7 @@ $("#source").keydown(function (e) {
             e.preventDefault();
             dealWithOrder(com, start, end);
         } else if(keyCode==75){
+            e.preventDefault();
             dealWithCode(com, start, end);
         } else if(keyCode==81){
             dealWithQuote(com, start, end);

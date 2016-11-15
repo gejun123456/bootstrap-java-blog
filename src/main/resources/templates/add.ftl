@@ -164,6 +164,27 @@
         })
 
 
+        $("#savebutton").click(function () {
+            var title = $("#source_title").val();
+            var text = $("#source").val();
+            console.log(title)
+            console.log(text);
+//            send ajax request to save the content.
+            $.ajax({
+                url: "/addContent",
+                data: {
+                    title: title,
+                    sourceContent: text
+                },
+                type: "POST",
+                dataType: "json",
+            }).done(function (json) {
+                console.log(json);
+                window.location.href = "/";
+            })
+        })
+
+
     })
 </script>
 <body>
