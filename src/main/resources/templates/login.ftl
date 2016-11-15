@@ -6,6 +6,7 @@
     <title>Blog Template for Bootstrap</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/login.css" rel="stylesheet">
+    <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <div class="container">
     <#--todo shall fix the page.-->

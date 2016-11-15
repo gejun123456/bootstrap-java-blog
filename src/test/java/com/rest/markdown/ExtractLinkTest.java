@@ -11,15 +11,15 @@ public class ExtractLinkTest {
         int status = 0;
         int start = 0;
         String result = "";
-        int startOne = -1;
-        int startTwo = -1;
+        int matchstart = -1;
+        int matchEnd = -1;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (status) {
                 case 0:
                     if (c == '[') {
                         status = 1;
-                        startOne = i;
+                        matchstart = i;
                     } else {
                         result += s.substring(start, i + 1);
                         start = i + 1;
@@ -28,12 +28,12 @@ public class ExtractLinkTest {
                 case 1:
                     if(c==']'){
                         status=2;
-                        startTwo=i;
+                        matchEnd=i;
                     } else if(c=='['){
                         status=1;
                         result+=s.substring(start,i);
                         start=i;
-                        startOne=i;
+                        matchstart=i;
                     } else {
                     //this time this is safe.
                         status=1;
@@ -44,17 +44,14 @@ public class ExtractLinkTest {
                         status=3;
                     } else if(c==']'){
                         status=2;
-                        startTwo=i;
+                        matchEnd=i;
                     } else if(c=='['){
                         status=1;
-                        startTwo=-1;
-                        startOne=i;
+                        matchstart=i;
                         result+=s.substring(start,i);
                         start=i;
                     } else {
                         status=0;
-                        startOne=-1;
-                        startTwo=-1;
                         result+=s.substring(start,i+1);
                         start=i+1;
                     }
@@ -62,7 +59,7 @@ public class ExtractLinkTest {
                 case 3:
                     if(c==')'){
                         //find a match store the value into it.
-                        result+=s.substring(startOne+1,startTwo);
+                        result+=s.substring(matchstart+1,matchEnd);
                         status=0;
                         start=i+1;
                     } else{

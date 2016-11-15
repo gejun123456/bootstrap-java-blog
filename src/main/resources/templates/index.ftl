@@ -7,6 +7,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/blog.css" rel="stylesheet">
     <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">
@@ -20,13 +21,15 @@
         <#--adddata to this position-->
         <#list contents as co>
             <div class="blog-post">
-                 <h3><a href="/getArticle/${co.id}">${co.title}</a></h3>
+                <h3><a href="/getArticle/${co.id}">${co.title}</a></h3>
             <p class="blog-post-meta">${co.startDate}
                 <#if admin??>
                     <a href="/edit/${co.id}">[编辑]</a>
                     <a href="/delete/${co.id}">[删除]</a></p>
                 </#if>
-            ${co.content}
+                <div class="nima">
+                ${co.content}
+                </div>
             </div>
             <#if admin??>
 

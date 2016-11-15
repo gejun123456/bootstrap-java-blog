@@ -7,6 +7,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/blog.css" rel="stylesheet">
     <link href="/css/search.css" rel="stylesheet">
+    <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">

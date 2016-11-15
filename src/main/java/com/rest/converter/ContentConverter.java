@@ -82,6 +82,7 @@ public class ContentConverter {
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());
         content.setHtml_content(MarkDownUtil.convertToHtml(request.getSourceContent()));
+        content.setIndex_content(convertToHeadContent(request.getSourceContent(), content.getHtml_content()));
         content.setUpdatetime(new Date());
         return content;
     }

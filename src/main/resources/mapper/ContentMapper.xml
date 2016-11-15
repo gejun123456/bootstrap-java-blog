@@ -35,7 +35,7 @@
             <if test="pojo.title != null"> title = #{pojo.title}, </if>
             <if test="pojo.source_content != null"> source_content = #{pojo.source_content}, </if>
             <if test="pojo.html_content != null"> html_content = #{pojo.html_content}, </if>
-            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime} </if>
+            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime}, </if>
             <if test="pojo.index_content != null"> index_content = #{pojo.index_content} </if>
         </set>
         WHERE id = #{pojo.id}
