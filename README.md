@@ -5,7 +5,7 @@
 
 feature
 ------------
-- bootstrap simple style, cool device compatibility
+- bootstrap simple style, good device compatibility
 - just in time support for markdown to add or edit.
 - full search ability.
 - nice for mobile add or edit.
@@ -25,7 +25,7 @@ Installation
 - run the ddl in mysql from [https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql](https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql "https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql")
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - cd bootstrap-java-blog
-- mvn clean install
+- mvn clean package
 - java -jar target/attchment.jar
 - open localhost:8080 to see if works right.
 
