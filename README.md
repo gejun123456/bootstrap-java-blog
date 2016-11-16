@@ -2,6 +2,14 @@
 
 [![Build Status](https://travis-ci.org/gejun123456/my-java-blog.svg?branch=master)](https://travis-ci.org/gejun123456/my-java-blog)
 <h1>base on bootstrap and java</h1>  
+
+feature
+------------
+- bootstrap simple style, cool device compatibility
+- just in time support for markdown to add or edit.
+- full search ability.
+- nice for mobile add or edit.
+
 Requirements
 ------------
 - git
@@ -46,3 +54,9 @@ Screenshots
 
 ![add_content](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/add_content.png)
 ![archive](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/archive.png)
+
+
+Discussion
+-----------
+email:gejun123456@gmail.com
+qq:1098632410@qq.com
