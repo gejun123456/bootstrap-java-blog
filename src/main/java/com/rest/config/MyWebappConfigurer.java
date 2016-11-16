@@ -1,5 +1,6 @@
 package com.rest.config;
 
+import com.rest.intercetors.AccessInterceptor;
 import com.rest.intercetors.AuthInterceptor;
 import com.rest.intercetors.ExecutionTimeInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,6 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter{
         //remove page will forward. //how to know the forward request real time cost?
         registry.addInterceptor(new ExecutionTimeInterceptor()).excludePathPatterns("/");
         registry.addInterceptor(authInterceptor);
+        registry.addInterceptor(new AccessInterceptor());
     }
 }
