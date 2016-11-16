@@ -16,7 +16,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String remoteAddr = (String) request.getAttribute("X-Forwarded-For");
+        String remoteAddr = request.getHeader("X-Forwarded-For");
         String requestURI = request.getRequestURI();
         logger.info("the client ip is {} the requestURI is {}", remoteAddr, requestURI);
         return true;
