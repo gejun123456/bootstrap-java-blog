@@ -30,13 +30,7 @@ public class LoginService {
         boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
         if(checkpw){
             UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
-                    .withEmail(selected.getEmail());
-//            todo remove default bruce.
-            if(userName.equals("bruce")){
-                userDtoBuilder.withAdmin(true);
-            } else {
-                userDtoBuilder.withAdmin(false);
-            }
+                    .withEmail(selected.getEmail()).withAuth(selected.getAuth());
             return userDtoBuilder.build();
         }
         return null;
@@ -57,12 +51,9 @@ public class LoginService {
         }
         UserPO selected = select.get(0);
         UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
-                .withEmail(selected.getEmail());
-        if(userName.equals("bruce")){
-            return userDtoBuilder.withAdmin(true).build();
-        } else {
-            return userDtoBuilder.withAdmin(false).build();
-        }
+                .withEmail(selected.getEmail()).withAuth(selected.getAuth());
+        return userDtoBuilder.build();
+
     }
 
     //update cookie value in database.

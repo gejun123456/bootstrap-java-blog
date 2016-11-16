@@ -1,6 +1,7 @@
 package com.rest.controller;
 
 import com.rest.Request.RegisterRequest;
+import com.rest.bean.User;
 import com.rest.bean.UserBuilder;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -23,34 +25,66 @@ import java.util.List;
 public class RegisterController {
     @Autowired
     private UserPOService userPOService;
+
+
+    private static int tableExist = 0;
+
+    @PostConstruct
+    public void init() {
+        //go to check the talbe contains content.
+        int count = userPOService.getCount();
+        if (count > 0) {
+            tableExist = 1;
+        }
+    }
+
     @RequestMapping("/register")
     @ResponseBody
-    public String register(@Valid RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session){
-        if(bindingResult.hasErrors()){
+    public String register(@Valid RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
             return "check failed, please reinput";
         }
         UserPO query = new UserPO();
         query.setUsername(registerRequest.getUsername());
         List<UserPO> select =
                 userPOService.select(query);
-        if(select.size()!=0){
+        if (select.size() != 0) {
             return "user exist, please input other name";
         } else {
             UserPO po = new UserPO();
             po.setUsername(registerRequest.getUsername());
             po.setEmail(registerRequest.getEmail());
-            po.setCryptpasswod(BCrypt.hashpw(registerRequest.getPassword(),BCrypt.gensalt()));
-            int insert = userPOService.insert(po);
-            if(insert==1){
-                //add with session.
-                UserBuilder userBuilder = UserBuilder.anUser().
-                        withLogin(true).withUserName(po.getUsername()).withUserId(po.getId());
-                if(po.getUsername().equals("bruce")){
-                    session.setAttribute(SessionConstants.USER, userBuilder.withAdmin(true).build());
-                } else {
-                    session.setAttribute(SessionConstants.USER, userBuilder.withAdmin(false).build());
+            po.setCryptpasswod(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt()));
+            int insert = 0;
+            po.setAuth(0);
+            if (tableExist == 0) {
+                synchronized (this.getClass()) {
+                    if (tableExist == 0) {
+                        //第一个创建的用户权限为admin
+                        po.setAuth(1);
+                        //只有插入成功了才行。
+                        //这个阶段不可能出错。
+                        insert = userPOService.insert(po);
+                        //add with session.
+                        tableExist = 1;
+                    } else {
+                        //可能出出错
+                        insert = userPOService.insert(po);
+                    }
                 }
+            } else {
+                //可能会出错
+                insert= userPOService.insert(po);
             }
+
+            if (insert == 1) {
+                User user = UserBuilder.anUser().
+                        withLogin(true).withUserName(po.getUsername()).withUserId(po.getId()).withAdmin(po.getAuth() == 1).build();
+                session.setAttribute(SessionConstants.USER, user);
+            } else {
+                return "user exist, please input other name";
+            }
+
             return "success";
         }
     }

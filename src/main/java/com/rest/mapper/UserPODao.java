@@ -17,4 +17,5 @@ public interface UserPODao {
 
     int delete(@Param("pojo") int id);
 
+    int getCount();
 }

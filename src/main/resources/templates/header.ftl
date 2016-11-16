@@ -10,14 +10,15 @@
                 </nav>
             </div>
             <div class="col-md-4">
-                    <#if login??>
-                    <a class="blog-nav-item" id="my" href="/add">add</a>
-                    <#else>
-                    <a class="blog-nav-item" id="login" href="/loginPage">login</a>
-                    </#if>
-                    <form class="blog-header-form" action="/search" onsubmit="return validate();">
-                        <input type="text" id="query" name="query" class="form-control" placeholder="Search"/>
-                    </form>
+            <#if login??>
+                <a class="blog-nav-item" id="my" href="/add">add</a>
+                <a class="blog-nav-item" id="logout" href="/logout">logout</a>
+            <#else>
+                <a class="blog-nav-item" id="login" href="/loginPage">login</a>
+            </#if>
+                <form class="blog-header-form" action="/search" onsubmit="return validate();">
+                    <input type="text" id="query" name="query" class="form-control" placeholder="Search"/>
+                </form>
             </div>
         </div>
     </div>

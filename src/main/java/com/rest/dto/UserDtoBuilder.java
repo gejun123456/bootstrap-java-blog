@@ -7,7 +7,7 @@ import com.rest.domain.UserPO;
  */
 public final class UserDtoBuilder {
     private int id;
-    private boolean admin;
+    private int auth;
     private String username;
     private String mobile;
     private String email;
@@ -25,8 +25,8 @@ public final class UserDtoBuilder {
         return this;
     }
 
-    public UserDtoBuilder withAdmin(boolean admin) {
-        this.admin = admin;
+    public UserDtoBuilder withAuth(int auth) {
+        this.auth = auth;
         return this;
     }
 
@@ -53,7 +53,7 @@ public final class UserDtoBuilder {
     public UserPO build() {
         UserPO userPO = new UserPO();
         userPO.setId(id);
-        userPO.setAdmin(admin);
+        userPO.setAuth(auth);
         userPO.setUsername(username);
         userPO.setMobile(mobile);
         userPO.setEmail(email);

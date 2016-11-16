@@ -29,4 +29,9 @@ public class UserPOService {
         return userPODao.update(pojo);
     }
 
+
+    public int getCount(){
+        return userPODao.getCount();
+    }
+
 }

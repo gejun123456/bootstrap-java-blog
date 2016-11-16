@@ -10,7 +10,7 @@ import com.rest.domain.UserPO;
 public class UserConverter {
     public static User convertToUser(UserPO userPO) {
         return UserBuilder.anUser().
-                withAdmin(userPO.isAdmin())
+                withAdmin(userPO.getAuth()==1)
                 .withLogin(true).
                         withUserId(userPO.getId()).
                         withUserName(userPO.getUsername())

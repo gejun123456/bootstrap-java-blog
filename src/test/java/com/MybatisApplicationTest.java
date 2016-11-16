@@ -61,7 +61,7 @@ public class MybatisApplicationTest{
     @Test
     public void testInsertUserPo(){
         UserPO po = new UserPO();
-        po.setAdmin(true);
+        po.setAuth(1);
         po.setUsername("bruce");
         po.setMobile("1233");
         po.setEmail("xxx@163.com");

@@ -33,7 +33,8 @@ CREATE TABLE `user_p_o` (
   `email` varchar(50) NOT NULL DEFAULT '' COMMENT 'email',
   `cryptpasswod` varchar(100) DEFAULT NULL,
   `passwordcookie` varchar(100) NOT NULL DEFAULT '' COMMENT 'passwordcookie',
+  `auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'userauth  1 is admin',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='user_p_o';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='user_p_o'
 
 

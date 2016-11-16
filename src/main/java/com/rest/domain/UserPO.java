@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 public class UserPO {
     private Integer id;
 
-    private Boolean admin;
+    private Integer auth;
 
     private String username;
 
@@ -25,14 +25,6 @@ public class UserPO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
     }
 
     public String getUsername() {
@@ -76,4 +68,13 @@ public class UserPO {
     public void setPasswordcookie(String passwordcookie) {
         this.passwordcookie = passwordcookie;
     }
+
+    public void setAuth(Integer auth) {
+        this.auth = auth;
+    }
+
+    public Integer getAuth() {
+        return auth;
+    }
+
 }
