@@ -52,8 +52,8 @@ movefile(){
 function run(){
     rm -r $dstLogFile
     touch $dstLogFile
-    nohup nice java -Djava.security.egd=file:/dev/./urandom -jar $deployfilename --server.port=$serverPort >> $dstLogFile 2>&1 &
-    echo "COMMAND:nohup nice java -Djava.security.egd=file:/dev/./urandom -jar $deployfilename --server.port=$serverPort > $dstLogFile 2>&1 &"
+    nohup nice java -Xms128m -Xmx512m -Dspring.profiles.active=production -Djava.security.egd=file:/dev/./urandom -jar $deployfilename --server.port=$serverPort >> $dstLogFile 2>&1 &
+    echo "COMMAND:nohup nice java -Xms128m -Xmx512m -Dspring.profiles.active=production -Djava.security.egd=file:/dev/./urandom -jar $deployfilename --server.port=$serverPort > $dstLogFile 2>&1 &"
     echo ""
 }
 

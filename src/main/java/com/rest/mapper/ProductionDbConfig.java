@@ -3,32 +3,22 @@ package com.rest.mapper;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 /**
- * Created by bruce.ge on 2016/10/23.
+ * Created by bruce.ge on 2016/11/16.
  */
 @Configuration
-public class DbConfig {
+@Profile("production")
+public class ProductionDbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
-
-        File file = new File("/env/databaseconfig");
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl(prop.getProperty("url"));
-        druidDataSource.setUsername(prop.getProperty("username"));
-        druidDataSource.setPassword(prop.getProperty("password"));
+        druidDataSource.setUrl("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8");
+        druidDataSource.setUsername("bruce");
+        druidDataSource.setPassword("root");
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);
         druidDataSource.setMaxActive(20);
