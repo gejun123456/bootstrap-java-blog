@@ -44,6 +44,7 @@ To Do List
 Custom
 --------
 - you can use a different port like java -jar target/attchment.jar --server.port=9090
+- edit your own about in `src\main\resources\templates\about.ftl`
 
 Screenshots
 -----------

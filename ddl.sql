@@ -35,6 +35,6 @@ CREATE TABLE `user_p_o` (
   `passwordcookie` varchar(100) NOT NULL DEFAULT '' COMMENT 'passwordcookie',
   `auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'userauth  1 is admin',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='user_p_o'
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='user_p_o';
 
 
