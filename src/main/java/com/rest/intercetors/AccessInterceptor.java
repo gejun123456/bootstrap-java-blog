@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AccessInterceptor implements HandlerInterceptor {
     private static Logger logger = LoggerFactory.getLogger("access");
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String remoteAddr = request.getRemoteAddr();
+        String remoteAddr = (String) request.getAttribute("X-Forwarded-For");
         String requestURI = request.getRequestURI();
-        logger.info("the client ip is {} the requestURI is {}",remoteAddr,requestURI);
+        logger.info("the client ip is {} the requestURI is {}", remoteAddr, requestURI);
         return true;
     }
 
