@@ -26,6 +26,13 @@ Quick Start
 - register a user (the first user you create will be admin)
 - do everything in the next.
 
+To Do List
+----------
+
+- add multi language support
+- to see if need add comment
+- to see if need close register after admin create.
+
 Custom
 --------
 - you can use a different port like java -jar target/attchment.jar --server.port=9090
