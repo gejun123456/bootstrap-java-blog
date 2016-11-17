@@ -13,8 +13,8 @@
             </div>
             <div id="blogdata">
             <#--adddata to this position-->
-                email:gejun123456@gmail.com
-                github:https://github.com/gejun123456
+                <li>E-mail: <a href="mailto:gejun123456@gmail.com">gejun123456@gmail.com</a></li>
+                <li>Github：<a href="https://github.com/gejun123456">@gejun123456</a></li>
                 <#--test build.-->
             </div>
             <script src="/js/jquery-3.1.1.min.js"></script>

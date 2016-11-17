@@ -37,7 +37,6 @@ Quick Start
 To Do List
 ----------
 
-- add multi language support
 - to see if need add comment
 - to see if need close register after admin create.
 
@@ -45,6 +44,7 @@ Custom
 --------
 - you can use a different port like java -jar target/attchment.jar --server.port=9090
 - edit your own about in `src\main\resources\templates\about.ftl`
+- edit your language in `SampleController.localeResolver` now support with english and chinese.
 
 Screenshots
 -----------
