@@ -21,7 +21,8 @@ That's all, base package of java web environment!
 
 Installation
 ------------
-- install mysql set a user with username='root' password='root'
+- get your mysql installed.
+- config your database config in application.properities
 - run the ddl in mysql from [https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql](https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql "https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql")
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - cd bootstrap-java-blog

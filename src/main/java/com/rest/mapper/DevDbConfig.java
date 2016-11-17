@@ -1,6 +1,7 @@
 package com.rest.mapper;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,12 +18,20 @@ import java.util.Properties;
 @Configuration
 @Profile("dev")
 public class DevDbConfig {
+    @Value("${db.url}")
+    private String dbUrl;
+
+    @Value("${db.username}")
+    private String dbUsername;
+
+    @Value("${db.password}")
+    private String password;
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://192.168.0.103/world?serverTimezone=GMT%2b8");
-        druidDataSource.setUsername("root");
-        druidDataSource.setPassword("root");
+        druidDataSource.setUrl(dbUrl);
+        druidDataSource.setUsername(dbUsername);
+        druidDataSource.setPassword(password);
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);
         druidDataSource.setMaxActive(20);

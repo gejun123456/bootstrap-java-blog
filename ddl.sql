@@ -1,8 +1,3 @@
-
-create database world;
-
-use world;
-
 CREATE TABLE `content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
