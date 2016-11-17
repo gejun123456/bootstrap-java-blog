@@ -26,7 +26,7 @@ Installation
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - cd bootstrap-java-blog
 - mvn clean package
-- java -jar target/attchment.jar
+- java -jar target/attchment-1.0.jar.jar
 - open localhost:8080 to see if works right.
 
 Quick Start
