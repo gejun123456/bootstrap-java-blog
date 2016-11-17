@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by bruce.ge on 2016/11/16.
  */
+@Deprecated
 public class AccessInterceptor implements HandlerInterceptor {
     private static Logger logger = LoggerFactory.getLogger("access");
 
