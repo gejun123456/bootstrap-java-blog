@@ -59,7 +59,7 @@ public class SampleController {
 //    the bean name shall be this.
     @Bean
     public LocaleResolver localeResolver() {
-        FixedLocaleResolver fixedLocaleResolver = new FixedLocaleResolver(Locale.US);
+        FixedLocaleResolver fixedLocaleResolver = new FixedLocaleResolver(Locale.SIMPLIFIED_CHINESE);
         return new LocaleResolver() {
             @Override
             public Locale resolveLocale(HttpServletRequest request) {
