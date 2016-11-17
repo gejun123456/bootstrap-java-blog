@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div>
-            <#if comment>
+            <#if comment??>
                 <form id="commentform" action="/comment/${vo.id}">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" style="width:200;" placeholder="name" required="true"/>

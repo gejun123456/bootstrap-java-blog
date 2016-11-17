@@ -22,9 +22,9 @@ That's all, base package of java web environment!
 Installation
 ------------
 - get your mysql installed.
-- config your database config in `src\main\resources\application.properties`
-- run the ddl in mysql from [https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql](https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql "https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql")
+- run the ddl in mysql from [https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql](https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql "https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql") to your database.
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
+- config your database and language in `src\main\resources\application.properties`
 - cd bootstrap-java-blog
 - mvn clean package
 - java -jar target/attchment-1.0.jar
@@ -45,7 +45,6 @@ Custom
 --------
 - you can use a different port like java -jar target/attchment.jar --server.port=9090
 - edit your own about in `src\main\resources\templates\about.ftl`
-- edit your language in `SampleController.localeResolver` now support with english and chinese.
 
 Screenshots
 -----------
