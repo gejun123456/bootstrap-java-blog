@@ -91,6 +91,7 @@ public class ContentConverter {
     public static ContentVo convetToVo(Content byId) {
         ContentVo contentVo = new ContentVo();
         contentVo.setTitle(byId.getTitle());
+        contentVo.setId(byId.getId());
         contentVo.setContent(byId.getHtml_content());
         contentVo.setAddtime(dateFormat.format(byId.getAddtime()));
         return contentVo;

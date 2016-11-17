@@ -15,4 +15,7 @@ public interface CommentPODao {
 
     int update(@Param("pojo") CommentPO pojo);
 
+
+    int delete(int id);
+
 }

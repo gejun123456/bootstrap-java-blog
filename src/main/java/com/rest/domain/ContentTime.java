@@ -5,49 +5,49 @@ package com.rest.domain;
  */
 public class ContentTime {
 
-    private int id;
-    private int year;
-    private int month;
-    private int day;
-    private int content_id;
+    private Integer id;
+    private Integer year;
+    private Integer month;
+    private Integer day;
+    private Integer content_id;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
-    public int getDay() {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Integer day) {
         this.day = day;
     }
 
-    public int getContent_id() {
+    public Integer getContent_id() {
         return content_id;
     }
 
-    public void setContent_id(int content_id) {
+    public void setContent_id(Integer content_id) {
         this.content_id = content_id;
     }
 }

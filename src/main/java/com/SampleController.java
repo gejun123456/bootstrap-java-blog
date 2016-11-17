@@ -1,7 +1,9 @@
 package com;
 
+import com.rest.config.BlogProperty;
 import com.rest.storage.StorageService;
 import org.apache.tomcat.util.descriptor.LocalResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -29,6 +31,9 @@ import java.util.Locale;
 @Configuration
 @ComponentScan
 public class SampleController {
+
+    @Autowired
+    private BlogProperty blogProperty;
     @RequestMapping("/")
     String home() {
         return "forward:/page/1";
@@ -60,7 +65,7 @@ public class SampleController {
 //    the bean name shall be this.
     @Bean
     public LocaleResolver localeResolver() {
-        FixedLocaleResolver fixedLocaleResolver = new FixedLocaleResolver(Locale.US);
+        FixedLocaleResolver fixedLocaleResolver = new FixedLocaleResolver(blogProperty.getLocale());
         return new LocaleResolver() {
             @Override
             public Locale resolveLocale(HttpServletRequest request) {

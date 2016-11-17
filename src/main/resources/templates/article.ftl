@@ -18,13 +18,20 @@
             </div>
             <div>
             <#if comment>
-                <form>
+                <form id="commentform" action="/comment/${vo.id}">
                     <div class="form-group">
-                        <label for="comment">Your Comment</label>
-                        <textarea name="comment" class="form-control" rows="3"></textarea>
+                        <input type="text" name="name" class="form-control" style="width:200;" placeholder="name" required="true"/>
+                        <textarea name="content" class="form-control" rows="3" required="true" placeholder="please input comment"></textarea>
                     </div>
                     <button type="submit" class="btn btn-default">Send</button>
                 </form>
+                <div>
+                    <#list commentList as comm>
+                        <p>name:${comm.name}</p>
+                        <p>comment:${comm.comment}</p>
+                        <p>time:${comm.ago}</p>
+                    </#list>
+                </div>
             </#if>
             </div>
         </div>
@@ -33,5 +40,11 @@
 </div>
 <#include "footer.ftl">
 <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+            $("#commentform").validate();
+    })
+</script>
 </body>
 </html>

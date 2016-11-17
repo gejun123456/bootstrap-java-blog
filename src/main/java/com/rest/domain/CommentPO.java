@@ -6,36 +6,36 @@ import java.util.Date;
  * Created by bruce.ge on 2016/11/18.
  */
 public class CommentPO {
-    private int id;
-    private int article_id;
-    private int reply_id;
+    private Integer id;
+    private Integer article_id;
+    private Integer reply_id;
     private String username;
     private String content;
     private Date addtime;
     private Date updatetime;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getArticle_id() {
+    public Integer getArticle_id() {
         return article_id;
     }
 
-    public void setArticle_id(int article_id) {
+    public void setArticle_id(Integer article_id) {
         this.article_id = article_id;
     }
 
-    public int getReply_id() {
+    public Integer getReply_id() {
         return reply_id;
     }
 
-    public void setReply_id(int reply_id) {
+    public void setReply_id(Integer reply_id) {
         this.reply_id = reply_id;
     }
 
