@@ -1,12 +1,6 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>brucege's blog</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/blog.css" rel="stylesheet">
-    <link href="/css/search.css" rel="stylesheet">
+<#include "head_header.ftl">
     <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <body>
@@ -24,8 +18,8 @@
                 <h3><a href="/getArticle/${co.id}">${co.title}</a></h3>
             <p class="blog-post-meta">${co.startDate}
                 <#if admin??>
-                    <a href="/edit/${co.id}">[编辑]</a>
-                    <a href="/delete/${co.id}">[删除]</a></p>
+                    <a href="/edit/${co.id}">[<@spring.message "edit"/>]</a>
+                    <a href="/delete/${co.id}">[<@spring.message "delete"/>]</a></p>
                 </#if>
                 <div class="nima">
                 ${co.content}
@@ -38,10 +32,10 @@
             <nav>
                 <ul class="pager">
                 <#if previousLink??>
-                    <li id="previous"><a href="${previousLink}">Previous</a></li>
+                    <li id="previous"><a href="${previousLink}"><@spring.message "Previous"/></a></li>
                 </#if>
                 <#if nextLink??>
-                    <li id="next"><a href="${nextLink}">Next</a></li>
+                    <li id="next"><a href="${nextLink}"><@spring.message "Next"/></a></li>
                 </#if>
                 </ul>
             </nav>

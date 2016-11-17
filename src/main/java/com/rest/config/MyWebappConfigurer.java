@@ -6,6 +6,7 @@ import com.rest.intercetors.ExecutionTimeInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.MessageCodesResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -25,4 +26,7 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter{
         registry.addInterceptor(authInterceptor);
         registry.addInterceptor(new AccessInterceptor());
     }
+
+
+
 }

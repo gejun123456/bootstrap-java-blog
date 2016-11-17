@@ -1,12 +1,6 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>brucege's blog</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/blog.css" rel="stylesheet">
-    <link href="/css/search.css" rel="stylesheet">
+<#include "head_header.ftl">
     <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <body>
@@ -20,9 +14,9 @@
         <#--adddata to this position-->
             <br>
         <#if !hasContent>
-            <h2>Query result is empty</h2>
+            <h2><@spring.message "searchResultEmpty"/></h2>
         <#else>
-        <h1>There are ${resultlen} result</h1>
+        <h1><@spring.message "presearch"/> ${resultlen} <@spring.message "suffixsearch"/></h1>
         <br>
         <#list result as co>
             <h1><a href="${co.link}">${co.marktitle}</a> </h1>

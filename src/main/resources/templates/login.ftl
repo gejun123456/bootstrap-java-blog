@@ -1,10 +1,6 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>brucege's blog</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+<#include "head_header.ftl">
     <link href="/css/login.css" rel="stylesheet">
     <link href="/css/markdown.css" rel="stylesheet">
 </head>
@@ -17,12 +13,12 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#" class="active" id="login-form-link">Login</a>
+                            <a href="#" class="active" id="login-form-link"><@spring.message "login"/></a>
 
                         </div>
 
                         <div class="col-xs-6">
-                            <a href="#" id="register-form-link">register</a>
+                            <a href="#" id="register-form-link"><@spring.message "register"/></a>
 
                         </div>
                     </div>
@@ -41,10 +37,11 @@
                                 <#--the default is remember-->
                                 <div class="form-group text-center">
                                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                                    <label for="remember"> Remember Me</label>
+                                    <label for="remember"> <@spring.message "remember"/></label>
                                 </div>
                             <#if logindd??>
                             <div>
+                                                                <#--need to fix with-->
                                 <p class="text-danger text-center">${logindd}</p>
                             </div>
 
@@ -52,7 +49,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="<@spring.message "login"/>">
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +85,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="login-submit" id="register-submit" tabindex="4" class="form-control btn btn-login" value="register">
+                                            <input type="submit" name="login-submit" id="register-submit" tabindex="4" class="form-control btn btn-login" value="<@spring.message "register"/>">
                                         </div>
                                     </div>
                                 </div>

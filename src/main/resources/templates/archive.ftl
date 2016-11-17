@@ -1,13 +1,6 @@
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>brucege's blog</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/blog.css" rel="stylesheet">
-    <link href="/css/search.css" rel="stylesheet">
-    <link href="/css/markdown.css" rel="stylesheet">
+<#include "head_header.ftl">
 </head>
 <body>
 <#include "header.ftl">
@@ -21,8 +14,8 @@
             <#list archiveMap[year] as yearac>
                 <p>${yearac.adddate} >> <a href="${yearac.link}">${yearac.title}</a>
                     <#if admin??>
-                        <a href="/edit/${yearac.id}">[编辑]</a>
-                        <a href="/delete/${yearac.id}">[删除]</a>
+                        <a href="/edit/${yearac.id}">[<@spring.message "edit"/>]</a>
+                        <a href="/delete/${yearac.id}">[<@spring.message "delete"/>]</a>
                     </#if>
                 </p>
             </#list>
