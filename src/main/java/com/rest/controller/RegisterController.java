@@ -5,7 +5,7 @@ import com.rest.bean.User;
 import com.rest.bean.UserBuilder;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
-import com.rest.service.UserPOService;
+import com.rest.mapper.UserPODao;
 import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,15 +24,14 @@ import java.util.List;
 @Controller
 public class RegisterController {
     @Autowired
-    private UserPOService userPOService;
-
+    private UserPODao userPODao;
 
     private static int tableExist = 0;
 
     @PostConstruct
     public void init() {
         //go to check the talbe contains content.
-        int count = userPOService.getCount();
+        int count = userPODao.getCount();
         if (count > 0) {
             tableExist = 1;
         }
@@ -47,7 +46,7 @@ public class RegisterController {
         UserPO query = new UserPO();
         query.setUsername(registerRequest.getUsername());
         List<UserPO> select =
-                userPOService.select(query);
+                userPODao.select(query);
         if (select.size() != 0) {
             return "user exist, please input other name";
         } else {
@@ -64,17 +63,17 @@ public class RegisterController {
                         po.setAuth(1);
                         //只有插入成功了才行。
                         //这个阶段不可能出错。
-                        insert = userPOService.insert(po);
+                        insert = userPODao.insert(po);
                         //add with session.
                         tableExist = 1;
                     } else {
                         //可能出出错
-                        insert = userPOService.insert(po);
+                        insert = userPODao.insert(po);
                     }
                 }
             } else {
                 //可能会出错
-                insert= userPOService.insert(po);
+                insert= userPODao.insert(po);
             }
 
             if (insert == 1) {

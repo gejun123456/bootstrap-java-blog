@@ -2,6 +2,7 @@ package com.rest.service;
 
 import com.SampleController;
 import com.rest.domain.UserPO;
+import com.rest.mapper.UserPODao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import static org.junit.Assert.*;
 public class UserPOServiceTest {
 
     @Autowired
-    private UserPOService userPOService;
+    private UserPODao userPODao;
     @Test
     public void insert() throws Exception {
 
@@ -36,7 +37,7 @@ public class UserPOServiceTest {
         UserPO pojo = new UserPO();
         pojo.setUsername("bruce");
         List<UserPO> select =
-                userPOService.select(pojo);
+                userPODao.select(pojo);
         System.out.println(select.size());
     }
 

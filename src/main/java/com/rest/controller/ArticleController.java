@@ -1,5 +1,6 @@
 package com.rest.controller;
 
+import com.rest.config.BlogProperty;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.mapper.ContentMapper;
@@ -19,12 +20,24 @@ public class ArticleController {
     @Autowired
     private ContentMapper contentMapper;
 
+    @Autowired
+    private BlogProperty blogProperty;
+
     @RequestMapping("/getArticle/{id}")
     public ModelAndView getArticle(@PathVariable("id") int id){
         Content byId = contentMapper.findById(id);
         ContentVo vo = ContentConverter.convetToVo(byId);
         ModelAndView article = new ModelAndView("article");
         article.addObject("vo",vo);
+        //打开了评论 显示评论的区域
+        if(blogProperty.isComment()){
+            article.addObject("comment",true);
+            //隐藏id在网页中
+            article.addObject("id",id);
+
+            //添加评论的内容 和窗口。
+
+        }
         return article;
     }
 

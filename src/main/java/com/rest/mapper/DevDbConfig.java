@@ -1,6 +1,8 @@
 package com.rest.mapper;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.rest.config.BlogProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +28,7 @@ public class DevDbConfig {
 
     @Value("${db.password}")
     private String password;
+
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
         DruidDataSource druidDataSource = new DruidDataSource();

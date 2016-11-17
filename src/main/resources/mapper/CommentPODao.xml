@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rest.mapper.CommentPODao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.rest.domain.CommentPO">
+        <result column="id" property="id"/>
+        <result column="article_id" property="article_id"/>
+        <result column="reply_id" property="reply_id"/>
+        <result column="username" property="username"/>
+        <result column="content" property="content"/>
+        <result column="addtime" property="addtime"/>
+        <result column="updatetime" property="updatetime"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        article_id,
+        reply_id,
+        username,
+        content,
+        addtime,
+        updatetime
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO comment_p_o
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.article_id != null"> article_id, </if>
+            <if test="pojo.reply_id != null"> reply_id, </if>
+            <if test="pojo.username != null"> username, </if>
+            <if test="pojo.content != null"> content, </if>
+            <if test="pojo.addtime != null"> addtime, </if>
+            <if test="pojo.updatetime != null"> updatetime, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.article_id != null"> #{pojo.article_id}, </if>
+            <if test="pojo.reply_id != null"> #{pojo.reply_id}, </if>
+            <if test="pojo.username != null"> #{pojo.username}, </if>
+            <if test="pojo.content != null"> #{pojo.content}, </if>
+            <if test="pojo.addtime != null"> #{pojo.addtime}, </if>
+            <if test="pojo.updatetime != null"> #{pojo.updatetime}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO comment_p_o(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.article_id},
+            #{pojo.reply_id},
+            #{pojo.username},
+            #{pojo.content},
+            #{pojo.addtime},
+            #{pojo.updatetime}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE comment_p_o
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.article_id != null"> article_id = #{pojo.article_id}, </if>
+            <if test="pojo.reply_id != null"> reply_id = #{pojo.reply_id}, </if>
+            <if test="pojo.username != null"> username = #{pojo.username}, </if>
+            <if test="pojo.content != null"> content = #{pojo.content}, </if>
+            <if test="pojo.addtime != null"> addtime = #{pojo.addtime}, </if>
+            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM comment_p_o
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.article_id != null"> AND article_id = #{pojo.article_id} </if>
+            <if test="pojo.reply_id != null"> AND reply_id = #{pojo.reply_id} </if>
+            <if test="pojo.username != null"> AND username = #{pojo.username} </if>
+            <if test="pojo.content != null"> AND content = #{pojo.content} </if>
+            <if test="pojo.addtime != null"> AND addtime = #{pojo.addtime} </if>
+            <if test="pojo.updatetime != null"> AND updatetime = #{pojo.updatetime} </if>
+        </where>
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM comment_p_o where id = #{pojo.id}
+    </delete>
+</mapper>

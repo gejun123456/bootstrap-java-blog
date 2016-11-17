@@ -2,6 +2,7 @@ package com.rest.service;
 
 import com.rest.domain.UserPO;
 import com.rest.dto.UserDtoBuilder;
+import com.rest.mapper.UserPODao;
 import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,14 @@ import java.util.List;
 @Service
 public class LoginService {
     @Autowired
-    private UserPOService userPOService;
+    private UserPODao userPODao;
 
     public UserPO login(String userName, String password){
         //logged to system.
         //todo shall add with database.
         UserPO query = new UserPO();
         query.setUsername(userName);
-        List<UserPO> select = userPOService.select(query);
+        List<UserPO> select = userPODao.select(query);
         if(select.size()==0){
             return null;
         }
@@ -45,7 +46,7 @@ public class LoginService {
         UserPO query = new UserPO();
         query.setUsername(userName);
         query.setPasswordcookie(password);
-        List<UserPO> select = userPOService.select(query);
+        List<UserPO> select = userPODao.select(query);
         if(select.size()==0){
             return null;
         }
@@ -62,6 +63,6 @@ public class LoginService {
         //default为""
         po.setId(id);
         po.setPasswordcookie(random);
-        userPOService.update(po);
+        userPODao.update(po);
     }
 }
