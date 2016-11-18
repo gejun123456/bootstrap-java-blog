@@ -38,7 +38,6 @@ public class CommentController {
     private static Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @RequestMapping("/comment/{id}")
-    @ResponseBody
     public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
                           CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -48,10 +47,11 @@ public class CommentController {
         //
         CommentPO po = CommentConvert.createPo(commentRequest, id);
         commentPODao.insert(po);
-        return "success";
+        return "redirect:/getArticle/"+id;
     }
 
 
+    @Deprecated
     @RequestMapping("/getComment/{articleId}")
     @ResponseBody
     public List<CommentVo> getComments(@PathVariable("articleId") int articleId) {
@@ -99,21 +99,30 @@ public class CommentController {
 
 
     @RequestMapping("/reply")
-    @ResponseBody
     public String reply(ReplyCommentRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             logger.info("binding result error the request is {}", request.toString());
             return "failed";
         }
+        Integer replyCommentId = request.getReplyCommentId();
+        CommentPO query = new CommentPO();
+        query.setId(replyCommentId);
+        List<CommentPO> select = commentPODao.select(query);
+        if (select.size() == 0) {
+            logger.info("can't find reply comment");
+            return "redirect:/getArticle/"+request.getArticleId();
+        }
+        String username = select.get(0).getUsername();
+
         CommentPO po = new CommentPO();
         po.setAddtime(new Date());
-        po.setReply_id(request.getReplyCommentId());
+        po.setReply_id(replyCommentId);
         po.setArticle_id(request.getArticleId());
         po.setUpdatetime(new Date());
         po.setUsername(request.getName());
-        po.setContent(request.getContent());
+        po.setContent("reply to  " + username + " : " + request.getContent());
         commentPODao.insert(po);
-        return "success";
+        return "redirect:/getArticle/"+request.getArticleId();
     }
 
 }
