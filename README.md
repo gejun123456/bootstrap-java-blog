@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/gejun123456/bootstrap-java-blog.svg?branch=master)](https://travis-ci.org/gejun123456/bootstrap-java-blog)
 <h1>base on bootstrap and java</h1>  
 
+[中文说明]()
+
 feature
 ------------
 - bootstrap simple style, good device compatibility
