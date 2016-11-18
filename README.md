@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/gejun123456/bootstrap-java-blog.svg?branch=master)](https://travis-ci.org/gejun123456/bootstrap-java-blog)
 <h1>base on bootstrap and java</h1>  
 
-[中文说明]()
+[中文说明](https://github.com/gejun123456/bootstrap-java-blog/blob/master/doc/chinesereadme.md)
 
 feature
 ------------
