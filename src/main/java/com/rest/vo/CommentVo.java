@@ -1,5 +1,7 @@
 package com.rest.vo;
 
+import java.util.Date;
+
 /**
  * Created by bruce.ge on 2016/11/18.
  */
@@ -10,7 +12,11 @@ public class CommentVo {
 
     private String ago;
 
+    private Integer id;
 
+    private Integer parentId;
+
+    private Date addtime;
     public String getName() {
         return name;
     }
@@ -36,12 +42,28 @@ public class CommentVo {
         this.ago = ago;
     }
 
-    @Override
-    public String toString() {
-        return "CommentVo{" +
-                "name='" + name + '\'' +
-                ", comment='" + comment + '\'' +
-                ", ago='" + ago + '\'' +
-                '}';
+    public Integer getId() {
+        return id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Date getAddtime() {
+        return addtime;
+    }
+
+    public void setAddtime(Date addtime) {
+        this.addtime = addtime;
+    }
+
 }

@@ -25,15 +25,10 @@ import java.util.List;
  * Created by bruce.ge on 2016/11/7.
  */
 @Controller
-public class ArticleController implements MessageSourceAware{
-
-    private MessageSource messageSource;
+public class ArticleController{
 
     @Autowired
     private ContentMapper contentMapper;
-
-    @Autowired
-    private CommentPODao commentPODao;
 
     @Autowired
     private BlogProperty blogProperty;
@@ -50,45 +45,9 @@ public class ArticleController implements MessageSourceAware{
             //隐藏id在网页中
             //添加评论的内容 和窗口。
             //query by article id  try display the name and content.
-            CommentPO query = new CommentPO();
-            query.setArticle_id(id);
-            List<CommentPO> select =
-                    commentPODao.select(query);
-            Date now = new Date();
-            List<CommentVo> vos = FluentIterable.from(select).transform(new Function<CommentPO, CommentVo>() {
-                @Override
-                public CommentVo apply(CommentPO commentPO) {
-                    CommentVo vo = new CommentVo();
-                    vo.setComment(commentPO.getContent());
-                    vo.setName(commentPO.getUsername());
-                    //
-                    Date updatetime = commentPO.getUpdatetime();
-                    long pass = now.getTime()-updatetime.getTime();
-                    long days = pass / 24 / 1000/60 / 60;
-                    if(days>0){
-                        String daysbefore = messageSource.getMessage("daysbefore", new Object[]{}, blogProperty.getLocale());
-                        vo.setAgo(days+daysbefore);
-                    } else{
-                        long hours = pass/1000/60*60;
-                        if(hours>0){
-                            String hoursago = messageSource.getMessage("hoursbefore",new Object[]{},blogProperty.getLocale());
-                            vo.setAgo(hours+hoursago);
-                        } else {
-                            long minutes = pass/1000/60;
-                            String minuteAgo = messageSource.getMessage("minutesBefore",new Object[]{},blogProperty.getLocale());
-                            vo.setAgo(minutes+minuteAgo);
-                        }
-                    }
-                    return vo;
-                }
-            }).toList();
-            article.addObject("commentList", vos);
+
         }
         return article;
     }
 
-    @Override
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
 }

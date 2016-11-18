@@ -18,20 +18,17 @@
             </div>
             <div>
             <#if comment??>
+                <input type="hidden" id="com" value="${vo.id}"/>
                 <form id="commentform" action="/comment/${vo.id}">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" style="width:200;" placeholder="name" required="true"/>
-                        <textarea name="content" class="form-control" rows="3" required="true" placeholder="please input comment"></textarea>
+                        <input type="text" name="name" class="form-control" style="width:200;" placeholder="name"
+                               required="true"/>
+                        <textarea name="content" class="form-control" rows="3" required="true"
+                                  placeholder="please input comment"></textarea>
                     </div>
                     <button type="submit" class="btn btn-default">Send</button>
                 </form>
-                <div>
-                    <#list commentList as comm>
-                        <p>name:${comm.name}</p>
-                        <p>comment:${comm.comment}</p>
-                        <p>time:${comm.ago}</p>
-                    </#list>
-                </div>
+                <div id="firstcomment"></div>
             </#if>
             </div>
         </div>
@@ -41,6 +38,42 @@
 <#include "footer.ftl">
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //first get data from server to render the view.
+        //check if exist. then get data from server.
+        if ($("#com").length) {
+            var id = $("#com").val();
+            $.ajax({
+                type: 'POST',
+                url: '/getComment/' + id,
+                success: function (response) {
+                    if (response != 'error') {
+                        for (var i = 0; i < response.length; i++) {
+                            console.log(response[i]);
+                            var d = response[i];
+                            if (d['parentId'] <= 0) {
+                                $("#firstcomment").append("<div id=\"parent" + d["id"] + "\"><p> name:" + d['name'] + "   comment:" +
+                                        d['comment'] + "</div>" + "<div><button value=\"" + d["id"] + "\"class='reply'>reply</button>" +
+                                        "</div>"
+                                )
+                            } else {
+                                var parentid = "parent" + d['parentId'];
+                                $("#" + parentid).append("<div id=\"parent" + d["id"] + "\"><p> name:" + d['name'] + "    comment:" + d['comment'] + "</div>")
+                            }
+                        }
+                        $(".reply").click(function (e) {
+                            console.log("nimei");
+                        });
+                    } else {
+                        alert('nimabi buxing');
+                    }
+                }
+            });
+        }
 
+
+    })
+</script>
 </body>
 </html>
