@@ -1,5 +1,8 @@
 package com.rest.config;
 
+import org.apache.commons.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +14,8 @@ import java.util.Locale;
  */
 @Component
 public class BlogProperty {
+
+    private static Logger logger = LoggerFactory.getLogger(BlogProperty.class);
     @Value("${blog.comment}")
     private boolean comment;
 
@@ -21,10 +26,16 @@ public class BlogProperty {
     private Locale locale;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         String[] split = language.split("_");
-        locale = new Locale(split[0],split[1]);
+        if (split.length < 2) {
+            logger.error("blog propertis init not right, will set english as default");
+            locale = Locale.US;
+        } else {
+            locale = new Locale(split[0], split[1]);
+        }
     }
+
     public boolean isComment() {
         return comment;
     }

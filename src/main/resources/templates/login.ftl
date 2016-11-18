@@ -29,10 +29,10 @@
                         <div class="col-lg-12">
                             <form id="login-form" action="/login" method="post" role="form">
                                 <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" required="true">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="<@spring.message "username"/>" value="" required="true">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required="true">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="<@spring.message "password"/>" required="true">
                                 </div>
                                 <#--the default is remember-->
                                 <div class="form-group text-center">
@@ -66,14 +66,14 @@
 
                             <form id="register-form" action="/register" method="post" role="form" style="display: none;">
                                 <div class="form-group">
-                                    <input type="text" name="username" id="signup_username" tabindex="1" class="form-control" placeholder="username" value="" required="true">
+                                    <input type="text" name="username" id="signup_username" tabindex="1" class="form-control" placeholder="<@spring.message "username"/>" value="" required="true">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="signup_password" tabindex="2" class="form-control" placeholder="password" required="true">
+                                    <input type="password" name="password" id="signup_password" tabindex="2" class="form-control" placeholder="<@spring.message "password"/>" required="true">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" name="email" id="signup_password" tabindex="2" class="form-control" placeholder="email" required="true">
+                                    <input type="email" name="email" id="signup_password" tabindex="2" class="form-control" placeholder="<@spring.message "email"/>" required="true">
                                 </div>
                                 <#--todo can implement more like mobile phone number-->
                             <#--the default is remember-->

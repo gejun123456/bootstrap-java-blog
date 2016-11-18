@@ -21,14 +21,14 @@
 
             <form id="commentform" class="form-horizontal " action="/comment/${vo.id}">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Comment:</label>
+                    <label for="exampleInputEmail1"><@spring.message "Comment"/>:</label>
                     <input type="text" name="name" class="form-control" style="width:30%; margin-bottom: 10px;"
-                           placeholder="name"
+                           placeholder="<@spring.message "commentname"/>"
                            required="true"/>
                         <textarea name="content" class="form-control" rows="4" required="true"
-                                  placeholder="please input comment"></textarea>
+                                  placeholder="<@spring.message "commentContent"/>"></textarea>
 
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">add comment</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;"><@spring.message "addCommentButton"/></button>
                 </div>
             </form>
 
@@ -59,10 +59,10 @@
                                     <input type='hidden' name='articleId' value="${vo.id}">
                                     <input type='text' class='form-control' style="width:30%;margin-bottom: 10px;"
                                            name='name'
-                                           placeholder='name' required="true">
-                                    <input type='text' class='form-control' name='content' placeholder='comment'
+                                           placeholder='<@spring.message "commentname"/>' required="true">
+                                    <input type='text' class='form-control' name='content' placeholder='<@spring.message "commentContent"/>'
                                            required="true">
-                                    <button type='submit' class="btn btn-primary " >reply</button>
+                                    <button type='submit' class="btn btn-primary " ><@spring.message "commentReply"/></button>
                                 </form>
                             </div>
                         </div><!-- /panel panel-default -->
