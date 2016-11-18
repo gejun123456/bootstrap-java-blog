@@ -42,7 +42,7 @@ public class CommentController {
                           CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             logger.info("request error, the request is:{}", commentRequest.toString());
-            return "request error";
+            return "redirect:/getArticle/"+id;
         }
         //
         CommentPO po = CommentConvert.createPo(commentRequest, id);

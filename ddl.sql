@@ -33,3 +33,16 @@ CREATE TABLE `user_p_o` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='user_p_o';
 
 
+CREATE TABLE `comment_p_o` (
+  `id` int(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `article_id` int(12) NOT NULL DEFAULT '-1' COMMENT 'article_id',
+  `reply_id` int(12) NOT NULL DEFAULT '-1' COMMENT 'reply_id',
+  `username` varchar(50) NOT NULL DEFAULT '' COMMENT 'username',
+  `content` text NOT NULL COMMENT 'content',
+  `addtime` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'addtime',
+  `updatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updatetime',
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='comment_p_o';
+
+

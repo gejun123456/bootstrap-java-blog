@@ -1,7 +1,9 @@
 package com.rest.Request;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class CommentRequest {
 
     @NotNull
+    @Length(max = 50)
     private String name;
 
     @NotNull
