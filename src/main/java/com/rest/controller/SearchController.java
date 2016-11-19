@@ -28,6 +28,7 @@ public class SearchController {
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam("query") String query) throws ScanException, PolicyException {
         query = AntiSamyUtils.getCleanHtml(query);
+        //totally get data from lucene need to control if the file not in database.
         List<SearchResult> searchResults = searchService.query(query);
         List<QueryResultVo> resultVos = buildResultVo(searchResults);
         ModelAndView s = new ModelAndView("searchPage");
