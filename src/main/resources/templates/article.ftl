@@ -38,7 +38,7 @@
                     <div class="col-sm-1">
                         <div class="thumbnail">
                             <img class="img-responsive user-photo"
-                                 src="http://www.cnbeta.com/assets/default/images/anonymous.gif">
+                                 src="/static/img/anonymous.gif">
                         </div><!-- /thumbnail -->
                     </div><!-- /col-sm-1 -->
 

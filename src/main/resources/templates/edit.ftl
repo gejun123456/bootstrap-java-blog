@@ -14,10 +14,12 @@
 <script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script src="/static/js/mymarkdown.js"></script>
 <script>
     $(document).ready(function () {
         refresh();
+        $("#markdownform").validate();
         $('#form').submit(function (e) {
             if ($("#image_file").get(0).files.length == 0) {
                 //shall use with value of url
@@ -51,7 +53,12 @@
             e.preventDefault();
         })
 
-        $("#savebutton").click(function () {
+        $("#markdownform").submit(function (e) {
+            e.preventDefault();
+            var validate = $("#markdownform").valid();
+            if (!validate) {
+                return;
+            }
             var title = $("#source_title").val();
             var text = $("#source").val();
             console.log(title)
@@ -62,7 +69,7 @@
                 data: {
                     title: title,
                     sourceContent: text,
-                    id:$("#source_id").val()
+                    id: $("#source_id").val()
                 },
                 type: "POST",
                 dataType: "json",

@@ -13,11 +13,12 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <#--<script src="/js/bootstrap.min.js"></script>-->
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script src="/static/js/mymarkdown.js"></script>
 
 <script>
     $(document).ready(function () {
-
+        $("#markdownform").validate();
         $('#form').submit(function (e) {
             if ($("#image_file").get(0).files.length == 0) {
                 //shall use with value of url
@@ -52,11 +53,14 @@
         })
 
 
-        $("#savebutton").click(function () {
+        $("#markdownform").submit(function (e) {
+            e.preventDefault();
+            var validate = $("#markdownform").valid();
+            if (!validate) {
+                return;
+            }
             var title = $("#source_title").val();
             var text = $("#source").val();
-            console.log(title)
-            console.log(text);
 //            send ajax request to save the content.
             $.ajax({
                 url: "/addContent",
