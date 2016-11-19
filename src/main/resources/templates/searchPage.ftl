@@ -38,6 +38,6 @@
         return true;
     }
 </script>
-<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 </body>
 </html>
