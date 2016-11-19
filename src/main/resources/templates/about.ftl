@@ -1,6 +1,6 @@
 <html>
 <head>
-    <#include "head_header.ftl">
+<#include "head_header.ftl">
     <link href="/css/markdown.css" rel="stylesheet">
 </head>
 <body>
@@ -15,8 +15,8 @@
             <#--adddata to this position-->
                 <li>E-mail: <a href="mailto:gejun123456@gmail.com">gejun123456@gmail.com</a></li>
                 <li>Github：<a href="https://github.com/gejun123456">@gejun123456</a></li>
-                <#--test build.-->
+            <#--test build.-->
             </div>
-            <script src="/js/jquery-3.1.1.min.js"></script>
+            <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 </body>
 </html>

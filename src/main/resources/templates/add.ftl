@@ -8,10 +8,11 @@
 <#include "header.ftl">
 <#include "markdown.ftl">
 </body>
-<script src="/js/jquery-3.1.1.min.js"></script>
-<script src="/js/showdown.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/autosize.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<#--<script src="/js/bootstrap.min.js"></script>-->
+<script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
 <script src="/js/mymarkdown.js"></script>
 
 <script>

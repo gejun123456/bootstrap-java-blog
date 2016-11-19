@@ -79,8 +79,8 @@
 
 </div>
 <#include "footer.ftl">
-<script src="/js/jquery-3.1.1.min.js"></script>
-<script src="/js/jquery.validate.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $(".reply").click(function (e) {
