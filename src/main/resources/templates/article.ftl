@@ -1,8 +1,8 @@
 <html>
 <head>
 <#include "head_header.ftl">
-    <link href="/static/static/css/markdown.css" rel="stylesheet">
-    <link href="/static/static/css/comment.css" rel="stylesheet">
+    <link href="/static/css/markdown.css" rel="stylesheet">
+    <link href="/static/css/comment.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">
