@@ -1,7 +1,7 @@
 <html>
 <head>
 <#include "head_header.ftl">
-    <link href="/css/markdown.css" rel="stylesheet">
+    <link href="/static/css/markdown.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">

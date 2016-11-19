@@ -1,8 +1,8 @@
 <html>
 <head>
 <#include "head_header.ftl">
-    <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
-    <link href="/css/markdown.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-markdown.min.css" rel="stylesheet">
+    <link href="/static/css/markdown.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">
@@ -13,7 +13,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <#--<script src="/js/bootstrap.min.js"></script>-->
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
-<script src="/js/mymarkdown.js"></script>
+<script src="/static/js/mymarkdown.js"></script>
 
 <script>
     $(document).ready(function () {

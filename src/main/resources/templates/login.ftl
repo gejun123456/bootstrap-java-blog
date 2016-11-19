@@ -1,8 +1,8 @@
 <html>
 <head>
 <#include "head_header.ftl">
-    <link href="/css/login.css" rel="stylesheet">
-    <link href="/css/markdown.css" rel="stylesheet">
+    <link href="/static/css/login.css" rel="stylesheet">
+    <link href="/static/css/markdown.css" rel="stylesheet">
 </head>
 <div class="container">
     <#--todo shall fix the page.-->

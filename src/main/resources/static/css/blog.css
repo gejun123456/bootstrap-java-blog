@@ -19,6 +19,7 @@ h6, .h6 {
   color: #333;
 }
 
+/*test if still read from cache*/
 .footer {
   position: fixed;
   bottom: 0;
