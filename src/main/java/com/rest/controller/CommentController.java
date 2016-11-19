@@ -8,8 +8,11 @@ import com.rest.Request.ReplyCommentRequest;
 import com.rest.converter.CommentConvert;
 import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
+import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MessageSourceUtils;
 import com.rest.vo.CommentVo;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +42,17 @@ public class CommentController {
 
     @RequestMapping("/comment/{id}")
     public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
-                          CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                          CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws ScanException, PolicyException {
+        commentRequest.setContent(AntiSamyUtils.getCleanHtml(commentRequest.getContent()));
+        commentRequest.setName(AntiSamyUtils.getCleanHtml(commentRequest.getName()));
         if (bindingResult.hasErrors()) {
             logger.info("request error, the request is:{}", commentRequest.toString());
-            return "redirect:/getArticle/"+id;
+            return "redirect:/getArticle/" + id;
         }
         //
         CommentPO po = CommentConvert.createPo(commentRequest, id);
         commentPODao.insert(po);
-        return "redirect:/getArticle/"+id;
+        return "redirect:/getArticle/" + id;
     }
 
 
@@ -110,7 +115,7 @@ public class CommentController {
         List<CommentPO> select = commentPODao.select(query);
         if (select.size() == 0) {
             logger.info("can't find reply comment");
-            return "redirect:/getArticle/"+request.getArticleId();
+            return "redirect:/getArticle/" + request.getArticleId();
         }
         String username = select.get(0).getUsername();
 
@@ -122,7 +127,7 @@ public class CommentController {
         po.setUsername(request.getName());
         po.setContent("reply to  " + username + " : " + request.getContent());
         commentPODao.insert(po);
-        return "redirect:/getArticle/"+request.getArticleId();
+        return "redirect:/getArticle/" + request.getArticleId();
     }
 
 }

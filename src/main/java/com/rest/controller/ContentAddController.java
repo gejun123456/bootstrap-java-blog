@@ -8,8 +8,11 @@ import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
+import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MarkDownUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -36,8 +39,10 @@ public class ContentAddController {
     @RequestMapping("/addContent")
     @ResponseBody
     @NeedAuth
-    public boolean addContent(AddContentRequest request) {
+    public boolean addContent(AddContentRequest request) throws ScanException, PolicyException {
         //which shall redirect when ok.
+        request.setSourceContent(AntiSamyUtils.getCleanHtml(request.getSourceContent()));
+        request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.addContent(content);

@@ -10,7 +10,10 @@ import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
+import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MarkDownUtil;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +55,9 @@ public class EditController {
     @RequestMapping("editContent")
     @NeedAuth(AuthEnum.ADMIN)
     @ResponseBody
-    public boolean editContent(EditContentRequest request) {
+    public boolean editContent(EditContentRequest request) throws ScanException, PolicyException {
+        request.setSourceContent(AntiSamyUtils.getCleanHtml(request.getSourceContent()));
+        request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.updateContent(content);
