@@ -1,6 +1,5 @@
 package com.rest.scheduled;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduledTask {
 
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     public void backUpDatabase(){
         //try to dump the mysql database.
     }
