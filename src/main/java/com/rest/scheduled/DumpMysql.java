@@ -45,8 +45,8 @@ public class DumpMysql {
             logger.info("catch exception",e);
         }
     }
-
-    public static void main(String[] args) {
-        BackupDbtosql();
-    }
+//
+//    public static void main(String[] args) {
+//        BackupDbtosql();
+//    }
 }

@@ -41,11 +41,11 @@ public class UploadDemo {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        String path = UploadDemo.class.getClassLoader().getResource("logback-spring.xml").getPath().toString();
-        System.out.println(path);
-        new UploadDemo().upload(path, "a.xml");
-    }
+//    public static void main(String[] args) throws IOException {
+//        String path = UploadDemo.class.getClassLoader().getResource("logback-spring.xml").getPath().toString();
+//        System.out.println(path);
+//        new UploadDemo().upload(path, "a.xml");
+//    }
 
 
 }
