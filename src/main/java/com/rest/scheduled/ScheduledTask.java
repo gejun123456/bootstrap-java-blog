@@ -11,6 +11,6 @@ public class ScheduledTask {
 
     @Scheduled(fixedDelay = 5000)
     public void backUpDatabase(){
-        System.out.println("nimei");
+        //try to dump the mysql database.
     }
 }
