@@ -147,6 +147,12 @@
             <version>1.5.3</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -173,7 +179,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <jvmArguments>
-                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9898 -Djava.security.egd=file:/dev/./urandom
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9898
+                        -Djava.security.egd=file:/dev/./urandom
                     </jvmArguments>
                 </configuration>
             </plugin>
@@ -197,9 +204,13 @@
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
+                        <!--<goals> no need to generate log anymore.-->
+                        <!--<goal>generateChangeLog</goal>-->
+                        <!--</goals>-->
                         <goals>
-                            <goal>generateChangeLog</goal>
+                            <goal>update</goal>
                         </goals>
+
                     </execution>
                 </executions>
             </plugin>
