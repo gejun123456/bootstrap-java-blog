@@ -173,6 +173,22 @@
     </dependencies>
 
     <build>
+        <filters>
+            <filter>src/main/filters/filter.properties</filter>
+        </filters>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>liquibase.properties
+                    </include>
+                </includes>
+            </resource>
+        </resources>
+
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -199,7 +215,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.5.3</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <propertyFile>target/classes/liquibase.properties</propertyFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -232,6 +248,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
 
     </build>
 </project>
