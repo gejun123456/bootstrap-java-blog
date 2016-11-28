@@ -148,11 +148,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>3.5.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.liquibase</groupId>-->
+            <!--<artifactId>liquibase-core</artifactId>-->
+            <!--<version>3.5.3</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -210,26 +210,26 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.5.3</version>
-                <configuration>
-                    <propertyFile>target/classes/liquibase.properties</propertyFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <!--<goals> no need to generate log anymore.-->
-                        <!--<goal>generateChangeLog</goal>-->
+            <!--<plugin>-->
+                <!--<groupId>org.liquibase</groupId>-->
+                <!--<artifactId>liquibase-maven-plugin</artifactId>-->
+                <!--<version>3.5.3</version>-->
+                <!--<configuration>-->
+                    <!--<propertyFile>target/classes/liquibase.properties</propertyFile>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>process-resources</phase>-->
+                        <!--&lt;!&ndash;<goals> no need to generate log anymore.&ndash;&gt;-->
+                        <!--&lt;!&ndash;<goal>generateChangeLog</goal>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</goals>&ndash;&gt;-->
+                        <!--<goals>-->
+                            <!--<goal>update</goal>-->
                         <!--</goals>-->
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
 
-                    </execution>
-                </executions>
-            </plugin>
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
 
             <plugin>
                 <groupId>com.spotify</groupId>
