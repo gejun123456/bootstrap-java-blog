@@ -42,7 +42,7 @@ public class CommentController {
 
     @RequestMapping("/comment/{id}")
     public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
-                          CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws ScanException, PolicyException {
+                          CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         commentRequest.setContent(AntiSamyUtils.getCleanHtml(commentRequest.getContent()));
         commentRequest.setName(AntiSamyUtils.getCleanHtml(commentRequest.getName()));
         if (bindingResult.hasErrors()) {

@@ -5,9 +5,12 @@ import com.rest.Request.AddContentRequest;
 import com.rest.Request.EditContentRequest;
 import com.rest.constant.MarkDownConstant;
 import com.rest.domain.Content;
+import com.rest.utils.AntiSamyUtils;
 import com.rest.vo.ContentVo;
 import com.rest.vo.PageContentVo;
 import com.rest.utils.MarkDownUtil;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
@@ -52,11 +55,11 @@ public class ContentConverter {
     }
 
     //for store.
-    public static Content convertToContent(AddContentRequest request) {
+    public static Content convertToContent(AddContentRequest request) throws ScanException, PolicyException {
         Content content = new Content();
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());
-        content.setHtml_content(MarkDownUtil.convertToHtml(request.getSourceContent()));
+        content.setHtml_content(MarkDownUtil.convertToHtml(AntiSamyUtils.getCleanHtml(request.getSourceContent())));
         content.setIndex_content(convertToHeadContent(request.getSourceContent(), content.getHtml_content()));
         content.setAddtime(new Date());
         content.setUpdatetime(new Date());
@@ -71,7 +74,7 @@ public class ContentConverter {
             //could total get it from source. instead get it from database.
             String beformore = sourceContent.substring(0, getmore);
             beformore+="...";
-            return MarkDownUtil.convertToHtml(beformore);
+            return MarkDownUtil.convertToHtml(AntiSamyUtils.getCleanHtml(beformore));
         }
     }
 
@@ -81,7 +84,7 @@ public class ContentConverter {
         content.setId(request.getId());
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());
-        content.setHtml_content(MarkDownUtil.convertToHtml(request.getSourceContent()));
+        content.setHtml_content(MarkDownUtil.convertToHtml(AntiSamyUtils.getCleanHtml(request.getSourceContent())));
         content.setIndex_content(convertToHeadContent(request.getSourceContent(), content.getHtml_content()));
         content.setUpdatetime(new Date());
         return content;

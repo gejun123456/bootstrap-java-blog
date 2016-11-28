@@ -41,7 +41,6 @@ public class ContentAddController {
     @NeedAuth
     public boolean addContent(AddContentRequest request) throws ScanException, PolicyException {
         //which shall redirect when ok.
-        request.setSourceContent(AntiSamyUtils.getCleanHtml(request.getSourceContent()));
         request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
