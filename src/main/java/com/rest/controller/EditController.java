@@ -56,7 +56,6 @@ public class EditController {
     @NeedAuth(AuthEnum.ADMIN)
     @ResponseBody
     public boolean editContent(EditContentRequest request) throws ScanException, PolicyException {
-        request.setSourceContent(AntiSamyUtils.getCleanHtml(request.getSourceContent()));
         request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
