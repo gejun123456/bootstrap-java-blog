@@ -173,20 +173,20 @@
     </dependencies>
 
     <build>
-        <filters>
-            <filter>src/main/filters/filter.properties</filter>
-        </filters>
+        <!--<filters>-->
+            <!--<filter>src/main/filters/filter.properties</filter>-->
+        <!--</filters>-->
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>liquibase.properties
-                    </include>
-                </includes>
-            </resource>
-        </resources>
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<includes>-->
+                    <!--<include>liquibase.properties-->
+                    <!--</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
 
 
         <plugins>
