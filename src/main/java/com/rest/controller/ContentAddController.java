@@ -10,16 +10,13 @@ import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
 import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MarkDownUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 
 /**
@@ -52,7 +49,12 @@ public class ContentAddController {
         time.setContent_id(content.getId());
         contentTimeMapper.insert(time);
         //add data to lucene.
-        searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
+            }
+        }).start();
         return true;
     }
 

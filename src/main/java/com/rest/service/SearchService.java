@@ -11,7 +11,6 @@ import org.apache.lucene.document.*;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.highlight.*;
@@ -82,7 +81,7 @@ public class SearchService {
             indexWriter.addDocument(doc);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("doc add failed,", e);
+            logger.error("doc add failed, the title is {}, the content is {}", title, content, e);
         }
     }
 
@@ -150,12 +149,12 @@ public class SearchService {
         } catch (Exception e) {
             logger.error("query with {} catch exception", qs, e);
             return searchResults;
-        }finally {
-            if(indexReader!=null){
+        } finally {
+            if (indexReader != null) {
                 try {
                     indexReader.close();
                 } catch (IOException e) {
-                    logger.error("indexReaderClose catch exception",e);
+                    logger.error("indexReaderClose catch exception", e);
                 }
             }
         }
@@ -177,18 +176,18 @@ public class SearchService {
             indexWriter.addDocument(doc);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("doc add failed,", e);
+            logger.error("doc add failed, the doc id is {},the title is {} ,the content is {}", id, title, content, e);
         }
     }
 
 
-    public void delete(int id){
+    public void delete(int id) {
         Query query = IntPoint.newExactQuery(ID, id);
         try {
             indexWriter.deleteDocuments(query);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("delete failed, the id is {}",id,e);
+            logger.error("delete failed, the id is {}", id, e);
         }
     }
 }

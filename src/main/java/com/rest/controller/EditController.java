@@ -1,12 +1,10 @@
 package com.rest.controller;
 
-import com.rest.Request.AddContentRequest;
 import com.rest.Request.EditContentRequest;
 import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
-import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,9 +57,14 @@ public class EditController {
         Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.updateContent(content);
-
         //add data to lucene.
-        searchService.update(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
+        //shall using new thread to do the thing.
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                searchService.update(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
+            }
+        }).start();
         return true;
     }
 
