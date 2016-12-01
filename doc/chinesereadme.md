@@ -46,13 +46,8 @@ To Do list
 
 截图
 ---
-![index](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/index.png)
-![register](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/register.png)
-
-![search](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/search.png)
-
-![add_content](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/add_content.png)
-![archive](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/archive.png)
+![base](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/gif/base.gif)
+![add](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/gif/add.gif)
 
 
 讨论
