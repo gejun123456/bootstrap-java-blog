@@ -50,13 +50,10 @@ Custom
 
 Screenshots
 -----------
-![index](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/index.png)
-![register](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/register.png)
+![base](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/gif/base.gif)
+![add](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/gif/add.gif)
 
-![search](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/search.png)
 
-![add_content](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/add_content.png)
-![archive](https://github.com/gejun123456/bootstrap-java-blog/blob/master/screencut/archive.png)
 
 
 Discussion
