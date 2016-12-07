@@ -14,6 +14,7 @@ public class CommentPO {
     private Date addtime;
     private Date updatetime;
     private Short viewed;
+    private String comment_ip;
 
 
     public Short getViewed() {
@@ -22,6 +23,15 @@ public class CommentPO {
 
     public void setViewed(Short viewed) {
         this.viewed = viewed;
+    }
+
+
+    public String getComment_ip() {
+        return comment_ip;
+    }
+
+    public void setComment_ip(String comment_ip) {
+        this.comment_ip = comment_ip;
     }
 
     public Integer getId() {

@@ -4,7 +4,7 @@ package com.rest.bean;
  * Created by bruce.ge on 2016/11/13.
  */
 public class User {
-    private boolean login =false;
+    private boolean login = false;
 
     private int userId;
 

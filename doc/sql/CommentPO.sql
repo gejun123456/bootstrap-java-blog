@@ -9,5 +9,6 @@ CREATE TABLE comment_p_o(
     `addtime` DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'addtime',
     `updatetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updatetime',
     `viewed` tinyint NOT NULL DEFAULT -1 COMMENT 'viewed',
+    `comment_ip` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'comment_ip',
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'comment_p_o';

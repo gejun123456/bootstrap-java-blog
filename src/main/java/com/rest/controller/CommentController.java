@@ -9,6 +9,7 @@ import com.rest.converter.CommentConvert;
 import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
 import com.rest.utils.AntiSamyUtils;
+import com.rest.utils.HttpHeaderUtil;
 import com.rest.utils.MessageSourceUtils;
 import com.rest.vo.CommentVo;
 import org.owasp.validator.html.PolicyException;
@@ -50,7 +51,7 @@ public class CommentController {
             return "redirect:/getArticle/" + id;
         }
         //
-        CommentPO po = CommentConvert.createPo(commentRequest, id);
+        CommentPO po = CommentConvert.createPo(commentRequest, id, HttpHeaderUtil.getRemoteAddr(request));
         commentPODao.insert(po);
         return "redirect:/getArticle/" + id;
     }
