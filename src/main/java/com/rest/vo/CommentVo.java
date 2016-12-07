@@ -17,6 +17,19 @@ public class CommentVo {
     private Integer parentId;
 
     private Date addtime;
+
+//    if viewed than is 1 else is 0.
+    private Integer viewed;
+
+
+    public Integer getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(Integer viewed) {
+        this.viewed = viewed;
+    }
+
     public String getName() {
         return name;
     }

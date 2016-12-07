@@ -13,7 +13,16 @@ public class CommentPO {
     private String content;
     private Date addtime;
     private Date updatetime;
+    private Integer viewed;
 
+
+    public Integer getViewed() {
+        return viewed;
+    }
+
+    public void setViewed(Integer viewed) {
+        this.viewed = viewed;
+    }
 
     public Integer getId() {
         return id;

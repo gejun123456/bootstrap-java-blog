@@ -11,6 +11,7 @@
         <result column="content" property="content"/>
         <result column="addtime" property="addtime"/>
         <result column="updatetime" property="updatetime"/>
+        <result column="viewed" property="viewed"/>
     </resultMap>
 
 <!--auto generated Code-->
@@ -21,7 +22,8 @@
         username,
         content,
         addtime,
-        updatetime
+        updatetime,
+        viewed
     </sql>
 
 <!--auto generated Code-->
@@ -35,6 +37,7 @@
             <if test="pojo.content != null"> content, </if>
             <if test="pojo.addtime != null"> addtime, </if>
             <if test="pojo.updatetime != null"> updatetime, </if>
+            <if test="pojo.viewed != null"> viewed, </if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -45,6 +48,7 @@
             <if test="pojo.content != null"> #{pojo.content}, </if>
             <if test="pojo.addtime != null"> #{pojo.addtime}, </if>
             <if test="pojo.updatetime != null"> #{pojo.updatetime}, </if>
+            <if test="pojo.viewed != null"> #{pojo.viewed}, </if>
         </trim>
     </insert>
 
@@ -62,6 +66,7 @@
             #{pojo.content},
             #{pojo.addtime},
             #{pojo.updatetime}
+            #{pojo.viewed}
             )
         </foreach>
     </insert>
@@ -76,7 +81,8 @@
             <if test="pojo.username != null"> username = #{pojo.username}, </if>
             <if test="pojo.content != null"> content = #{pojo.content}, </if>
             <if test="pojo.addtime != null"> addtime = #{pojo.addtime}, </if>
-            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime} </if>
+            <if test="pojo.updatetime != null"> updatetime = #{pojo.updatetime}, </if>
+            <if test="pojo.viewed != null"> viewed = #{pojo.viewed} </if>
         </set>
          WHERE id = #{pojo.id}
     </update>
@@ -93,6 +99,7 @@
             <if test="pojo.content != null"> AND content = #{pojo.content} </if>
             <if test="pojo.addtime != null"> AND addtime = #{pojo.addtime} </if>
             <if test="pojo.updatetime != null"> AND updatetime = #{pojo.updatetime} </if>
+            <if test="pojo.viewed != null"> AND viewed = #{pojo.viewed} </if>
         </where>
     </select>
 
