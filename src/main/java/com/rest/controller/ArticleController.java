@@ -72,6 +72,7 @@ public class ArticleController {
                 vo.setId(commentPO.getId());
                 vo.setParentId(commentPO.getReply_id());
                 vo.setAddtime(commentPO.getUpdatetime());
+                vo.setViewed(commentPO.getViewed());
                 Date updatetime = commentPO.getUpdatetime();
                 long pass = now.getTime() - updatetime.getTime();
                 long days = pass / 24 / 1000 / 60 / 60;

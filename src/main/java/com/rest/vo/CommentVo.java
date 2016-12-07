@@ -18,15 +18,15 @@ public class CommentVo {
 
     private Date addtime;
 
-//    if viewed than is 1 else is 0.
-    private Integer viewed;
+    //    if viewed than is 1 else is 0.
+    private Short viewed;
 
 
-    public Integer getViewed() {
+    public Short getViewed() {
         return viewed;
     }
 
-    public void setViewed(Integer viewed) {
+    public void setViewed(Short viewed) {
         this.viewed = viewed;
     }
 
