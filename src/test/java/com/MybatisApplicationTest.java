@@ -1,5 +1,6 @@
 package com;
 
+import basic.AbstractTest;
 import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
 import com.rest.domain.UserPO;
@@ -17,12 +18,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 /**
  * Created by bruce.ge on 2016/10/23.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = SampleController.class)
-public class MybatisApplicationTest{
+public class MybatisApplicationTest extends AbstractTest{
     @ClassRule
     public static OutputCapture out = new OutputCapture();
 
@@ -35,6 +36,7 @@ public class MybatisApplicationTest{
 
     @Autowired
     private UserPODao userPODao;
+
 
     @Test
     public void testInsert(){
@@ -55,6 +57,11 @@ public class MybatisApplicationTest{
         time.setContent_id(6);
         int insert = contentTimeMapper.insert(time);
         System.out.println(insert);
+    }
+
+    @Test
+    public void testApo(){
+
     }
 
 
