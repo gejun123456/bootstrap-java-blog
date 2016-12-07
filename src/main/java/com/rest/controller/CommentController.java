@@ -105,7 +105,7 @@ public class CommentController {
 
 
     @RequestMapping("/reply")
-    public String reply(ReplyCommentRequest request, BindingResult bindingResult) {
+    public String reply(ReplyCommentRequest request, BindingResult bindingResult,HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
             logger.info("binding result error the request is {}", request.toString());
             return "failed";
@@ -126,6 +126,7 @@ public class CommentController {
         po.setArticle_id(request.getArticleId());
         po.setUpdatetime(new Date());
         po.setUsername(request.getName());
+        po.setComment_ip(HttpHeaderUtil.getRemoteAddr(servletRequest));
         po.setContent("reply to  " + username + " : " + request.getContent());
         commentPODao.insert(po);
         return "redirect:/getArticle/" + request.getArticleId();
