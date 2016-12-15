@@ -27,7 +27,7 @@ public class ExecutionInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        String remoteAddr = httpServletRequest.getHeader("X-Forwarded-For");
+        String remoteAddr = httpServletRequest.getRemoteAddr();
         String requestURI = httpServletRequest.getRequestURI();
         long endTime = System.currentTimeMillis();
         //the controller might riderect so there is nothing.

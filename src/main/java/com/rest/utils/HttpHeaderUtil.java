@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpHeaderUtil {
     public static String getRemoteAddr(HttpServletRequest request) {
-        String remoteAddr = request.getHeader("X-Forwarded-For");
+        String remoteAddr = request.getRemoteAddr();
         return remoteAddr;
     }
 }
