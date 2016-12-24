@@ -10,15 +10,14 @@ buildscript {
     }
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'idea'
 
-
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 
 
@@ -59,5 +58,5 @@ dependencies {
 }
 
 
-group = 'upwork.start'
+group = 'com.bruce.startblog'
 version = '1.0'
