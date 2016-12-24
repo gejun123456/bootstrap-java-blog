@@ -1,18 +1,15 @@
 package com.rest.controller;
 
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.rest.converter.AriveConverter;
 import com.rest.domain.Archives;
-import com.rest.domain.Content;
-import com.rest.domain.ContentTime;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.vo.ArchiveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,7 +26,7 @@ public class ArchivesController {
     @Autowired
     private ContentMapper contentMapper;
 
-    @RequestMapping("/archive")
+    @GetMapping("/archive")
     public ModelAndView getArchive(){
         List<Integer> years = Lists.newArrayList();
         List<String> yearStrings = Lists.newArrayList();

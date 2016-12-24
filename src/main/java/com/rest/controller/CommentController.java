@@ -2,7 +2,6 @@ package com.rest.controller;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Lists;
 import com.rest.Request.CommentRequest;
 import com.rest.Request.ReplyCommentRequest;
 import com.rest.converter.CommentConvert;
@@ -12,15 +11,13 @@ import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.HttpHeaderUtil;
 import com.rest.utils.MessageSourceUtils;
 import com.rest.vo.CommentVo;
-import org.owasp.validator.html.PolicyException;
-import org.owasp.validator.html.ScanException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,7 +38,7 @@ public class CommentController {
     private MessageSourceUtils messageSourceUtils;
     private static Logger logger = LoggerFactory.getLogger(CommentController.class);
 
-    @RequestMapping("/comment/{id}")
+    @GetMapping("/comment/{id}")
     public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
                           CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         commentRequest.setContent(AntiSamyUtils.getCleanHtml(commentRequest.getContent()));
@@ -58,7 +55,7 @@ public class CommentController {
 
 
     @Deprecated
-    @RequestMapping("/getComment/{articleId}")
+    @GetMapping("/getComment/{articleId}")
     @ResponseBody
     public List<CommentVo> getComments(@PathVariable("articleId") int articleId) {
         CommentPO query = new CommentPO();
@@ -104,7 +101,7 @@ public class CommentController {
     }
 
 
-    @RequestMapping("/reply")
+    @GetMapping("/reply")
     public String reply(ReplyCommentRequest request, BindingResult bindingResult,HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
             logger.info("binding result error the request is {}", request.toString());

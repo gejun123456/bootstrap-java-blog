@@ -14,7 +14,8 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Calendar;
@@ -33,7 +34,7 @@ public class ContentAddController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping("/addContent")
+    @PostMapping("/addContent")
     @ResponseBody
     @NeedAuth
     public boolean addContent(AddContentRequest request) throws ScanException, PolicyException {
@@ -59,7 +60,7 @@ public class ContentAddController {
     }
 
     @NeedAuth(redirectBack = true)
-    @RequestMapping("/add")
+    @GetMapping("/add")
     public String addPage() {
         return "add";
     }

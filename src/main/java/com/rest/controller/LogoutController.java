@@ -2,7 +2,7 @@ package com.rest.controller;
 
 import com.rest.constant.SessionConstants;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class LogoutController {
-    @RequestMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         session.removeAttribute(SessionConstants.USER);
         session.removeAttribute(SessionConstants.AUTHBACKPAGE);

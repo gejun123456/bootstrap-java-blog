@@ -10,7 +10,7 @@ import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +25,7 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public ModelAndView search(@RequestParam("query") String query) throws ScanException, PolicyException {
         query = AntiSamyUtils.getCleanHtml(query);
         //totally get data from lucene need to control if the file not in database.

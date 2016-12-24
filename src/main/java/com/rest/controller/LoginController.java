@@ -7,12 +7,12 @@ import com.rest.converter.UserConverter;
 import com.rest.domain.UserPO;
 import com.rest.service.LoginService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     private LoginService loginService;
-    @RequestMapping("/login")
+    @PostMapping("/login")
     // should check wiht data. //get some common validator. for basic login. try to add some.
     public String login(HttpSession session, HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password")String password,
                         @RequestParam(value = "remember",required = false) String remember){
@@ -63,7 +63,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping("/loginPage")
+    @GetMapping("/loginPage")
     public String loginPage(ModelMap modelMap,@RequestParam(value = "fail",required = false) String fail){
         if(StringUtils.isNotBlank(fail)) {
             modelMap.addAttribute("logindd", "login fail, please input right message");

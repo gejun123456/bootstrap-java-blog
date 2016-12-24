@@ -10,10 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -25,7 +22,7 @@ import java.util.List;
 public class PageListController {
     @Autowired
     private ContentMapper contentMapper;
-    @RequestMapping("/getPage")
+    @GetMapping("/getPage")
     //穿一个page参数
     public List<PageContentVo> getList(@RequestParam("page") int page, @RequestParam(value = "pagesize",defaultValue = "10") int pageSize){
         //shiro test code.
@@ -43,14 +40,14 @@ public class PageListController {
         return pageContentVos;
     }
 
-    @RequestMapping("/getpagecount")
+    @GetMapping("/getpagecount")
     public int getPageCount(@RequestParam(value = "pagesize",defaultValue = "10") int pageSize){
         int count = contentMapper.getCount();
         return count/pageSize;
     }
 
 
-    @RequestMapping("/page/{pageNo}")
+    @GetMapping("/page/{pageNo}")
     public ModelAndView getPage(@PathVariable("pageNo") int pageNo){
         List<PageContentVo> pageContentVos = Lists.newArrayList();
         int pageSize =5;

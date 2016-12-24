@@ -14,9 +14,7 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
@@ -35,7 +33,7 @@ public class EditController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     @NeedAuth(AuthEnum.ADMIN)
 //todo.    when two people edit the same article, how to inform each other. add lock to database?
     public ModelAndView edit(@PathVariable("id") int id) {
@@ -49,7 +47,7 @@ public class EditController {
     }
 
 
-    @RequestMapping("editContent")
+    @PostMapping("editContent")
     @NeedAuth(AuthEnum.ADMIN)
     @ResponseBody
     public boolean editContent(EditContentRequest request) throws ScanException, PolicyException {
@@ -68,7 +66,7 @@ public class EditController {
         return true;
     }
 
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     @NeedAuth(AuthEnum.ADMIN)
     public String delete(@PathVariable("id") int id) {
         Content content = new Content();

@@ -1,6 +1,7 @@
-package com.rest.mapper;
+package com.rest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -8,17 +9,26 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 
 /**
- * Created by bruce.ge on 2016/11/16.
+ * Created by bruce.ge on 2016/10/23.
  */
 @Configuration
-@Profile("production")
-public class ProductionDbConfig {
+@Profile("dev")
+public class DevDbConfig {
+    @Value("${db.url}")
+    private String dbUrl;
+
+    @Value("${db.username}")
+    private String dbUsername;
+
+    @Value("${db.password}")
+    private String password;
+
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8");
-        druidDataSource.setUsername("bruce");
-        druidDataSource.setPassword("root");
+        druidDataSource.setUrl(dbUrl);
+        druidDataSource.setUsername(dbUsername);
+        druidDataSource.setPassword(password);
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);
         druidDataSource.setMaxActive(20);

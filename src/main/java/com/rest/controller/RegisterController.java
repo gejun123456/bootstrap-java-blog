@@ -10,7 +10,7 @@ import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +37,7 @@ public class RegisterController {
         }
     }
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     @ResponseBody
     public String register(@Valid RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
