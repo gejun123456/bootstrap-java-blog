@@ -6,10 +6,15 @@ import com.rest.bean.UserBuilder;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
 import com.rest.mapper.UserPODao;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,6 +27,7 @@ import java.util.List;
  * Created by bruce.ge on 2016/11/14.
  */
 @Controller
+@Api(value = "用户注册服务")
 public class RegisterController {
     @Autowired
     private UserPODao userPODao;
@@ -37,9 +43,11 @@ public class RegisterController {
         }
     }
 
+    @ApiOperation("注册用户")
     @PostMapping("/register")
+    @ApiResponses({@ApiResponse(code = 200,message = "success"),@ApiResponse(code = 555,message = "fail")})
     @ResponseBody
-    public String register(@Valid RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
+    public String register(@Valid @ModelAttribute RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "check failed, please reinput";
         }

@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.schema.WildcardType;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -42,7 +40,9 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
+        return new Docket(DocumentationType.SWAGGER_2).groupName("my java blog apis").
+                apiInfo(apiInfo()).
+                select()
                 .apis(Predicates.or(RequestHandlerSelectors.withClassAnnotation(RestController.class),
                         RequestHandlerSelectors.withMethodAnnotation(ResponseBody.class), RequestHandlerSelectors.withClassAnnotation(ResponseBody.class)))
                 .apis(Predicates.not(RequestHandlerSelectors.withClassAnnotation(SwaggerIgnore.class)))
@@ -53,6 +53,17 @@ public class SwaggerConfig {
                         Lists.newArrayList(new ResponseMessageBuilder().code(500).message("500 message").responseModel(new ModelRef("Error"))
                                 .build())).securitySchemes(Lists.newArrayList(apiKey())).securityContexts(Lists.newArrayList(Lists.newArrayList(securityContext())))
                 .tags(new Tag("my bootstrap blog", "All api relating to blog"));
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Bootstrap java blog rest api")
+                .description("providing api for bootstrap blog like register use, add content ect")
+                .termsOfServiceUrl("https://brucege.com")
+//                .license("Apache License Version 2.0")
+//                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                .version("2.0")
+                .build();
     }
 
 
