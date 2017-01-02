@@ -1,7 +1,5 @@
 package com.rest.domain;
 
-import org.springframework.context.annotation.Bean;
-
 /**
  * Created by bruce.ge on 2016/11/13.
  */
@@ -19,6 +17,7 @@ public class UserPO {
     private String cryptpasswod;
 
     private String passwordcookie;
+
     public Integer getId() {
         return id;
     }
@@ -59,7 +58,6 @@ public class UserPO {
     public void setCryptpasswod(String cryptpasswod) {
         this.cryptpasswod = cryptpasswod;
     }
-
 
     public String getPasswordcookie() {
         return passwordcookie;

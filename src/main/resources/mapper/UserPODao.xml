@@ -3,15 +3,6 @@
 <mapper namespace="com.rest.mapper.UserPODao">
 
 <!--auto generated Code-->
-    <!--<resultMap id="AllColumnMap" type="com.rest.domain.UserPO">-->
-        <!--<result column="id" property="id"/>-->
-        <!--<result column="username" property="username"/>-->
-        <!--<result column="mobile" property="mobile"/>-->
-        <!--<result column="email" property="email"/>-->
-        <!--<result column="cryptpasswod" property="cryptpasswod"/>-->
-    <!--</resultMap>-->
-
-<!--auto generated Code-->
     <resultMap id="AllColumnMap" type="com.rest.domain.UserPO">
         <result column="id" property="id"/>
         <result column="auth" property="auth"/>
