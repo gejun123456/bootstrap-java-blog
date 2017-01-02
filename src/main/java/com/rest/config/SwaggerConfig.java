@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
-import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
@@ -41,7 +42,9 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(Predicates.not(RequestHandlerSelectors.withClassAnnotation(SwaggerIgnore.class)))
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(Predicates.and(Predicates.or(RequestHandlerSelectors.withClassAnnotation(RestController.class),
+                        RequestHandlerSelectors.withMethodAnnotation(ResponseBody.class)), Predicates.not(RequestHandlerSelectors.withClassAnnotation(SwaggerIgnore.class))))
                 .paths(PathSelectors.any()).build()
                 .pathMapping("/").directModelSubstitute(LocalDate.class, String.class).genericModelSubstitutes(ResponseEntity.class)
                 .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(DeferredResult.class, typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
