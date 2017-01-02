@@ -10,6 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by bruce.ge on 2016/11/6.
  */
-@RestController
+@Controller
 public class PageListController {
     @Autowired
     private ContentMapper contentMapper;

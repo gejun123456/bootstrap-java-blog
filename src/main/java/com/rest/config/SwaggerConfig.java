@@ -43,15 +43,16 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(Predicates.and(Predicates.or(RequestHandlerSelectors.withClassAnnotation(RestController.class),
-                        RequestHandlerSelectors.withMethodAnnotation(ResponseBody.class)), Predicates.not(RequestHandlerSelectors.withClassAnnotation(SwaggerIgnore.class))))
+                .apis(Predicates.or(RequestHandlerSelectors.withClassAnnotation(RestController.class),
+                        RequestHandlerSelectors.withMethodAnnotation(ResponseBody.class), RequestHandlerSelectors.withClassAnnotation(ResponseBody.class)))
+                .apis(Predicates.not(RequestHandlerSelectors.withClassAnnotation(SwaggerIgnore.class)))
                 .paths(Predicates.not(PathSelectors.regex("^/error$"))).build()
                 .pathMapping("/").directModelSubstitute(LocalDate.class, String.class).genericModelSubstitutes(ResponseEntity.class)
                 .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(DeferredResult.class, typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
                         typeResolver.resolve(WildcardType.class))).useDefaultResponseMessages(false).globalResponseMessage(RequestMethod.GET,
                         Lists.newArrayList(new ResponseMessageBuilder().code(500).message("500 message").responseModel(new ModelRef("Error"))
                                 .build())).securitySchemes(Lists.newArrayList(apiKey())).securityContexts(Lists.newArrayList(Lists.newArrayList(securityContext())))
-                .enableUrlTemplating(true).tags(new Tag("my bootstrap blog", "All api relating to blog"));
+                .tags(new Tag("my bootstrap blog", "All api relating to blog"));
     }
 
 

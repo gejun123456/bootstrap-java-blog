@@ -59,12 +59,8 @@ dependencies {
     compile (group: 'com.qiniu', name: 'qiniu-java-sdk', version:'7.2.2'){
         exclude group:'com.google.code.gson' ,module: 'gson'
     }
-
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
-
-    
     testCompile('org.springframework.boot:spring-boot-starter-test')
-
 }
 
 
