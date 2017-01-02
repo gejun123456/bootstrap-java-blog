@@ -17,19 +17,17 @@ public class LoginService {
     @Autowired
     private UserPODao userPODao;
 
-    public UserPO login(String userName, String password){
+    public UserPO login(String userName, String password) {
         //logged to system.
         //todo shall add with database.
-        UserPO query = new UserPO();
-        query.setUsername(userName);
-        List<UserPO> select = userPODao.select(query);
-        if(select.size()==0){
+        List<UserPO> select = userPODao.findByUsername(userName);
+        if (select.size() == 0) {
             return null;
         }
         //find from database.  //when it signed, it saved into the database.
         UserPO selected = select.get(0);
         boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
-        if(checkpw){
+        if (checkpw) {
             UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
                     .withEmail(selected.getEmail()).withAuth(selected.getAuth());
             return userDtoBuilder.build();
@@ -37,9 +35,9 @@ public class LoginService {
         return null;
     }
 
-//todo the cookie shall alway stay the same, shall change base on time. store in database to check.
+    //todo the cookie shall alway stay the same, shall change base on time. store in database to check.
 //    try store cookie value in database. then use it to check.
-    public UserPO loginByCookie(String userName, String password){
+    public UserPO loginByCookie(String userName, String password) {
         //logged to system.
         //to check if it equal to the value.
         //todo shall add with database.
@@ -47,7 +45,7 @@ public class LoginService {
         query.setUsername(userName);
         query.setPasswordcookie(password);
         List<UserPO> select = userPODao.select(query);
-        if(select.size()==0){
+        if (select.size() == 0) {
             return null;
         }
         UserPO selected = select.get(0);
@@ -59,10 +57,6 @@ public class LoginService {
 
     //update cookie value in database.
     public void updateCookie(String random, Integer id) {
-        UserPO po = new UserPO();
-        //default为""
-        po.setId(id);
-        po.setPasswordcookie(random);
-        userPODao.update(po);
+        userPODao.updatePasswordcookieById(random, id);
     }
 }

@@ -14,10 +14,11 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Calendar;
 
 /**
  * Created by bruce.ge on 2016/11/13.
@@ -52,17 +53,11 @@ public class EditController {
     @ResponseBody
     public boolean editContent(EditContentRequest request) throws ScanException, PolicyException {
         request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
-        Calendar calendar = Calendar.getInstance();
         Content content = ContentConverter.convertToContent(request);
         contentMapper.updateContent(content);
         //add data to lucene.
         //shall using new thread to do the thing.
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                searchService.update(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId());
-            }
-        }).start();
+        new Thread(() -> searchService.update(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId())).start();
         return true;
     }
 

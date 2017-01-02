@@ -12,6 +12,15 @@
     <!--</resultMap>-->
 
 <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.rest.domain.UserPO">
+        <result column="id" property="id"/>
+        <result column="auth" property="auth"/>
+        <result column="username" property="username"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="cryptpasswod" property="cryptpasswod"/>
+        <result column="passwordcookie" property="passwordcookie"/>
+    </resultMap>
     <sql id="all_column">
         id,
         username,
@@ -102,4 +111,24 @@
     <delete id="delete">
         DELETE FROM user_p_o where id = #{pojo.id}
     </delete>
+    <update id="updatePasswordcookieById">
+        update user_p_o
+        set `passwordcookie`=#{updatedPasswordcookie}
+        where `id`=#{id}
+    </update>
+
+
+    <select id="findByUsername" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from user_p_o
+        where `username`=#{username}
+    </select>
+
+    <select id="findByUsernameAndCryptpasswod" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from user_p_o
+        where `username`=#{username} and `cryptpasswod`=#{cryptpasswod}
+    </select>
 </mapper>
