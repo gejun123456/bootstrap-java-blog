@@ -48,9 +48,7 @@ public class SwaggerConfig {
                         typeResolver.resolve(WildcardType.class))).useDefaultResponseMessages(false).globalResponseMessage(RequestMethod.GET,
                         Lists.newArrayList(new ResponseMessageBuilder().code(500).message("500 message").responseModel(new ModelRef("Error"))
                                 .build())).securitySchemes(Lists.newArrayList(apiKey())).securityContexts(Lists.newArrayList(Lists.newArrayList(securityContext())))
-                .enableUrlTemplating(true).globalOperationParameters(Lists.newArrayList(new ParameterBuilder()
-                        .name("someGlobalParameter").description("Desciption of someGlobalParameter").modelRef(new ModelRef("string")).parameterType("query")
-                        .required(true).build())).tags(new Tag("my bootstrap blog", "All api relating to blog"));
+                .enableUrlTemplating(true).tags(new Tag("my bootstrap blog", "All api relating to blog"));
     }
 
 

@@ -28,8 +28,8 @@ Installation
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - config your database and language in `src\main\resources\application.properties`
 - cd bootstrap-java-blog
-- mvn clean package
-- java -jar target/attchment-1.0.jar
+- gradlew clean build -x test
+- java -jar build/libs/bootstrap.javablog.jar
 - open localhost:8080 to see if works right.
 
 Quick Start

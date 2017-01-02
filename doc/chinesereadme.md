@@ -23,8 +23,8 @@
 - 运行 git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - 在 `src\main\resources\application.properties` 配置数据库和语言
 - cd bootstrap-java-blog
-- mvn clean package
-- java -jar target/attchment-1.0.jar
+- gradlew clean build -x test
+- java -jar build/libs/bootstrap.javablog.jar
 - 打开localhost:8080 查看是否运行正确
 
 快速开始
