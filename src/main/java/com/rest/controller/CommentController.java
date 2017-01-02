@@ -58,10 +58,8 @@ public class CommentController {
     @GetMapping("/getComment/{articleId}")
     @ResponseBody
     public List<CommentVo> getComments(@PathVariable("articleId") int articleId) {
-        CommentPO query = new CommentPO();
-        query.setArticle_id(articleId);
         java.util.List<CommentPO> select =
-                commentPODao.select(query);
+                commentPODao.findByArticleId(articleId);
         Date now = new Date();
         java.util.List<CommentVo> vos = FluentIterable.from(select).transform(new Function<CommentPO, CommentVo>() {
             @Override
@@ -108,14 +106,12 @@ public class CommentController {
             return "failed";
         }
         Integer replyCommentId = request.getReplyCommentId();
-        CommentPO query = new CommentPO();
-        query.setId(replyCommentId);
-        List<CommentPO> select = commentPODao.select(query);
-        if (select.size() == 0) {
+        CommentPO select = commentPODao.findById(replyCommentId);
+        if (select==null) {
             logger.info("can't find reply comment");
             return "redirect:/getArticle/" + request.getArticleId();
         }
-        String username = select.get(0).getUsername();
+        String username = select.getUsername();
 
         CommentPO po = new CommentPO();
         po.setAddtime(new Date());

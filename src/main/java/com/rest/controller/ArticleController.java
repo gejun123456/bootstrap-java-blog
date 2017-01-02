@@ -55,11 +55,9 @@ public class ArticleController {
         return article;
     }
 
-    private List<CommentVo> getCommentVos(int id) {
-        CommentPO query = new CommentPO();
-        query.setArticle_id(id);
+    private List<CommentVo> getCommentVos(int articleId) {
         List<CommentPO> select =
-                commentPODao.select(query);
+                commentPODao.findByArticleId(articleId);
         Date now = new Date();
         return FluentIterable.from(select).transform(new Function<CommentPO, CommentVo>() {
             @Override

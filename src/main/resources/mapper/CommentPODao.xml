@@ -114,4 +114,21 @@
     <delete id="delete">
         DELETE FROM comment_p_o where id = #{pojo.id}
     </delete>
+
+
+    <select id="findByArticleId" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from comment_p_o
+        where `article_id`=#{article_id}
+    </select>
+
+
+    <select id="findById" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from comment_p_o
+        where `id`=#{id}
+    </select>
+
 </mapper>

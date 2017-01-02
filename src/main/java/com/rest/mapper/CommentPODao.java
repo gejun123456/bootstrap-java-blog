@@ -1,9 +1,10 @@
 package com.rest.mapper;
 
+import com.rest.domain.CommentPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
-import com.rest.domain.CommentPO;
 @Mapper
 public interface CommentPODao {
 
@@ -11,11 +12,9 @@ public interface CommentPODao {
 
     int insertList(@Param("pojos") List< CommentPO> pojo);
 
-    List<CommentPO> select(@Param("pojo") CommentPO pojo);
+    CommentPO findById(@Param("id")Integer id);
 
-    int update(@Param("pojo") CommentPO pojo);
-
+    List<CommentPO> findByArticleId(@Param("article_id")Integer article_id);
 
     int delete(int id);
-
 }
