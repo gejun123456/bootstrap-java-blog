@@ -20,6 +20,30 @@ public class Content {
 
     private String index_content;
 
+
+//    the use who wrote the article
+    private String userId;
+
+    //the article status.
+    private Integer status;
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

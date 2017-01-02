@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface ContentMapper {
+
     int addContent(Content content);
 
     List<Content> getPage(@Param("start") int start,@Param("limit") int limit);
@@ -22,4 +23,8 @@ public interface ContentMapper {
     int updateContent(@Param("pojo") Content content);
 
     int deletebyId(@Param("pojo")Content content);
+
+    int updateStatusById(@Param("updatedStatus")Integer updatedStatus,@Param("id")Integer id);
+
+    String findUserIdById(@Param("id")Integer id);
 }
