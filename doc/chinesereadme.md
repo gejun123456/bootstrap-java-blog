@@ -19,7 +19,6 @@
 安装
 ---
 - 安装mysql
-- mysql 运行链接里的sql [https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql](https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql "https://github.com/gejun123456/bootstrap-java-blog/blob/master/ddl.sql") to your database.
 - 运行 git clone https://github.com/gejun123456/bootstrap-java-blog.git  
 - 在 `src\main\resources\application.properties` 配置数据库和语言
 - cd bootstrap-java-blog
