@@ -36,6 +36,8 @@
         ,`status`
         FROM content
     </sql>
+
+
     <insert id="addContent" useGeneratedKeys="true" keyProperty="id">
         insert INTO content(title,source_content,html_content,index_content,`user_id`
         ,`status`,updatetime,addtime) VALUES
@@ -57,8 +59,9 @@
         DELETE FROM content where id = #{pojo.id}
     </delete>
 
-    <select id="getPage" resultType="com.rest.domain.Content">
+    <select id="getPageWithStatus" resultType="com.rest.domain.Content">
         <include refid="select"></include>
+        WHERE `status` = #{status}
         ORDER BY addtime desc limit #{start},#{limit}
     </select>
 

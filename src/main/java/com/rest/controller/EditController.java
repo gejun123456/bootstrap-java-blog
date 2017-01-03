@@ -5,6 +5,7 @@ import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
+import com.rest.enums.StatusEnum;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
@@ -64,9 +65,8 @@ public class EditController {
     @GetMapping("/delete/{id}")
     @NeedAuth(AuthEnum.ADMIN)
     public String delete(@PathVariable("id") int id) {
-        Content content = new Content();
-        content.setId(id);
-        contentMapper.deletebyId(content);
+        //shall not delete it.
+        contentMapper.updateStatusById(StatusEnum.INVALID.getValue(), id);
         contentTimeMapper.deleteByContentId(id);
         searchService.delete(id);
         return "redirect:/";

@@ -3,6 +3,7 @@ package com.rest.controller;
 import com.google.common.collect.Lists;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
+import com.rest.enums.StatusEnum;
 import com.rest.vo.PageContentVo;
 import com.rest.mapper.ContentMapper;
 import org.apache.shiro.SecurityUtils;
@@ -23,53 +24,54 @@ import java.util.List;
 public class PageListController {
     @Autowired
     private ContentMapper contentMapper;
+
     @GetMapping("/getPage")
     //穿一个page参数
-    public List<PageContentVo> getList(@RequestParam("page") int page, @RequestParam(value = "pagesize",defaultValue = "10") int pageSize){
+    public List<PageContentVo> getList(@RequestParam("page") int page, @RequestParam(value = "pagesize", defaultValue = "10") int pageSize) {
         //shiro test code.
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
-        if(currentUser.isAuthenticated()){
-            UsernamePasswordToken token = new UsernamePasswordToken("aaa","bbb");
+        if (currentUser.isAuthenticated()) {
+            UsernamePasswordToken token = new UsernamePasswordToken("aaa", "bbb");
             token.setRememberMe(true);
             currentUser.login(token);
         }
-        int start = (page-1)*pageSize;
+        int start = (page - 1) * pageSize;
         int limit = pageSize;
-        List<Content> pages = contentMapper.getPage(start, limit);
+        List<Content> pages = contentMapper.getPageWithStatus(StatusEnum.ACTIVE.getValue(), start, limit);
         List<PageContentVo> pageContentVos = ContentConverter.convetToPageDto(pages);
         return pageContentVos;
     }
 
     @GetMapping("/getpagecount")
-    public int getPageCount(@RequestParam(value = "pagesize",defaultValue = "10") int pageSize){
+    public int getPageCount(@RequestParam(value = "pagesize", defaultValue = "10") int pageSize) {
         int count = contentMapper.getCount();
-        return count/pageSize;
+        return count / pageSize;
     }
 
 
     @GetMapping("/page/{pageNo}")
-    public ModelAndView getPage(@PathVariable("pageNo") int pageNo){
+    public ModelAndView getPage(@PathVariable("pageNo") int pageNo) {
         List<PageContentVo> pageContentVos = Lists.newArrayList();
-        int pageSize =5;
+        int pageSize = 5;
         int count = contentMapper.getCount();
-        int totalPagecount=(count-1)/pageSize+1;
+        int totalPagecount = (count - 1) / pageSize + 1;
         ModelAndView s = new ModelAndView("index");
-        if(pageNo>totalPagecount||pageNo<=0){
+        if (pageNo > totalPagecount || pageNo <= 0) {
             s.addObject("contents", pageContentVos);
             return s;
         }
-        int start = (pageNo-1)*pageSize;
+        int start = (pageNo - 1) * pageSize;
         int limit = pageSize;
-        List<Content> pages = contentMapper.getPage(start, limit);
+        List<Content> pages = contentMapper.getPageWithStatus(StatusEnum.ACTIVE.getValue(), start, limit);
         pageContentVos = ContentConverter.convetToPageDto(pages);
         s.addObject("contents", pageContentVos);
-        int prevous = pageNo-1;
-        int next = pageNo+1;
-        if(prevous>0) {
+        int prevous = pageNo - 1;
+        int next = pageNo + 1;
+        if (prevous > 0) {
             s.addObject("previousLink", "/page/" + prevous);
         }
-        if(next<=totalPagecount) {
+        if (next <= totalPagecount) {
             s.addObject("nextLink", "/page/" + next);
         }
         return s;
