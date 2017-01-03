@@ -1,6 +1,7 @@
 package com.rest.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.rest.utils.DbUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,12 +24,13 @@ public class DevDbConfig {
     @Value("${db.password}")
     private String password;
 
-    @Bean(initMethod = "init",destroyMethod = "close")
-    public DataSource createDateSource(){
+    @Bean(initMethod = "init", destroyMethod = "close")
+    public DataSource createDateSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(dbUrl);
         druidDataSource.setUsername(dbUsername);
         druidDataSource.setPassword(password);
+        DbUtils.checkOrCreateTables(dbUrl, dbUsername, password);
         druidDataSource.setInitialSize(3);
         druidDataSource.setMinIdle(1);
         druidDataSource.setMaxActive(20);
