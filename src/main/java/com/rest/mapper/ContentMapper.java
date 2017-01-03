@@ -27,4 +27,6 @@ public interface ContentMapper {
     int updateStatusById(@Param("updatedStatus") Integer updatedStatus, @Param("id") Integer id);
 
     String findUserIdById(@Param("id") Integer id);
+
+    List<Content> findByUserId(@Param("userId")Integer userId);
 }

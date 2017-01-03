@@ -8,8 +8,8 @@ import java.util.Date;
 /**
  * Created by bruce.ge on 2016/11/6.
  */
-@Getter
 @Setter
+@Getter
 public class Content {
     private Integer id;
 
