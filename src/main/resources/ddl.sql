@@ -17,13 +17,7 @@
 
 --
 -- Table structure for table `a_p_o`
-
-CREATE DATABASE IF NOT EXISTS world;
-
-
-USE world;
 --
-
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE IF NOT EXISTS `a_p_o` (

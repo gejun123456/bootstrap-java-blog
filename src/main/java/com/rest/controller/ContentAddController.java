@@ -2,6 +2,7 @@ package com.rest.controller;
 
 import com.rest.Request.AddContentRequest;
 import com.rest.annotation.NeedAuth;
+import com.rest.bean.User;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.domain.ContentTime;
@@ -10,6 +11,7 @@ import com.rest.mapper.ContentTimeMapper;
 import com.rest.service.SearchService;
 import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MarkDownUtil;
+import com.rest.utils.SessionUtils;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,13 @@ public class ContentAddController {
         //which shall redirect when ok.
         request.setTitle(AntiSamyUtils.getCleanHtml(request.getTitle()));
         Calendar calendar = Calendar.getInstance();
-        Content content = ContentConverter.convertToContent(request);
+        User currentUser =
+                SessionUtils.getCurrentUser();
+        if (currentUser == null) {
+            //todo never shall happen.
+            return false;
+        }
+        Content content = ContentConverter.convertToContent(request,currentUser);
         contentMapper.addContent(content);
         ContentTime time = new ContentTime();
         time.setYear(calendar.get(Calendar.YEAR));

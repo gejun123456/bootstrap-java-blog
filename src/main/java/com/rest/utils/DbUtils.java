@@ -39,9 +39,8 @@ public class DbUtils {
             throw new RuntimeException("connection close catch exception", e);
         }
     }
-
-
-    public static void main(String[] args) {
-        DbUtils.checkOrCreateTables("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8", "root", "");
-    }
+//
+//    public static void main(String[] args) {
+//        DbUtils.checkOrCreateTables("jdbc:mysql://localhost/?serverTimezone=GMT%2b8", "root", "");
+//    }
 }

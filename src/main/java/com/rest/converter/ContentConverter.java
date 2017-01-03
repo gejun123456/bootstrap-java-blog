@@ -3,8 +3,10 @@ package com.rest.converter;
 import com.google.common.collect.Lists;
 import com.rest.Request.AddContentRequest;
 import com.rest.Request.EditContentRequest;
+import com.rest.bean.User;
 import com.rest.constant.MarkDownConstant;
 import com.rest.domain.Content;
+import com.rest.enums.StatusEnum;
 import com.rest.utils.AntiSamyUtils;
 import com.rest.vo.ContentVo;
 import com.rest.vo.PageContentVo;
@@ -43,7 +45,7 @@ public class ContentConverter {
         dto.setLink(buildLink(s));
         dto.setStartDate(dateFormat.format(s.getAddtime()));
         //means addmore to check with the thing.
-        dto.setAddMore(s.getHtml_content().length()!=s.getIndex_content().length());
+        dto.setAddMore(s.getHtml_content().length() != s.getIndex_content().length());
         dto.setId(s.getId());
         return dto;
     }
@@ -55,7 +57,7 @@ public class ContentConverter {
     }
 
     //for store.
-    public static Content convertToContent(AddContentRequest request) throws ScanException, PolicyException {
+    public static Content convertToContent(AddContentRequest request, User user) throws ScanException, PolicyException {
         Content content = new Content();
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());
@@ -63,6 +65,8 @@ public class ContentConverter {
         content.setIndex_content(convertToHeadContent(request.getSourceContent(), content.getHtml_content()));
         content.setAddtime(new Date());
         content.setUpdatetime(new Date());
+        content.setUserId(user.getUserId());
+        content.setStatus(StatusEnum.ACTIVE.getValue());
         return content;
     }
 
@@ -73,7 +77,7 @@ public class ContentConverter {
         } else {
             //could total get it from source. instead get it from database.
             String beformore = sourceContent.substring(0, getmore);
-            beformore+="...";
+            beformore += "...";
             return MarkDownUtil.convertToHtml(AntiSamyUtils.getCleanHtml(beformore));
         }
     }
