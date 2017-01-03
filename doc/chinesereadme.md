@@ -13,7 +13,6 @@
 ----
 - git
 - jdk8
-- maven
 - mysql
 
 安装

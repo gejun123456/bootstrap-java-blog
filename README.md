@@ -16,7 +16,6 @@ Requirements
 ------------
 - git
 - jdk8
-- maven
 - mysql
 
 That's all, base package of java web environment!
