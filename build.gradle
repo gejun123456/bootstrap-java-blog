@@ -22,16 +22,48 @@ targetCompatibility = 1.8
 
 
 repositories {
-     mavenLocal()
-     maven { url "http://repo.maven.apache.org/maven2" }
+    mavenLocal()
+    maven { url "http://repo.maven.apache.org/maven2" }
 }
 
 ext {
     luceneVersion = '6.2.1'
     swaggerVersion = '2.6.1'
+    logbackVersion = '1.1.8'
 }
 
+configurations {
+//    移除logj依赖 使用slf4j+logj
+    all*.exclude group: 'log4j', module: 'log4j'
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-core'
+    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+    //移除api依赖 使用log4j-slf4j的adapter
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-api'
+
+}
+
+
+//configurations.all {
+//    resolutionStrategy {
+//        // fail eagerly on version conflict (includes transitive dependencies)
+//        // e.g. multiple different versions of the same dependency (group and name are equal)
+////        failOnVersionConflict()
+//        // prefer modules that are part of this build (multi-project or composite build) over external modules
+////        preferProjectModules()
+//        force 'ch.qos.logback:logback-classic:1.1.7'
+//    }
+//}
+
+
 dependencies {
+    compile(group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion) {
+        force = true
+    }
+//    加force没啥意义 默认第一层
+    compile (group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion){
+        force = true
+    }
     compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
     compile group: 'com.alibaba', name: 'druid', version: '1.0.27'
@@ -42,27 +74,27 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-validation')
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
-    compile group: 'com.getsentry.raven', name: 'raven-logback', version:'7.8.0'
-    compile group: 'org.hibernate', name: 'hibernate-validator', version:'5.2.4.Final'
-    compile group: 'com.alibaba', name: 'druid', version:'1.0.26'
-    compile group: 'com.google.guava', name: 'guava', version:'20.0'
-    compile group: 'com.atlassian.commonmark', name: 'commonmark', version:'0.7.1'
-    compile group: 'org.mozilla', name: 'rhino', version:'1.7.7.1'
-    compile group: 'org.pegdown', name: 'pegdown', version:'1.6.0'
-    compile group: 'org.apache.lucene', name: 'lucene-core', version:luceneVersion
-    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version:luceneVersion
-    compile group: 'org.apache.lucene', name: 'lucene-highlighter', version:luceneVersion
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.5'
-    compile group: 'org.owasp.antisamy', name: 'antisamy', version:'1.5.3'
-    compile group: 'org.apache.shiro', name: 'shiro-web', version:'1.3.2'
-    compile group: 'org.jodd', name: 'jodd-core', version:'3.8.0'
+    compile group: 'com.getsentry.raven', name: 'raven-logback', version: '7.8.0'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.4.Final'
+    compile group: 'com.alibaba', name: 'druid', version: '1.0.26'
+    compile group: 'com.google.guava', name: 'guava', version: '20.0'
+    compile group: 'com.atlassian.commonmark', name: 'commonmark', version: '0.7.1'
+    compile group: 'org.mozilla', name: 'rhino', version: '1.7.7.1'
+    compile group: 'org.pegdown', name: 'pegdown', version: '1.6.0'
+    compile group: 'org.apache.lucene', name: 'lucene-core', version: luceneVersion
+    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: luceneVersion
+    compile group: 'org.apache.lucene', name: 'lucene-highlighter', version: luceneVersion
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    compile group: 'org.owasp.antisamy', name: 'antisamy', version: '1.5.3'
+    compile group: 'org.apache.shiro', name: 'shiro-web', version: '1.3.2'
+    compile group: 'org.jodd', name: 'jodd-core', version: '3.8.0'
     compile('commons-io:commons-io:2.5')
-    compile (group: 'com.qiniu', name: 'qiniu-java-sdk', version:'7.2.2'){
-        exclude group:'com.google.code.gson' ,module: 'gson'
-    }
+    compile(group: 'com.qiniu', name: 'qiniu-java-sdk', version: '7.2.2')
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+
 
 
 group = 'com.bruce.startblog'
