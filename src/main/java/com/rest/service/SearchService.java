@@ -2,6 +2,7 @@ package com.rest.service;
 
 
 import com.google.common.collect.Lists;
+import com.rest.annotation.ExecutionTime;
 import com.rest.constant.LuceneFieldConstant;
 import com.rest.dto.SearchResult;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ public class SearchService {
         log.info("successfully closed");
     }
 
+    @ExecutionTime
     public void addSource(String title, String content, int id) {
         //there must time to show.
         Document doc = new Document();
@@ -84,6 +86,7 @@ public class SearchService {
         }
     }
 
+    @ExecutionTime
     public List<SearchResult> query(String qs) {
         List<SearchResult> searchResults = Lists.newArrayList();
         DirectoryReader indexReader = null;
@@ -159,6 +162,7 @@ public class SearchService {
         }
     }
 
+    @ExecutionTime
     public void update(String title, String content, int id) {
         Document doc = new Document();
         //add field title,id, and content.
@@ -179,7 +183,7 @@ public class SearchService {
         }
     }
 
-
+    @ExecutionTime
     public void delete(int id) {
         Query query = IntPoint.newExactQuery(ID, id);
         try {

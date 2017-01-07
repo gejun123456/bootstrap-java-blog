@@ -1,15 +1,15 @@
 package com.rest.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Created by bruce.ge on 2017/1/8.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD,ElementType.TYPE})
+// TODO: 2017/1/8 consider if i shall support with type
+@Target({ElementType.METHOD})
+@Inherited
+@Documented
 public @interface ExecutionTime {
 
 }

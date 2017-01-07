@@ -2,6 +2,7 @@ package com.rest.controller;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.rest.annotation.ExecutionTime;
 import com.rest.converter.AriveConverter;
 import com.rest.domain.Archives;
 import com.rest.mapper.ContentMapper;
@@ -27,6 +28,7 @@ public class ArchivesController {
     private ContentMapper contentMapper;
 
     @GetMapping("/archive")
+    @ExecutionTime
     public ModelAndView getArchive(){
         List<Integer> years = Lists.newArrayList();
         List<String> yearStrings = Lists.newArrayList();

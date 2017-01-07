@@ -1,5 +1,6 @@
 package com.rest.mapper;
 
+import com.rest.annotation.ExecutionTime;
 import com.rest.domain.Archives;
 import com.rest.domain.ContentTime;
 import org.apache.ibatis.annotations.Mapper;

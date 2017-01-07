@@ -3,16 +3,15 @@ package com.rest.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Created by bruce.ge on 2016/11/13.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD,ElementType.TYPE})
+@Inherited
+@Documented
 public @interface NeedAuth {
     String redirectPage() default "/loginPage";
     @AliasFor("auth")
