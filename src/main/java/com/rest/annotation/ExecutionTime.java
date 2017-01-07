@@ -12,4 +12,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface ExecutionTime {
 
+    boolean logToDatabase() default false;
+    /*log args when time are over the time unit is ms*/
+    int logArgsTime() default 1000;
+
+    boolean onlyLogOverTime() default false;
+
+    int logOverTime() default 1000;
 }

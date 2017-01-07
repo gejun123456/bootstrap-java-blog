@@ -1,0 +1,23 @@
+package com.rest.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * Created by bruce.ge on 2017/1/8.
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class DatabaseLogEvent {
+    private String className;
+
+    private String methodName;
+
+    private String argsValue;
+
+    private long executionTime;
+}

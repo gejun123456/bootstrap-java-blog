@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rest.mapper.ExecutionTimeLogDao">
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.rest.domain.ExecutionTimeLog">
+        <result column="id" property="id"/>
+        <result column="class_name" property="className"/>
+        <result column="method_name" property="methodName"/>
+        <result column="execution_time" property="executionTime"/>
+        <result column="args_value" property="argsValue"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `class_name`,
+        `method_name`,
+        `execution_time`,
+        `args_value`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <!--insert shall not use with test to generate.-->
+    <insert id="insert">
+        INSERT INTO `execution_time_log`
+        (`class_name`, `method_name`, `execution_time`, `args_value`, `create_time`) values
+        (#{pojo.className},#{pojo.methodName}, #{pojo.executionTime}, #{pojo.argsValue}, #{pojo.createTime})
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO `execution_time_log`(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.className},
+            #{pojo.methodName},
+            #{pojo.executionTime},
+            #{pojo.argsValue},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE `execution_time_log`
+        <set>
+            <if test="pojo.id != null">`id` = #{pojo.id},</if>
+            <if test="pojo.className != null">`class_name` = #{pojo.className},</if>
+            <if test="pojo.methodName != null">`method_name` = #{pojo.methodName},</if>
+            <if test="pojo.executionTime != null">`execution_time` = #{pojo.executionTime},</if>
+            <if test="pojo.argsValue != null">`args_value` = #{pojo.argsValue},</if>
+            <if test="pojo.createTime != null">`create_time` = #{pojo.createTime}</if>
+        </set>
+        WHERE `id` = #{pojo.id}
+    </update>
+</mapper>
