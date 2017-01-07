@@ -32,6 +32,24 @@ ext {
     logbackVersion = '1.1.8'
 }
 
+//configurations.all {
+//    resolutionStrategy {
+//        // fail eagerly on version conflict (includes transitive dependencies)
+//        // e.g. multiple different versions of the same dependency (group and name are equal)
+////        failOnVersionConflict()
+//        // prefer modules that are part of this build (multi-project or composite build) over external modules
+////        preferProjectModules()
+//        //由于使用了springboot插件，加force也没用。  直接放到compile里第一层就相当于force了。
+//        force 'ch.qos.logback:logback-classic:1.1.7'
+//    }
+//}
+
+configurations.all {
+    resolutionStrategy {
+        force "org.springframework:spring-core:3.2.3.RELEASE"
+    }
+}
+
 configurations {
 //    移除logj依赖 使用slf4j+logj
     all*.exclude group: 'log4j', module: 'log4j'
@@ -44,26 +62,18 @@ configurations {
 }
 
 
-//configurations.all {
-//    resolutionStrategy {
-//        // fail eagerly on version conflict (includes transitive dependencies)
-//        // e.g. multiple different versions of the same dependency (group and name are equal)
-////        failOnVersionConflict()
-//        // prefer modules that are part of this build (multi-project or composite build) over external modules
-////        preferProjectModules()
-//        force 'ch.qos.logback:logback-classic:1.1.7'
-//    }
-//}
 
 
 dependencies {
-    compile(group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion) {
+
+    compile(group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion) /*{
         force = true
-    }
-//    加force没啥意义 默认第一层
-    compile (group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion){
+    }*/
+//    加force是否有意义？ 由于使用了springboot插件 会自动设置第一层的依赖为force
+//    不使用该插件则需要加force
+    compile (group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion)/*{
         force = true
-    }
+    }*/
     compile group: 'io.springfox', name: 'springfox-swagger2', version: swaggerVersion
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: swaggerVersion
     compile group: 'com.alibaba', name: 'druid', version: '1.0.27'
@@ -92,10 +102,8 @@ dependencies {
     compile(group: 'com.qiniu', name: 'qiniu-java-sdk', version: '7.2.2')
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
 }
-
-
-
 
 group = 'com.bruce.startblog'
 version = '1.0'
