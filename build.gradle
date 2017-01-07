@@ -10,8 +10,6 @@ buildscript {
     }
 }
 
-
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -82,6 +80,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-freemarker')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')
     compile('org.springframework.boot:spring-boot-starter-validation')
+    compile('org.springframework.boot:spring-boot-starter-aop')
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
     compile group: 'com.getsentry.raven', name: 'raven-logback', version: '7.8.0'

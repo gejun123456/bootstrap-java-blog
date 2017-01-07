@@ -15,6 +15,22 @@
             <MaxFileSize>10MB</MaxFileSize>
         </triggeringPolicy>
     </appender>
+
+    <appender name="executionTime"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>logs/executionTime.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/executionTime.log.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
     <springProfile name="production">
         <appender name="Sentry" class="com.getsentry.raven.logback.SentryAppender">
             <dsn>https://7242adf5355c48afa78204877df42eec:bf4f524364fd43d89b854414d465c0e8@sentry.io/115055?options
@@ -34,6 +50,10 @@
     <springProfile name="dev">
         <logger name="access" level="DEBUG" additivity="false">
             <appender-ref ref="access"/>
+        </logger>
+
+        <logger name="executionTime" level="DEBUG" additivity="false">
+            <appender-ref ref="executionTime"/>
         </logger>
     </springProfile>
 

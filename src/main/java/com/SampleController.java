@@ -2,20 +2,18 @@ package com;
 
 import com.rest.config.BlogProperty;
 import com.rest.storage.StorageService;
-import org.apache.tomcat.util.descriptor.LocalResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
@@ -29,11 +27,17 @@ import java.util.Locale;
 @Controller
 @EnableAutoConfiguration
 @Configuration
+//@ComponentScan(basePackages = {"com.rest.config", "com.rest.controller", "com.rest.service",
+//        "com.rest.aop", "com.rest.mapper", "com.rest.service", "com.rest.storage",
+//        "com.rest.intercetors"
+//})
 @ComponentScan
+@EnableAspectJAutoProxy
 public class SampleController {
 
     @Autowired
     private BlogProperty blogProperty;
+
     @RequestMapping("/")
     String home() {
         return "forward:/page/1";
@@ -62,7 +66,7 @@ public class SampleController {
         return resourceBundleMessageSource;
     }
 
-//    the bean name shall be this.
+    //    the bean name shall be this.
     @Bean
     public LocaleResolver localeResolver() {
         FixedLocaleResolver fixedLocaleResolver = new FixedLocaleResolver(blogProperty.getLocale());

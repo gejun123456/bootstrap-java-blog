@@ -4,6 +4,7 @@ package com.rest.service;
 import com.google.common.collect.Lists;
 import com.rest.constant.LuceneFieldConstant;
 import com.rest.dto.SearchResult;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -17,8 +18,6 @@ import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.parboiled.common.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -36,8 +35,8 @@ import static com.rest.constant.LuceneFieldConstant.*;
  * Created by bruce.ge on 2016/11/7.
  */
 @Service
+@Slf4j
 public class SearchService {
-    private static Logger logger = LoggerFactory.getLogger(SearchService.class);
     private Analyzer analyzer;
 
     private Directory directory;
@@ -50,7 +49,7 @@ public class SearchService {
 
     @PostConstruct
     public void init() throws IOException {
-        logger.info("start init lucene service");
+        log.info("start init lucene service");
         analyzer = new StandardAnalyzer();
         //没问题 生成一个directory
         directory = FSDirectory.open(Paths.get("/tmp/testindex"));
@@ -60,9 +59,9 @@ public class SearchService {
 
     @PreDestroy
     public void destroy() throws IOException {
-        logger.info("start destroy lucene service");
+        log.info("start destroy lucene service");
         indexWriter.close();
-        logger.info("successfully closed");
+        log.info("successfully closed");
     }
 
     public void addSource(String title, String content, int id) {
@@ -81,7 +80,7 @@ public class SearchService {
             indexWriter.addDocument(doc);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("doc add failed, the title is {}, the content is {}", title, content, e);
+            log.error("doc add failed, the title is {}, the content is {}", title, content, e);
         }
     }
 
@@ -141,20 +140,20 @@ public class SearchService {
 
                     searchResults.add(result);
                 } catch (Exception e) {
-                    logger.error("doc catch exception, the docId is {} the title is:{}", doc.get(LuceneFieldConstant.STOREDID), doc.get(LuceneFieldConstant.TITLE), e);
+                    log.error("doc catch exception, the docId is {} the title is:{}", doc.get(LuceneFieldConstant.STOREDID), doc.get(LuceneFieldConstant.TITLE), e);
                 }
             }
 
             return searchResults;
         } catch (Exception e) {
-            logger.error("query with {} catch exception", qs, e);
+            log.error("query with {} catch exception", qs, e);
             return searchResults;
         } finally {
             if (indexReader != null) {
                 try {
                     indexReader.close();
                 } catch (IOException e) {
-                    logger.error("indexReaderClose catch exception", e);
+                    log.error("indexReaderClose catch exception", e);
                 }
             }
         }
@@ -176,7 +175,7 @@ public class SearchService {
             indexWriter.addDocument(doc);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("doc add failed, the doc id is {},the title is {} ,the content is {}", id, title, content, e);
+            log.error("doc add failed, the doc id is {},the title is {} ,the content is {}", id, title, content, e);
         }
     }
 
@@ -187,7 +186,7 @@ public class SearchService {
             indexWriter.deleteDocuments(query);
             indexWriter.commit();
         } catch (IOException e) {
-            logger.error("delete failed, the id is {}", id, e);
+            log.error("delete failed, the id is {}", id, e);
         }
     }
 }

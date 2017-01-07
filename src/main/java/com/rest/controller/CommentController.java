@@ -9,7 +9,7 @@ import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
 import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.HttpHeaderUtil;
-import com.rest.utils.MessageSourceUtils;
+import com.rest.service.MessageSourceService;
 import com.rest.vo.CommentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class CommentController {
     private CommentPODao commentPODao;
 
     @Autowired
-    private MessageSourceUtils messageSourceUtils;
+    private MessageSourceService messageSourceService;
     private static Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @GetMapping("/comment/{id}")
@@ -74,16 +74,16 @@ public class CommentController {
                 long pass = now.getTime() - updatetime.getTime();
                 long days = pass / 24 / 1000 / 60 / 60;
                 if (days > 0) {
-                    String daysbefore = messageSourceUtils.getMessage("daysbefore");
+                    String daysbefore = messageSourceService.getMessage("daysbefore");
                     vo.setAgo(days + " " + daysbefore);
                 } else {
                     long hours = pass / 1000 / 60 * 60;
                     if (hours > 0) {
-                        String hoursago = messageSourceUtils.getMessage("hoursbefore");
+                        String hoursago = messageSourceService.getMessage("hoursbefore");
                         vo.setAgo(hours + " " + hoursago);
                     } else {
                         long minutes = pass / 1000 / 60;
-                        String minuteAgo = messageSourceUtils.getMessage("minutesBefore");
+                        String minuteAgo = messageSourceService.getMessage("minutesBefore");
                         vo.setAgo(minutes + " " + minuteAgo);
                     }
                 }

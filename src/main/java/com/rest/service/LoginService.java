@@ -36,14 +36,11 @@ public class LoginService {
 
     //todo the cookie shall alway stay the same, shall change base on time. store in database to check.
 //    try store cookie value in database. then use it to check.
-    public UserPO loginByCookie(String userName, String password) {
+    public UserPO loginByCookie(String userName, String passwordCookie) {
         //logged to system.
         //to check if it equal to the value.
         //todo shall add with database.
-        UserPO query = new UserPO();
-        query.setUsername(userName);
-        query.setPasswordcookie(password);
-        List<UserPO> select = userPODao.select(query);
+        List<UserPO> select = userPODao.findByUsernameAndPasswordcookie(userName,passwordCookie);
         if (select.size() == 0) {
             return null;
         }

@@ -50,10 +50,8 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return "check failed, please reinput";
         }
-        UserPO query = new UserPO();
-        query.setUsername(registerRequest.getUsername());
         List<UserPO> select =
-                userPODao.select(query);
+                userPODao.findByUsername(registerRequest.getUsername());
         if (select.size() != 0) {
             return "user exist, please input other name";
         } else {

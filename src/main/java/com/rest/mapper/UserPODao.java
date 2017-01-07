@@ -16,7 +16,6 @@ public interface UserPODao {
 
     List<UserPO> findByUsername(@Param("username")String username);
 
-
     List<UserPO> findByUsernameAndCryptpasswod(@Param("username")String username,@Param("cryptpasswod")String cryptpasswod);
 
     int update(@Param("pojo") UserPO pojo);
@@ -26,4 +25,6 @@ public interface UserPODao {
     int delete(@Param("pojo") int id);
 
     int getCount();
+
+    List<UserPO> findByUsernameAndPasswordcookie(@Param("username")String username,@Param("passwordcookie")String passwordcookie);
 }

@@ -1,4 +1,4 @@
-package com.rest.utils;
+package com.rest.service;
 
 import com.rest.config.BlogProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * Created by bruce.ge on 2016/11/18.
  */
 @Component
-public class MessageSourceUtils implements MessageSourceAware{
+public class MessageSourceService implements MessageSourceAware{
     private MessageSource messageSource;
 
     @Autowired
