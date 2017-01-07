@@ -1,7 +1,6 @@
 package com.rest.service;
 
 import com.rest.domain.UserPO;
-import com.rest.dto.UserDtoBuilder;
 import com.rest.mapper.UserPODao;
 import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,9 @@ public class LoginService {
         UserPO selected = select.get(0);
         boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
         if (checkpw) {
-            UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
-                    .withEmail(selected.getEmail()).withAuth(selected.getAuth());
-            return userDtoBuilder.build();
+            UserPO.UserPOBuilder builder = UserPO.builder().id(selected.getId()).mobile(selected.getMobile()).username(selected.getUsername())
+                    .email(selected.getEmail()).auth(selected.getAuth());
+            return builder.build();
         }
         return null;
     }
@@ -49,9 +48,8 @@ public class LoginService {
             return null;
         }
         UserPO selected = select.get(0);
-        UserDtoBuilder userDtoBuilder = UserDtoBuilder.anUserDto().withId(selected.getId()).withMobile(selected.getMobile()).withUsername(selected.getUsername())
-                .withEmail(selected.getEmail()).withAuth(selected.getAuth());
-        return userDtoBuilder.build();
+        return UserPO.builder().id(selected.getId()).mobile(selected.getMobile()).username(selected.getUsername())
+                .email(selected.getEmail()).auth(selected.getAuth()).build();
 
     }
 

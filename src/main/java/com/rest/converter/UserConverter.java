@@ -1,7 +1,6 @@
 package com.rest.converter;
 
 import com.rest.bean.User;
-import com.rest.bean.UserBuilder;
 import com.rest.domain.UserPO;
 
 /**
@@ -9,11 +8,11 @@ import com.rest.domain.UserPO;
  */
 public class UserConverter {
     public static User convertToUser(UserPO userPO) {
-        return UserBuilder.anUser().
-                withAdmin(userPO.getAuth()==1)
-                .withLogin(true).
-                        withUserId(userPO.getId()).
-                        withUserName(userPO.getUsername())
-                .build();
+        User user = new User();
+        user.setLogin(true);
+        user.setUserId(userPO.getId());
+        user.setUserName(userPO.getUsername());
+        user.setAdmin(userPO.getAuth() == 1);
+        return user;
     }
 }

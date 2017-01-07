@@ -1,15 +1,13 @@
 package com.rest.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * Created by bruce.ge on 2016/11/6.
  */
-@Setter
-@Getter
+@Data
 public class Content {
     private Integer id;
 

@@ -2,7 +2,6 @@ package com.rest.controller;
 
 import com.rest.Request.RegisterRequest;
 import com.rest.bean.User;
-import com.rest.bean.UserBuilder;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
 import com.rest.mapper.UserPODao;
@@ -32,20 +31,20 @@ public class RegisterController {
     @Autowired
     private UserPODao userPODao;
 
-    private static int tableExist = 0;
+    private static int existUser = 0;
 
     @PostConstruct
     public void init() {
         //go to check the talbe contains content.
         int count = userPODao.getCount();
         if (count > 0) {
-            tableExist = 1;
+            existUser = 1;
         }
     }
 
     @ApiOperation("注册用户")
     @PostMapping("/register")
-    @ApiResponses({@ApiResponse(code = 200,message = "success"),@ApiResponse(code = 555,message = "fail")})
+    @ApiResponses({@ApiResponse(code = 200, message = "success"), @ApiResponse(code = 555, message = "fail")})
     @ResponseBody
     public String register(@Valid @ModelAttribute RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
@@ -64,16 +63,16 @@ public class RegisterController {
             po.setCryptpasswod(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt()));
             int insert = 0;
             po.setAuth(0);
-            if (tableExist == 0) {
+            if (existUser == 0) {
                 synchronized (this.getClass()) {
-                    if (tableExist == 0) {
+                    if (existUser == 0) {
                         //第一个创建的用户权限为admin
                         po.setAuth(1);
                         //只有插入成功了才行。
                         //这个阶段不可能出错。
                         insert = userPODao.insert(po);
                         //add with session.
-                        tableExist = 1;
+                        existUser = 1;
                     } else {
                         //可能出出错
                         insert = userPODao.insert(po);
@@ -81,13 +80,11 @@ public class RegisterController {
                 }
             } else {
                 //可能会出错
-                insert= userPODao.insert(po);
+                insert = userPODao.insert(po);
             }
-
             if (insert == 1) {
-                User user = UserBuilder.anUser().
-                        withLogin(true).withUserName(po.getUsername()).withUserId(po.getId()).withAdmin(po.getAuth() == 1).build();
-                session.setAttribute(SessionConstants.USER, user);
+                User sessionUser = User.builder().login(true).userName(po.getUsername()).userId(po.getId()).admin(po.getAuth() == 1).build();
+                session.setAttribute(SessionConstants.USER, sessionUser);
             } else {
                 return "user exist, please input other name";
             }
