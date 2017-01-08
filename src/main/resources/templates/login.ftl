@@ -124,9 +124,9 @@
                 type:'POST',
                 data:$("#register-form").serialize(),
                 url:'/register',
-                success: function (data) {
-                    if(data!="success"){
-                        $("#register-warn").html(data);
+                success: function (response) {
+                    if(response.code!=200){
+                        $("#register-warn").html(response.msg);
                         $("#register-warn").show();
                     } else {
                         window.location.href="/";

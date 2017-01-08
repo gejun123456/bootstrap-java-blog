@@ -5,12 +5,17 @@ import com.rest.bean.User;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
 import com.rest.mapper.UserPODao;
+import com.rest.response.BaseResponse;
+import com.rest.response.CodeConstants;
+import com.rest.response.CodeEnum;
+import com.rest.response.MsgConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,18 +47,20 @@ public class RegisterController {
         }
     }
 
-    @ApiOperation("注册用户")
+    @ApiOperation(value = "注册用户", response = BaseResponse.class, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping("/register")
-    @ApiResponses({@ApiResponse(code = 200, message = "success"), @ApiResponse(code = 555, message = "fail")})
+    @ApiResponses({@ApiResponse(code = CodeConstants.user_already_exist, message = MsgConstants.user_already_exist),
+            @ApiResponse(code = CodeConstants.validate_fail, message = MsgConstants.validate_fail),
+    })
     @ResponseBody
-    public String register(@Valid @ModelAttribute RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
+    public BaseResponse register(@Valid @ModelAttribute RegisterRequest registerRequest, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
-            return "check failed, please reinput";
+            return BaseResponse.getFromCode(CodeEnum.validate_fail);
         }
         List<UserPO> select =
                 userPODao.findByUsername(registerRequest.getUsername());
         if (select.size() != 0) {
-            return "user exist, please input other name";
+            return BaseResponse.getFromCode(CodeEnum.user_already_exist);
         } else {
             UserPO po = new UserPO();
             po.setUsername(registerRequest.getUsername());
@@ -84,10 +91,10 @@ public class RegisterController {
                 User sessionUser = User.builder().login(true).userName(po.getUsername()).userId(po.getId()).admin(po.getAuth() == 1).build();
                 session.setAttribute(SessionConstants.USER, sessionUser);
             } else {
-                return "user exist, please input other name";
+                return BaseResponse.getFromCode(CodeEnum.user_already_exist);
             }
 
-            return "success";
+            return BaseResponse.success("success");
         }
     }
 }
