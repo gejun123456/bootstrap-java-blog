@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!--
-
-       Copyright 2015-2016 the original author or authors.
-
-       Licensed under the Apache License, Version 2.0 (the "License");
-       you may not use this file except in compliance with the License.
-       You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-       Unless required by applicable law or agreed to in writing, software
-       distributed under the License is distributed on an "AS IS" BASIS,
-       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-       See the License for the specific language governing permissions and
-       limitations under the License.
-
--->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -25,16 +8,20 @@
         SELECT id,year,month,day,content_id
         FROM contenttime
     </sql>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert INTO contenttime(year,month,day,content_id) VALUES (#{year},#{month},#{day},#{content_id})
     </insert>
+
     <delete id="deleteByContentId">
         DELETE FROM contenttime where content_id =#{id}
     </delete>
+
     <select id="getDistinctYears" resultType="java.lang.Integer">
         SELECT DISTINCT (year) from contenttime ORDER BY year desc
     </select>
-    <select id="findByYear" resultType="com.rest.domain.Archives">
+
+    <select id="findByYear" resultType="com.rest.domain.Archives" useCache="true">
         SELECT b.id,b.addtime,b.title from contenttime a INNER JOIN content b ON a.year=#{year} and a.content_id = b.id order by b.addtime desc
     </select>
 </mapper>
