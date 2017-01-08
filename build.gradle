@@ -100,7 +100,11 @@ dependencies {
     compile('commons-io:commons-io:2.5')
     compile(group: 'com.qiniu', name: 'qiniu-java-sdk', version: '7.2.2')
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
+    compile("com.github.pagehelper:pagehelper:5.0.0")
+    
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
 
 }
 

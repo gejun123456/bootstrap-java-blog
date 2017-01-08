@@ -29,4 +29,7 @@ public interface ContentMapper {
     String findUserIdById(@Param("id") Integer id);
 
     List<Content> findByUserId(@Param("userId")Integer userId);
+
+
+    List<Content> findByStatusOrderByAddtimeDesc(@Param("status")Integer status);
 }

@@ -13,7 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 @NeedAuth(AuthEnum.ADMIN)
 public class AdminController {
     @GetMapping("/admin")
-    public ModelAndView admin(){
-        
+    public ModelAndView admin() {
+        ModelAndView adminView = new ModelAndView("admin");
+        return adminView;
     }
 }
