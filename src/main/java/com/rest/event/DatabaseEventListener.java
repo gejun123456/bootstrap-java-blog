@@ -14,13 +14,14 @@ import java.util.concurrent.Executors;
  */
 @Component
 public class DatabaseEventListener {
+
     public static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Autowired
     private ExecutionTimeLogDao executionTimeLogDao;
 
     @EventListener
-    public void handleDataBaseLogEvent(DatabaseLogEvent event) {
+    public void handleDataBaseLogEvent(ExecutionTimeLogEvent event) {
         executorService.submit(() -> {
             ExecutionTimeLog build = ExecutionTimeLog.builder()
                     .className(event.getClassName())

@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `updatetime` datetime(6) NOT NULL,
   `addtime` datetime(6) NOT NULL,
   `index_content` text NOT NULL,
-  `user_id` varchar(50) NOT NULL DEFAULT '' COMMENT 'userId',
+  `user_id` int(11) NOT NULL DEFAULT '-1' COMMENT 'userId',
   `status` int(11) NOT NULL DEFAULT '-1' COMMENT 'status',
   PRIMARY KEY (`id`),
   KEY `addtime` (`addtime`)

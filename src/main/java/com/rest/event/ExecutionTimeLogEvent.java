@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DatabaseLogEvent {
+public class ExecutionTimeLogEvent {
     private String className;
 
     private String methodName;

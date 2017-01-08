@@ -2,7 +2,7 @@ package com.rest.aop;
 
 import com.google.common.base.Joiner;
 import com.rest.annotation.ExecutionTime;
-import com.rest.event.DatabaseLogEvent;
+import com.rest.event.ExecutionTimeLogEvent;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -66,14 +66,14 @@ public class ExecutionTimeAspect {
         }
         logger.info(builder.toString());
         if (annotation.logToDatabase()) {
-            DatabaseLogEvent databaseLogEvent = DatabaseLogEvent.builder()
+            ExecutionTimeLogEvent executionTimeLogEvent = ExecutionTimeLogEvent.builder()
                     .className(signature.getDeclaringTypeName())
                     .methodName(signature.getName())
                     .argsValue(Joiner.on(",").join(args))
                     .executionTime(end - start)
                     .createTime(new Date())
                     .build();
-            applicationEventPublisher.publishEvent(databaseLogEvent);
+            applicationEventPublisher.publishEvent(executionTimeLogEvent);
         }
         return proceed;
     }
