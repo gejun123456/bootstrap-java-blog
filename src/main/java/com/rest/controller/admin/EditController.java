@@ -1,4 +1,4 @@
-package com.rest.controller;
+package com.rest.controller.admin;
 
 import com.rest.Request.EditContentRequest;
 import com.rest.annotation.AuthEnum;

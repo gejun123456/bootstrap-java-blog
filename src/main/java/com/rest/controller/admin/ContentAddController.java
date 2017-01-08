@@ -1,4 +1,4 @@
-package com.rest.controller;
+package com.rest.controller.admin;
 
 import com.rest.Request.AddContentRequest;
 import com.rest.annotation.NeedAuth;
