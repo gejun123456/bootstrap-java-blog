@@ -11,6 +11,9 @@
         <result column="email" property="email"/>
         <result column="cryptpasswod" property="cryptpasswod"/>
         <result column="passwordcookie" property="passwordcookie"/>
+        <result column="verified" property="verified"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="last_login" property="lastLogin"></result>
     </resultMap>
     <sql id="all_column">
         id,
@@ -20,7 +23,10 @@
         cryptpasswod,
         passwordcookie,
         auth
-    </sql>
+        ,`verified`
+        ,`create_time`
+        ,`last_login`
+        </sql>
 
 <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
@@ -32,7 +38,10 @@
             <if test="pojo.email != null"> email, </if>
             <if test="pojo.cryptpasswod != null"> cryptpasswod, </if>
             <if test="pojo.passwordcookie != null"> passwordcookie, </if>
-            <if test="pojo.auth != null"> auth </if>
+            <if test="pojo.auth != null"> auth,</if>
+            <if test="pojo.verified != null"> verified,</if>
+            <if test="pojo.createTime!=null">create_time,</if>
+            <if test="pojo.lastLogin">last_login</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -42,8 +51,10 @@
             <if test="pojo.email != null"> #{pojo.email}, </if>
             <if test="pojo.cryptpasswod != null"> #{pojo.cryptpasswod}, </if>
             <if test="pojo.passwordcookie != null"> #{pojo.passwordcookie}, </if>
-            <if test="pojo.auth != null"> #{pojo.auth}</if>
-
+            <if test="pojo.auth != null"> #{pojo.auth},</if>
+            <if test="pojo.verified != null"> #{pojo.verified},</if>
+            <if test="pojo.createTime != null"> #{pojo.createTime},</if>
+            <if test="pojo.lastLogin != null"> #{pojo.lastLogin}</if>
         </trim>
     </insert>
 
@@ -60,7 +71,10 @@
             #{pojo.email},
             #{pojo.cryptpasswod},
             #{pojo.passwordcookie},
-            #{pojo.auth}
+            #{pojo.auth},
+            #{pojo.verified},
+            #{pojo.createTime},
+            #{pojo.lastLogin}
             )
         </foreach>
     </insert>
@@ -75,25 +89,14 @@
             <if test="pojo.email != null"> email = #{pojo.email}, </if>
             <if test="pojo.cryptpasswod != null"> cryptpasswod = #{pojo.cryptpasswod}, </if>
             <if test="pojo.passwordcookie != null"> passwordcookie = #{pojo.passwordcookie}, </if>
-            <if test="pojo.auth != null"> auth = #{pojo.auth} </if>
+            <if test="pojo.auth != null"> auth = #{pojo.auth}, </if>
+            <if test="pojo.verified != null"> auth = #{pojo.verified}, </if>
+            <if test="pojo.createTime != null"> auth = #{pojo.createTime}, </if>
+            <if test="pojo.lastLogin != null"> auth = #{pojo.lastLogin} </if>
         </set>
          WHERE id = #{pojo.id}
     </update>
 
-<!--auto generated Code-->
-    <select id="select" resultType="com.rest.domain.UserPO">
-        SELECT <include refid="all_column"/>
-        FROM user_p_o
-        <where>
-            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
-            <if test="pojo.username != null"> AND username = #{pojo.username} </if>
-            <if test="pojo.mobile != null"> AND mobile = #{pojo.mobile} </if>
-            <if test="pojo.email != null"> AND email = #{pojo.email} </if>
-            <if test="pojo.cryptpasswod != null"> AND cryptpasswod = #{pojo.cryptpasswod} </if>
-            <if test="pojo.passwordcookie != null"> AND passwordcookie = #{pojo.passwordcookie} </if>
-            <if test="pojo.auth != null"> AND auth = #{pojo.auth} </if>
-        </where>
-    </select>
     <select id="getCount" resultType="java.lang.Integer">
         select count(1) from user_p_o
     </select>

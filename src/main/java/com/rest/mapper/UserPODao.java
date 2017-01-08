@@ -12,8 +12,6 @@ public interface UserPODao {
 
     int insertList(@Param("pojos") List< UserPO> pojo);
 
-    List<UserPO> select(@Param("pojo") UserPO pojo);
-
     List<UserPO> findByUsername(@Param("username")String username);
 
     List<UserPO> findByUsernameAndCryptpasswod(@Param("username")String username,@Param("cryptpasswod")String cryptpasswod);

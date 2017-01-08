@@ -6,7 +6,6 @@
 </head>
 <div class="container">
     <#--todo shall fix the page.-->
-
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">

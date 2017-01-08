@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * Created by bruce.ge on 2016/11/13.
  */
@@ -26,4 +28,10 @@ public class UserPO {
     private String cryptpasswod;
 
     private String passwordcookie;
+
+    private Boolean verified;
+
+    private Date createTime;
+
+    private Date lastLogin;
 }
