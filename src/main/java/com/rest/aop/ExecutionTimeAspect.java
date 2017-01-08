@@ -1,6 +1,8 @@
 package com.rest.aop;
 
+import com.google.common.base.Joiner;
 import com.rest.annotation.ExecutionTime;
+import com.rest.event.DatabaseLogEvent;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,7 +10,11 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * Created by bruce.ge on 2017/1/8.
@@ -18,6 +24,9 @@ import org.springframework.stereotype.Component;
 public class ExecutionTimeAspect {
 
     private static Logger logger = LoggerFactory.getLogger("executionTime");
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Pointcut("@annotation(com.rest.annotation.ExecutionTime)")
     public void annotatedWithExecutionTime() {
@@ -56,6 +65,16 @@ public class ExecutionTimeAspect {
             }
         }
         logger.info(builder.toString());
+        if (annotation.logToDatabase()) {
+            DatabaseLogEvent databaseLogEvent = DatabaseLogEvent.builder()
+                    .className(signature.getDeclaringTypeName())
+                    .methodName(signature.getName())
+                    .argsValue(Joiner.on(",").join(args))
+                    .executionTime(end - start)
+                    .createTime(new Date())
+                    .build();
+            applicationEventPublisher.publishEvent(databaseLogEvent);
+        }
         return proceed;
     }
 }

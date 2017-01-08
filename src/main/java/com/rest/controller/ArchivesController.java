@@ -28,22 +28,22 @@ public class ArchivesController {
     private ContentMapper contentMapper;
 
     @GetMapping("/archive")
-    @ExecutionTime
-    public ModelAndView getArchive(){
+    @ExecutionTime(logToDatabase = true)
+    public ModelAndView getArchive() {
         List<Integer> years = Lists.newArrayList();
         List<String> yearStrings = Lists.newArrayList();
         years = contentTimeMapper.getDistinctYears();
-        Map<String,List<ArchiveVo>> archiveMap = Maps.newHashMap();
-        for(Integer year : years){
+        Map<String, List<ArchiveVo>> archiveMap = Maps.newHashMap();
+        for (Integer year : years) {
             List<Archives> byYear =
-                       contentTimeMapper.findByYear(year);
-            String a  = String.valueOf(year);
+                    contentTimeMapper.findByYear(year);
+            String a = String.valueOf(year);
             yearStrings.add(a);
             archiveMap.put(a, AriveConverter.converetToVo(byYear));
         }
         ModelAndView archive = new ModelAndView("archive");
-        archive.addObject("years",yearStrings);
-        archive.addObject("archiveMap",archiveMap);
+        archive.addObject("years", yearStrings);
+        archive.addObject("archiveMap", archiveMap);
         return archive;
     }
 }

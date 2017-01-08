@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * Created by bruce.ge on 2017/1/8.
  */
@@ -20,4 +22,6 @@ public class DatabaseLogEvent {
     private String argsValue;
 
     private long executionTime;
+
+    private Date createTime;
 }

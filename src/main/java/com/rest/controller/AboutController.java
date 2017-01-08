@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AboutController {
     @GetMapping("/about")
-    @ExecutionTime
+    @ExecutionTime(logToDatabase = true)
     public String getAbout() {
         return "about";
     }

@@ -27,8 +27,12 @@ public class LoginService {
         UserPO selected = select.get(0);
         boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
         if (checkpw) {
-            UserPO.UserPOBuilder builder = UserPO.builder().id(selected.getId()).mobile(selected.getMobile()).username(selected.getUsername())
-                    .email(selected.getEmail()).auth(selected.getAuth());
+            UserPO.UserPOBuilder builder = UserPO.builder()
+                    .id(selected.getId())
+                    .mobile(selected.getMobile())
+                    .username(selected.getUsername())
+                    .email(selected.getEmail())
+                    .auth(selected.getAuth());
             return builder.build();
         }
         return null;
@@ -40,13 +44,17 @@ public class LoginService {
         //logged to system.
         //to check if it equal to the value.
         //todo shall add with database.
-        List<UserPO> select = userPODao.findByUsernameAndPasswordcookie(userName,passwordCookie);
+        List<UserPO> select = userPODao.findByUsernameAndPasswordcookie(userName, passwordCookie);
         if (select.size() == 0) {
             return null;
         }
         UserPO selected = select.get(0);
-        return UserPO.builder().id(selected.getId()).mobile(selected.getMobile()).username(selected.getUsername())
-                .email(selected.getEmail()).auth(selected.getAuth()).build();
+        return UserPO.builder()
+                .id(selected.getId())
+                .mobile(selected.getMobile())
+                .username(selected.getUsername())
+                .email(selected.getEmail())
+                .auth(selected.getAuth()).build();
 
     }
 
