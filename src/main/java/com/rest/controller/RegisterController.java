@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,10 +63,11 @@ public class RegisterController {
         if (select.size() != 0) {
             return BaseResponse.getFromCode(CodeEnum.user_already_exist);
         } else {
-            UserPO po = new UserPO();
-            po.setUsername(registerRequest.getUsername());
-            po.setEmail(registerRequest.getEmail());
-            po.setCryptpasswod(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt()));
+            UserPO po = UserPO.builder()
+                    .username(registerRequest.getUsername())
+                    .email(registerRequest.getEmail())
+                    .cryptpasswod(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt()))
+                    .build();
             int insert = 0;
             po.setAuth(0);
             if (existUser == 0) {

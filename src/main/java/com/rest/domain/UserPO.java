@@ -15,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPO {
+
     private Integer id;
 
     private Integer auth;
@@ -28,10 +29,4 @@ public class UserPO {
     private String cryptpasswod;
 
     private String passwordcookie;
-
-    private Boolean verified;
-
-    private Date createTime;
-
-    private Date lastLogin;
 }
