@@ -64,7 +64,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
-                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE,httpServletRequest.getServletPath());
+                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE, httpServletRequest.getServletPath());
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     }
                     return false;
@@ -76,7 +76,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
-                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE,httpServletRequest.getServletPath());
+                        httpServletRequest.getSession().setAttribute(SessionConstants.AUTHBACKPAGE, httpServletRequest.getServletPath());
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     }
                     return false;
@@ -89,7 +89,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         Cookie[] cookies = httpServletRequest.getCookies();
         String name = null;
         String password_cookie = null;
-        if(cookies==null){
+        if (cookies == null) {
             httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
             return;
         }
@@ -117,7 +117,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         //do something to get.
-        if(modelAndView==null||modelAndView.getViewName().startsWith("redirect")){
+        if (modelAndView == null || modelAndView.getViewName() == null || modelAndView.getViewName().startsWith("redirect")) {
             return;
         }
         User user = (User) httpServletRequest.getSession().getAttribute(SessionConstants.USER);
@@ -125,8 +125,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (user.isAdmin()) {
                 modelAndView.addObject("admin", true);
             }
-            if(user.isLogin()){
-                modelAndView.addObject("login",true);
+            if (user.isLogin()) {
+                modelAndView.addObject("login", true);
             }
         }
     }
