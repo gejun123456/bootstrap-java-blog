@@ -100,14 +100,14 @@ public class CommentController {
 
 
     @GetMapping("/reply")
-    public String reply(ReplyCommentRequest request, BindingResult bindingResult,HttpServletRequest servletRequest) {
+    public String reply(ReplyCommentRequest request, BindingResult bindingResult, HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
             logger.info("binding result error the request is {}", request.toString());
             return "failed";
         }
         Integer replyCommentId = request.getReplyCommentId();
         CommentPO select = commentPODao.findById(replyCommentId);
-        if (select==null) {
+        if (select == null) {
             logger.info("can't find reply comment");
             return "redirect:/getArticle/" + request.getArticleId();
         }
