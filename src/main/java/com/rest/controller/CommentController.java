@@ -10,6 +10,7 @@ import com.rest.mapper.CommentPODao;
 import com.rest.service.MessageSourceService;
 import com.rest.utils.HttpHeaderUtil;
 import com.rest.vo.CommentVo;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.List;
  * Created by bruce.ge on 2016/11/18.
  */
 @Controller
+@Api("评论服务")
 public class CommentController {
     @Autowired
     private CommentPODao commentPODao;
@@ -98,9 +100,10 @@ public class CommentController {
 
 
     @GetMapping("/reply")
-    public String reply(ReplyCommentRequest request, BindingResult bindingResult, HttpServletRequest servletRequest) {
+    public String reply(@Valid ReplyCommentRequest request, BindingResult bindingResult, HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
             logger.info("binding result error the request is {}", request.toString());
+            // FIXME: 2017/1/14
             return "failed";
         }
         Integer replyCommentId = request.getReplyCommentId();

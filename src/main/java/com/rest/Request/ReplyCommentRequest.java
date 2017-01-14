@@ -1,5 +1,7 @@
 package com.rest.Request;
 
+import org.hibernate.validator.constraints.SafeHtml;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -10,9 +12,11 @@ public class ReplyCommentRequest {
     public Integer replyCommentId;
 
     @NotNull
+    @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
     public String content;
 
     @NotNull
+    @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
     public String name;
 
     @NotNull
