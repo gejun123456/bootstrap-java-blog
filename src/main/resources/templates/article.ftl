@@ -116,6 +116,28 @@
             })
         })
 
+
+        $(".reply-form").submit(function (e) {
+            var articleId = $("#articleId").val();
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                data: $(this).serialize(),
+                url: '/reply',
+                success: function (response) {
+                    if (response.code != 200) {
+                        console.log(response.msg);
+                        $("#comment-warn").html(response.msg);
+                        $("#comment-warn").show();
+//                        $("#register-warn").html(response.msg);
+//                        $("#register-warn").show();
+                    } else {
+                        window.location.href = "/getArticle/" + articleId;
+                    }
+                }
+            })
+        })
+
     })
 </script>
 </body>

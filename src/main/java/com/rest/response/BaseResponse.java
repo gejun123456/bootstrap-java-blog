@@ -38,4 +38,12 @@ public class BaseResponse {
                 .build();
     }
 
+
+    public static BaseResponse success() {
+        return BaseResponse.builder()
+                .code(CodeEnum.success.getCode())
+                .msg(CodeEnum.success.getMsg())
+                .build();
+    }
+
 }

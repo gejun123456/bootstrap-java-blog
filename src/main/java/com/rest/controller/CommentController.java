@@ -57,7 +57,7 @@ public class CommentController {
         //
         CommentPO po = CommentConvert.createPo(commentRequest, id, HttpHeaderUtil.getRemoteAddr(request));
         commentPODao.insert(po);
-        return BaseResponse.success(null);
+        return BaseResponse.success();
     }
 
 
@@ -106,18 +106,27 @@ public class CommentController {
     }
 
 
-    @GetMapping("/reply")
-    public String reply(@Valid ReplyCommentRequest request, BindingResult bindingResult, HttpServletRequest servletRequest) {
+    @PostMapping("/reply")
+    public BaseResponse reply(@Valid ReplyCommentRequest request, BindingResult bindingResult, HttpServletRequest servletRequest) {
         if (bindingResult.hasErrors()) {
-            logger.info("binding result error the request is {}", request.toString());
-            // FIXME: 2017/1/14
-            return "failed";
+            logger.info("request error, the request is:{}", request.toString());
+            String msg = "";
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                msg += fieldError.getDefaultMessage() + " for " + fieldError.getField() + "</br>";
+            }
+            return BaseResponse.builder()
+                    .code(CodeConstants.validate_fail)
+                    .msg(msg)
+                    .build();
         }
         Integer replyCommentId = request.getReplyCommentId();
         CommentPO select = commentPODao.findById(replyCommentId);
         if (select == null) {
             logger.info("can't find reply comment");
-            return "redirect:/getArticle/" + request.getArticleId();
+            return BaseResponse.builder()
+                    .code(CodeConstants.validate_fail)
+                    .msg("the comment to reply may be deleted")
+                    .build();
         }
         String username = select.getUsername();
 
@@ -130,7 +139,7 @@ public class CommentController {
         po.setComment_ip(HttpHeaderUtil.getRemoteAddr(servletRequest));
         po.setContent("reply to  " + username + " : " + request.getContent());
         commentPODao.insert(po);
-        return "redirect:/getArticle/" + request.getArticleId();
+        return BaseResponse.success();
     }
 
 }
