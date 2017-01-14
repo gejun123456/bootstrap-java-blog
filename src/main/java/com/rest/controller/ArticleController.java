@@ -43,6 +43,9 @@ public class ArticleController {
     @GetMapping("/getArticle/{id}")
     public ModelAndView getArticle(@PathVariable("id") int id) {
         Content byId = contentMapper.findById(id);
+        if(byId==null){
+            // FIXME: 2017/1/14
+        }
         ContentVo vo = ContentConverter.convetToVo(byId);
         ModelAndView article = new ModelAndView("article");
         article.addObject("vo", vo);

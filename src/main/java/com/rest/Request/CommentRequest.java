@@ -1,9 +1,8 @@
 package com.rest.Request;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,10 +11,12 @@ import javax.validation.constraints.NotNull;
 public class CommentRequest {
 
     @NotNull
+    @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
     @Length(max = 50)
     private String name;
 
     @NotNull
+    @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
     private String content;
 
     public String getName() {

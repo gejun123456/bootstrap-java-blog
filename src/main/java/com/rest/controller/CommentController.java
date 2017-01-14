@@ -7,9 +7,8 @@ import com.rest.Request.ReplyCommentRequest;
 import com.rest.converter.CommentConvert;
 import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
-import com.rest.utils.AntiSamyUtils;
-import com.rest.utils.HttpHeaderUtil;
 import com.rest.service.MessageSourceService;
+import com.rest.utils.HttpHeaderUtil;
 import com.rest.vo.CommentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -40,9 +40,7 @@ public class CommentController {
 
     @GetMapping("/comment/{id}")
     public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
-                          CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        commentRequest.setContent(AntiSamyUtils.getCleanHtml(commentRequest.getContent()));
-        commentRequest.setName(AntiSamyUtils.getCleanHtml(commentRequest.getName()));
+                          @Valid CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             logger.info("request error, the request is:{}", commentRequest.toString());
             return "redirect:/getArticle/" + id;
