@@ -7,6 +7,8 @@ import com.rest.Request.ReplyCommentRequest;
 import com.rest.converter.CommentConvert;
 import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
+import com.rest.response.BaseResponse;
+import com.rest.response.CodeConstants;
 import com.rest.service.MessageSourceService;
 import com.rest.utils.HttpHeaderUtil;
 import com.rest.vo.CommentVo;
@@ -14,11 +16,9 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by bruce.ge on 2016/11/18.
  */
-@Controller
+@RestController
 @Api("评论服务")
 public class CommentController {
     @Autowired
@@ -40,17 +40,24 @@ public class CommentController {
     private MessageSourceService messageSourceService;
     private static Logger logger = LoggerFactory.getLogger(CommentController.class);
 
-    @GetMapping("/comment/{id}")
-    public String comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
-                          @Valid CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping("/comment/{id}")
+    public BaseResponse comment(HttpServletRequest request, @PathVariable(value = "id", required = true) int id,
+                                @Valid CommentRequest commentRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             logger.info("request error, the request is:{}", commentRequest.toString());
-            return "redirect:/getArticle/" + id;
+            String msg = "";
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                msg += fieldError.getDefaultMessage() + " for " + fieldError.getField() + "</br>";
+            }
+            return BaseResponse.builder()
+                    .code(CodeConstants.validate_fail)
+                    .msg(msg)
+                    .build();
         }
         //
         CommentPO po = CommentConvert.createPo(commentRequest, id, HttpHeaderUtil.getRemoteAddr(request));
         commentPODao.insert(po);
-        return "redirect:/getArticle/" + id;
+        return BaseResponse.success(null);
     }
 
 

@@ -25,10 +25,11 @@
                     <input type="text" name="name" class="form-control" style="width:30%; margin-bottom: 10px;"
                            placeholder="<@spring.message "commentname"/>"
                            required="true"/>
-                        <textarea name="content" class="form-control" rows="4" required="true"
-                                  placeholder="<@spring.message "commentContent"/>"></textarea>
-
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;"><@spring.message "addCommentButton"/></button>
+                    <textarea name="content" class="form-control" rows="4" required="true"
+                              placeholder="<@spring.message "commentContent"/>"></textarea>
+                    <p class="text-center text-danger" id="comment-warn" style="display: none"></p>
+                    <button type="submit" class="btn btn-primary"
+                            style="margin-top: 10px;"><@spring.message "addCommentButton"/></button>
                 </div>
             </form>
 
@@ -60,9 +61,11 @@
                                     <input type='text' class='form-control' style="width:30%;margin-bottom: 10px;"
                                            name='name'
                                            placeholder='<@spring.message "commentname"/>' required="true">
-                                    <input type='text' class='form-control' name='content' placeholder='<@spring.message "commentContent"/>'
+                                    <input type='text' class='form-control' name='content'
+                                           placeholder='<@spring.message "commentContent"/>'
                                            required="true">
-                                    <button type='submit' class="btn btn-primary " ><@spring.message "commentReply"/></button>
+                                    <button type='submit'
+                                            class="btn btn-primary "><@spring.message "commentReply"/></button>
                                 </form>
                             </div>
                         </div><!-- /panel panel-default -->
@@ -71,7 +74,7 @@
                 </div>
 
             <#--here is hidden form when press with reply will display-->
-
+                <input type="hidden" id="articleId" value="${vo.id}"/>
             </#list>
         </#if>
         </div>
@@ -91,66 +94,27 @@
 //            $("#form_"+s+" input[name=content]").val("nimei");
             $("#form_" + s).show();
         })
-        //first get data from server to render the view.
-        //check if exist. then get data from server.
-//        function reply(e) {
-//            console.log(e.val());
-//            var replyId = e.val();
-//            var articleId = $("#com").val();
-////            在评论下面添加一个输入框
-//            e.remove();
-//            $(".reply-form").remove();
-//            console.log("nimei");
-//            $("#parent" + replyId).append("<form class='reply-form'> " +
-//                    "<input type='hidden'  name='replyCommentId' value='" + replyId + "'>" +
-//                    "<input type='hidden'  name='articleId' value='" + articleId + "'>" +
-//                    "<input type='text' class='form-control' name='name' placeholder='name'>" +
-//                    "<input type='text' class='form-control' name='content' placeholder='comment'>" +
-//                    "<button type='submit'>save</button></form>");
-//            $(".reply-form").submit(function (e) {
-//                var form = $(this);
-//                $.ajax({
-//                    type: 'POST',
-//                    url: '/reply',
-//                    data: form.serialize(),
-//
-//                    success: function (response) {
-//                        console.log(response);
-//                    }
-//                })
-//            })
-//        }
 
-//        if ($("#com").length) {
-//            var id = $("#com").val();
-//            $.ajax({
-//                type: 'POST',
-//                url: '/getComment/' + id,
-//                success: function (response) {
-//                    if (response != 'error') {
-//                        for (var i = 0; i < response.length; i++) {
-//                            console.log(response[i]);
-//                            var d = response[i];
-//                            if (d['parentId'] <= 0) {
-//                                $("#firstcomment").append("<div id=\"parent" + d["id"] + "\"><p> name:" + d['name'] + "   comment:" +
-//                                        d['comment'] + "</div>" + "<div><button value=\"" + d["id"] + "\"class='reply'>reply</button>" +
-//                                        "</div>"
-//                                )
-//                            } else {
-//                                var parentid = "parent" + d['parentId'];
-//                                $("#" + parentid).append("<div id=\"parent" + d["id"] + "\"><p> name:" + d['name'] + "    comment:" + d['comment'] + "</div>")
-//                            }
-//                        }
-//                        $(".reply").click(function () {
-//                            reply($(this));
-//                        });
-//                    } else {
-//                        alert('nimabi buxing');
-//                    }
-//                }
-//            });
-//        }
-
+        $("#commentform").submit(function (e) {
+            var articleId = $("#articleId").val();
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                data: $("#commentform").serialize(),
+                url: '/comment/' + articleId,
+                success: function (response) {
+                    if (response.code != 200) {
+                        console.log(response.msg);
+                        $("#comment-warn").html(response.msg);
+                        $("#comment-warn").show();
+//                        $("#register-warn").html(response.msg);
+//                        $("#register-warn").show();
+                    } else {
+                        window.location.href = "/getArticle/" + articleId;
+                    }
+                }
+            })
+        })
 
     })
 </script>
