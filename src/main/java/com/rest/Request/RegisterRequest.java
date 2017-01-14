@@ -1,8 +1,9 @@
 package com.rest.Request;
 
 import io.swagger.annotations.ApiParam;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -10,17 +11,17 @@ import javax.validation.constraints.Size;
  */
 public class RegisterRequest {
 
-    @NotNull
-    @ApiParam(value ="用户名",required = true)
+    @NotEmpty
+    @ApiParam(value = "用户名", required = true)
     private String username;
 
-    @NotNull
-    @ApiParam(value = "密码",required = true)
+    @NotEmpty
+    @ApiParam(value = "密码", required = true)
     private String password;
 
-    @NotNull
-    @Size(min=2)
-    @ApiParam(value = "邮箱,最小长度2",required = true)
+    @Email
+    @Size(min = 2)
+    @ApiParam(value = "邮箱,最小长度2", required = true)
     private String email;
 
 
