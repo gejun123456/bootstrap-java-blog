@@ -64,6 +64,8 @@
                                     <input type='text' class='form-control' name='content'
                                            placeholder='<@spring.message "commentContent"/>'
                                            required="true">
+                                    <p class="text-center text-danger" id="form_${commentVo?index}_warn"
+                                       style="display: none"></p>
                                     <button type='submit'
                                             class="btn btn-primary "><@spring.message "commentReply"/></button>
                                 </form>
@@ -120,6 +122,7 @@
         $(".reply-form").submit(function (e) {
             var articleId = $("#articleId").val();
             e.preventDefault();
+            var formId = $(this)[0].id;
             $.ajax({
                 type: 'POST',
                 data: $(this).serialize(),
@@ -127,8 +130,9 @@
                 success: function (response) {
                     if (response.code != 200) {
                         console.log(response.msg);
-                        $("#comment-warn").html(response.msg);
-                        $("#comment-warn").show();
+                        var part = $("#" + formId + "_warn");
+                        part.html(response.msg);
+                        part.show();
 //                        $("#register-warn").html(response.msg);
 //                        $("#register-warn").show();
                     } else {
