@@ -31,12 +31,15 @@
                         <span class="dropdown">
                             <button class="btn btn-default dropdown-toggle nopadding" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <#if .locale =="zh_CN">
+                                <#assign thelocale><@spring.message code=".locale"/></#assign>
+                                <#if thelocale == "zh_CN">
                                     <img src="https://www.v2ex.com/static/img/lang_zhcn_32.png"/>
-                                <#elseif .locale =="en_US">
+                                <#elseif thelocale =="en_US">
                                     <img src="https://www.v2ex.com/static/img/lang_enus_32.png"/>
-                                <#else>
+                                <#elseif thelocale == "zh_TW">
                                     语言
+                                <#else>
+                                    <img src="https://www.v2ex.com/static/img/lang_enus_32.png"/>
                                 </#if>
                                 <span class="caret"></span>
                             </button>
