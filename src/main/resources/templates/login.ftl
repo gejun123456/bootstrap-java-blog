@@ -142,7 +142,7 @@
                 url: '/register',
                 success: function (response) {
                     if (response.code != 200) {
-                        $("#register-warn").html(response.msg);
+                        $("#register-warn").html(geti18n(response.msg));
                         $("#register-warn").show();
                     } else {
                         window.location.href = "/";

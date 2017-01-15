@@ -12,16 +12,19 @@
         } else {
             locale = navigator.language;
         }
+        if(locale!=null){
+            locale.replace(/-/g,"_");
+        }
     }
     $.holdReady(true);
     if (locale == "zh_CN") {
-        $.getScript("/static/js/i18n/zh_CN.js",ready());
+        $.getScript("/static/js/i18n/zh_CN.js", ready());
     } else if (locale == "en_US") {
-        $.getScript("/static/js/i18n/en_US.js",ready());
+        $.getScript("/static/js/i18n/en_US.js", ready());
     } else if (locale == "zh-TW" || locale == "zh_HK") {
-        $.getScript("/static/js/i18n/zh_TW.js",ready());
+        $.getScript("/static/js/i18n/zh_TW.js", ready());
     } else {
-        $.getScript("/static/js/i18n/en_US.js",ready());
+        $.getScript("/static/js/i18n/en_US.js", ready());
     }
 
     function getCookie(name) {
@@ -33,14 +36,25 @@
         }
     }
 
-    function ready(){
+    function ready() {
         $.holdReady(false);
+    }
+
+
+    function geti18n(name) {
+        var i18name =
+                messageStrings[name];
+        if (i18name != null) {
+            return i18name;
+        } else {
+            return name;
+        }
     }
 </script>
 
 <#--<script>-->
-    <#--$(document).ready(function () {-->
-       <#--console.log(messageStrings.userNameExist);-->
-    <#--});-->
+<#--$(document).ready(function () {-->
+<#--console.log(messageStrings.userNameExist);-->
+<#--});-->
 <#--</script>-->
 
