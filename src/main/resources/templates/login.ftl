@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <input type="email" name="email" id="signup_password" tabindex="2"
                                            class="form-control" placeholder="<@spring.message "email"/>"
-                                           required="true">
+                                           required="true" minlength="5">
                                 </div>
                             <#--todo can implement more like mobile phone number-->
                             <#--the default is remember-->
@@ -114,6 +114,7 @@
 </body>
 <#include "footerjs.ftl">
 <script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/static/js/i18n/messages_zh.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#login-form-link').click(function (e) {
@@ -152,7 +153,9 @@
         })
 
 
-        $("#register-form").validate();
+        $("#register-form").validate({
+            lang:'zh'
+        });
         $("#login-form").validate();
     })
 

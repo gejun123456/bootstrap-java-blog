@@ -52,6 +52,8 @@ public class RegisterController {
     @PostMapping("/register")
     @ApiResponses({@ApiResponse(code = CodeConstants.username_already_exist, message = MsgConstants.username_already_exist),
             @ApiResponse(code = CodeConstants.validate_fail, message = MsgConstants.validate_fail),
+            @ApiResponse(code = CodeConstants.mobile_already_exist, message = MsgConstants.mobile_already_exist),
+            @ApiResponse(code = CodeConstants.email_already_exist, message = MsgConstants.email_already_exist),
     })
     @ResponseBody
     public BaseResponse register(@Valid @ModelAttribute RegisterRequest registerRequest, HttpSession session) {

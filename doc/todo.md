@@ -7,3 +7,4 @@
 * 增加后台
 * 能够支持换皮肤
 * mybatis添加cache支持
+* 評論使用jquery validator

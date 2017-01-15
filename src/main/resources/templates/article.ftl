@@ -24,7 +24,7 @@
                     <label for="exampleInputEmail1"><@spring.message "Comment"/>:</label>
                     <input type="text" name="name" class="form-control" style="width:30%; margin-bottom: 10px;"
                            placeholder="<@spring.message "commentname"/>"
-                           required="true"/>
+                           required="true" minlength="111"/>
                     <textarea name="content" class="form-control" rows="4" required="true"
                               placeholder="<@spring.message "commentContent"/>"></textarea>
                     <p class="text-center text-danger" id="comment-warn" style="display: none"></p>
