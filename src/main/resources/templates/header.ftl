@@ -17,7 +17,13 @@
                 <a class="blog-nav-item" id="login" href="/loginPage"><@spring.message "login"/></a>
             </#if>
                 <form class="blog-header-form" action="/search" onsubmit="return validate();">
-                    <input type="text" id="query" name="query" class="form-control" placeholder="<@spring.message "Search"/>"/>
+                    <input type="text" id="query" name="query" class="form-control"
+                           placeholder="<@spring.message "Search"/>"/>
+                </form>
+            </div>
+            <div>
+                <form class="language_form" action="/changeLanguage">
+                    <input type="text" name="language" class="form-control"/>
                 </form>
             </div>
         </div>
