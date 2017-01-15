@@ -83,6 +83,7 @@
     </div>
 
 </div>
+</body>
 <#include "footerjs.ftl">
 <script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
@@ -143,5 +144,5 @@
 
     })
 </script>
-</body>
+
 </html>

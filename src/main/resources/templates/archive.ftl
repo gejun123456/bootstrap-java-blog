@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
-<#include "footerjs.ftl">
 </body>
+<#include "footerjs.ftl">
+
 </html>

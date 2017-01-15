@@ -17,6 +17,7 @@
             </#if>
             <#--test build.-->
             </div>
-        <#include "footerjs.ftl">
 </body>
+        <#include "footerjs.ftl">
+
 </html>

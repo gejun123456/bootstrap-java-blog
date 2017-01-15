@@ -45,7 +45,7 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
     @Bean(name = "localeResolver")
     public LocaleResolver localeResolver() {
         MyLocaleCookieLocaleResolver myLocaleCookieLocaleResolver = new MyLocaleCookieLocaleResolver();
-        myLocaleCookieLocaleResolver.setCookieName("LANG_KEY");
+        myLocaleCookieLocaleResolver.setCookieName("LOCALE_KEY");
         return myLocaleCookieLocaleResolver;
     }
 

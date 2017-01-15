@@ -1,2 +1,46 @@
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    var locale = getCookie("LOCALE_KEY");
+    //    when cookie not contain use the default lang
+    if (locale != null) {
+        locale = locale.replace(/\"/g, "");
+    } else {
+        if (navigator.languages != undefined) {
+            locale = navigator.languages[0];
+        } else {
+            locale = navigator.language;
+        }
+    }
+    $.holdReady(true);
+    if (locale == "zh_CN") {
+        $.getScript("/static/js/i18n/zh_CN.js",ready());
+    } else if (locale == "en_US") {
+        $.getScript("/static/js/i18n/en_US.js",ready());
+    } else if (locale == "zh-TW" || locale == "zh_HK") {
+        $.getScript("/static/js/i18n/zh_TW.js",ready());
+    } else {
+        $.getScript("/static/js/i18n/en_US.js",ready());
+    }
+
+    function getCookie(name) {
+        var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+        if (arr != null) {
+            return unescape(arr[2]);
+        } else {
+            return null;
+        }
+    }
+
+    function ready(){
+        $.holdReady(false);
+    }
+</script>
+
+<#--<script>-->
+    <#--$(document).ready(function () {-->
+       <#--console.log(messageStrings.userNameExist);-->
+    <#--});-->
+<#--</script>-->
+

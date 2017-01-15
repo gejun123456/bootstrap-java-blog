@@ -38,6 +38,7 @@
         return true;
     }
 </script>
-<#include "footerjs.ftl">
 </body>
+<#include "footerjs.ftl">
+
 </html>

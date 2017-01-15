@@ -44,6 +44,8 @@
 
     </div>
 </div>
+</body>
+<#include "footerjs.ftl">
 <script type="text/javascript">
     function validate() {
         //If the form value is "" (nothing)
@@ -53,6 +55,5 @@
         return true;
     }
 </script>
-<#include "footerjs.ftl">
-</body>
+
 </html>
