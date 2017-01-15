@@ -110,7 +110,7 @@
         </div>
     </div>
 </div>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<#include "footerjs.ftl">
 <script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

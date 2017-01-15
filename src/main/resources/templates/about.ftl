@@ -17,6 +17,6 @@
             </#if>
             <#--test build.-->
             </div>
-            <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <#include "footerjs.ftl">
 </body>
 </html>

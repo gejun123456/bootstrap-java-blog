@@ -8,9 +8,8 @@
 <#include "header.ftl">
 <#include "markdown.ftl">
 </body>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<#include "footerjs.ftl">
 <script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <#--<script src="/js/bootstrap.min.js"></script>-->
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
 <script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>

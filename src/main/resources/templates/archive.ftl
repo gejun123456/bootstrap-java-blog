@@ -23,7 +23,6 @@
         </div>
     </div>
 </div>
-<#include "footer.ftl">
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<#include "footerjs.ftl">
 </body>
 </html>

@@ -44,7 +44,6 @@
 
     </div>
 </div>
-<#include "footer.ftl">
 <script type="text/javascript">
     function validate() {
         //If the form value is "" (nothing)
@@ -54,6 +53,6 @@
         return true;
     }
 </script>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<#include "footerjs.ftl">
 </body>
 </html>
