@@ -25,6 +25,7 @@
                 <form class="language_form" action="/changeLanguage">
                     <input type="text" name="language" class="form-control"/>
                 </form>
+            ${.locale}
             </div>
         </div>
     </div>
