@@ -69,6 +69,7 @@ public class RegisterController {
                     .build();
             int insert = 0;
             po.setAuth(0);
+            // FIXME: 2017/1/16 userId and email shall be unique catch with exception
             if (existUser == 0) {
                 synchronized (this.getClass()) {
                     if (existUser == 0) {
