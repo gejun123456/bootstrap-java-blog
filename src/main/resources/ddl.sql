@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS `contenttime` (
 
 CREATE TABLE IF NOT EXISTS `user_p_o` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) UNIQUE NOT NULL DEFAULT '' COMMENT 'username',
-  `mobile` varchar(50) UNIQUE NOT NULL DEFAULT '' COMMENT 'mobile',
-  `email` varchar(50) UNIQUE NOT NULL DEFAULT '' COMMENT 'email',
+  `username` varchar(50) UNIQUE NOT NULL  COMMENT 'username',
+  `mobile` varchar(50) UNIQUE COMMENT 'mobile',
+  `email` varchar(50) UNIQUE NOT NULL COMMENT 'email',
   `cryptpasswod` varchar(100) DEFAULT NULL,
   `passwordcookie` varchar(100) NOT NULL DEFAULT '' COMMENT 'passwordcookie',
   `auth` tinyint(3) NOT NULL DEFAULT '0' COMMENT 'userauth  1 is admin',

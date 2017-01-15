@@ -1,20 +1,17 @@
 package com.rest.service;
 
-import com.rest.config.BlogProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by bruce.ge on 2016/11/18.
  */
 @Component
-public class MessageSourceService implements MessageSourceAware{
+public class MessageSourceService implements MessageSourceAware {
     private MessageSource messageSource;
 
-    @Autowired
-    private BlogProperty blogProperty;
 
     @Override
     public void setMessageSource(MessageSource messageSource) {
@@ -22,7 +19,7 @@ public class MessageSourceService implements MessageSourceAware{
     }
 
 
-    public String getMessage(String code){
-        return messageSource.getMessage(code,new Object[]{},blogProperty.getLocale());
+    public String getMessage(String code) {
+        return messageSource.getMessage(code, new Object[]{}, LocaleContextHolder.getLocale());
     }
 }

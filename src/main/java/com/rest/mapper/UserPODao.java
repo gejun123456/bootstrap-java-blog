@@ -14,6 +14,10 @@ public interface UserPODao {
 
     List<UserPO> findByUsername(@Param("username")String username);
 
+    List<UserPO> findByMobile(@Param("mobile")String mobile);
+
+    List<UserPO> findByEmail(@Param("email")String email);
+
     List<UserPO> findByUsernameAndCryptpasswod(@Param("username")String username,@Param("cryptpasswod")String cryptpasswod);
 
     int update(@Param("pojo") UserPO pojo);
