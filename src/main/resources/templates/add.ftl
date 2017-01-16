@@ -12,7 +12,6 @@
 <script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
 <#--<script src="/js/bootstrap.min.js"></script>-->
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
-<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script src="/static/js/mymarkdown.js"></script>
 
 <script>
