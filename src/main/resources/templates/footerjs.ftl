@@ -21,7 +21,7 @@
         $.getScript("/static/js/i18n/zh_CN.js", ready());
     } else if (locale == "en_US") {
         $.getScript("/static/js/i18n/en_US.js", ready());
-    } else if (locale == "zh-TW" || locale == "zh_HK") {
+    } else if (locale == "zh_TW" || locale == "zh_HK") {
         $.getScript("/static/js/i18n/zh_TW.js", ready());
     } else {
         $.getScript("/static/js/i18n/en_US.js", ready());
