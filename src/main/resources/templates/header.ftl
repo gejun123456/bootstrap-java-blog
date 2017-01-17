@@ -1,7 +1,7 @@
 <div class="blog-masthead">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <nav>
                     <a class="blog-nav-item" href="/"><@spring.message "home"/></a>
                     <a class="blog-nav-item" id="archives" href="/archive"><@spring.message "archives"/></a>
@@ -9,11 +9,11 @@
                 <#--<a class="blog-nav-right" id="login" href="/login">write</a>-->
                 </nav>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="row">
                 <#--<div class="col-md-3">-->
                 <#if login??>
-                    <a class="blog-nav-item" id="my" href="/add"><@spring.message "add"/></a>
+                    <a class="blog-nav-item" id="my" href="/admin"><@spring.message "manage"/></a>
                     <a class="blog-nav-item" id="logout" href="/logout"><@spring.message "logout"/></a>
                 <#else>
                     <a class="blog-nav-item" id="login" href="/loginPage"><@spring.message "manage"/></a>

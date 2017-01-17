@@ -1,4 +1,4 @@
-package com.rest.config;
+package com.rest.config.dev;
 
 import com.rest.intercetors.ExecutionInterceptor;
 import com.rest.local.MyLocaleCookieLocaleResolver;
@@ -17,11 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 /**
- * Created by bruce.ge on 2016/11/10.
+ * @Author bruce.ge
+ * @Date 2017/1/17
+ * @Description
  */
 @Configuration
-@Profile("product")
-public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
+@Profile("dev")
+public class DevWebAppConfigurer extends WebMvcConfigurerAdapter {
     @Autowired
     @Qualifier("authInterceptor")
     private HandlerInterceptor authInterceptor;
@@ -39,9 +41,7 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(3600 * 24);
-//        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/").setCachePeriod(3600*24);
-//        registry.addResourceHandler("/img/**").setCachePeriod(3600*24);
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
 

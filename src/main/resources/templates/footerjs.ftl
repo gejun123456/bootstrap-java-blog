@@ -7,15 +7,16 @@
     if (locale != null) {
         locale = locale.replace(/\"/g, "");
     } else {
-        if (navigator.languages != undefined) {
-            locale = navigator.languages[0];
-        } else {
+        if(navigator.language!=undefined) {
             locale = navigator.language;
+        } else if (navigator.languages != undefined) {
+            locale = navigator.languages[0];
         }
         if (locale != null) {
-            locale.replace(/-/g, "_");
+            locale = locale.replace(/-/g, "_");
         }
     }
+    console.log(locale);
     $.holdReady(true);
     if (locale == "zh_CN") {
         $.getScript("/static/js/i18n/zh_CN.js", ready());

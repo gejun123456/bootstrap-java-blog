@@ -1,4 +1,4 @@
-package com.rest.config;
+package com.rest.config.dev;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.rest.utils.DbUtils;

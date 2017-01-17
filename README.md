@@ -24,7 +24,7 @@ Installation
 ------------
 - get your mysql installed.
 - git clone https://github.com/gejun123456/bootstrap-java-blog.git  
-- config your database and language in `src\main\resources\application.properties`
+- config your database `src\main\resources\application.properties`
 - cd bootstrap-java-blog
 - gradlew clean build -x test
 - java -jar build/libs/bootstrap.javablog.jar
@@ -37,9 +37,8 @@ Quick Start
 
 To Do List
 ----------
-
-- to see if need add comment
-- to see if need close register after admin create.
+add admin page
+make page more beautiful
 
 Custom
 --------

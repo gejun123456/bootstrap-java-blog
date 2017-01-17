@@ -1,41 +1,32 @@
 <html>
-<form class="cmxform" id="commentForm" method="get" action="">
-    <fieldset>
-        <legend>Please provide your name, email address (won't be published) and a comment</legend>
-        <p>
-            <label for="cname">Name (required, at least 2 characters)</label>
-            <input id="cname" name="name" minlength="2" type="text" required>
-        </p>
-        <p>
-            <label for="cemail">E-Mail (required)</label>
-            <input id="cemail" type="email" name="email" required>
-        </p>
-        <p>
-            <label for="curl">URL (optional)</label>
-            <input id="curl" type="url" name="url">
-        </p>
-        <p>
-            <label for="ccomment">Your comment (required)</label>
-            <textarea id="ccomment" name="comment" required></textarea>
-        </p>
-        <p>
-            <input class="submit" type="submit" value="Submit">
-        </p>
-    </fieldset>
-</form>
+<head>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.2em;
+    }
 
-<#include "footerjs.ftl">
-<script>
+    #head {
+        height: 50px;;
+        width: 100%;
+        background-color: #000000;
+        color: #ffff00;;
+    }
 
-    $("#commentForm").validate({
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-    $("#commentForm").submit(function (e) {
-        e.preventDefault();
-        console.log("nimei");
-    })
-</script>
+    #head img{
+        display: inline-block;
+    }
 
+    #sometext span {
+    }
+</style>
+<body>
+<div id="head">
+    logout
+    <img src="/static/img/logout.png"/>
+    logout
+</div>
+</body>
 </html>

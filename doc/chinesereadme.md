@@ -19,7 +19,7 @@
 ---
 - 安装mysql
 - 运行 git clone https://github.com/gejun123456/bootstrap-java-blog.git  
-- 在 `src\main\resources\application.properties` 配置数据库和语言
+- 在 `src\main\resources\application.properties` 配置数据库
 - cd bootstrap-java-blog
 - gradlew clean build -x test
 - java -jar build/libs/bootstrap.javablog.jar
@@ -32,10 +32,8 @@
 
 To Do list
 ----------
-
-- 是否需要添加评论（已添加 有点丑)
-- 是否需要在管理员注册后关闭注册(目前管理员注册后可以注册新用户 新用户可以发表文章 但不能编辑和删除）
-- 是否需要添加删除的文章列表(以防误删?)
+- 美化页面
+- 加上tag
 
 自定义
 ---

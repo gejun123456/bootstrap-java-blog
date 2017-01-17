@@ -19,5 +19,4 @@
             </div>
 </body>
         <#include "footerjs.ftl">
-
 </html>
