@@ -18,17 +18,18 @@
 
 <div id="sidebar">
     <ul>
-        <li><a href="#">DashBoard</a> </li>
-        <li><a href="/add">addContent</a></li>
-        <li><a href="#">editContent</a></li>
-        <li><a href="#">tags</a></li>
-        <li><a href="#">haha</a></li>
+        <li><a href="#"><img src="/static/img/dashboard.png"/>DashBoard</a> </li>
+        <li><a href="/add"><img src="/static/img/add_content.png"/>addContent</a></li>
+        <li><a href="#"><img src="/static/img/edit-content.png"/>editContent</a></li>
+        <li><a href="#"><img src="/static/img/tag.png"/>tags</a></li>
+        <li><a href="#"><img src="/static/img/rubbish-bin.png"/>deleted</a></li>
     </ul>
 </div>
 
 <div id="content">
-    <center> hello this is my content</center>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    <div class="dashboard">
+        <center>good to see you, bro</center>
+    </div>
 </div>
 </body>
 <#--<#include "footerjs.ftl">-->

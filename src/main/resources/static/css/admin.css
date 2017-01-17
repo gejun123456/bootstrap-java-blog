@@ -68,7 +68,7 @@ div#sidebar{
     float: left;
     width: 250px;
     height: 100%;
-    background-color: #0f0f0f;
+    background-color: #16a085;
 }
 
 
@@ -87,6 +87,10 @@ ul li a {
     padding:10px;
     border-bottom: 1px solid;
     text-decoration: none;
+}
+
+ul li a img{
+    vertical-align: top;
 }
 
 ul li a :hover{
