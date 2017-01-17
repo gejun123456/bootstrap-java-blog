@@ -8,6 +8,17 @@
         font-size: 1.2em;
     }
 
+    * {
+        padding: 0px;;;
+        margin: 0px;;
+    }
+
+    /** {*/
+        /*-webkit-box-sizing: border-box;*/
+        /*-moz-box-sizing: border-box;*/
+        /*box-sizing: border-box;*/
+    /*}*/
+
     #head {
         height: 50px;;
         width: 100%;
@@ -15,18 +26,49 @@
         color: #ffff00;;
     }
 
-    #head img{
-        display: inline-block;
+    /*#head img{*/
+    /*vertical-align: top;*/
+    /*background-color: #ffffff;*/
+    /*}*/
+
+    /*#head button img {*/
+        /*vertical-align: top;*/
+    /*}*/
+
+    /*#mypanel{*/
+        /*padding-top: 10px;;*/
+    /*}*/
+
+    button span{
+        /*display: inline-block;*/
+        font-size:1.3em;
+        /*vertical-align: top;*/
+        /*padding-top: 10px;*/
+        /*padding-top: 10px;;;*/
     }
 
-    #sometext span {
+    button img{
+        vertical-align: top;
     }
+
+
+    #head button{
+        vertical-align: top;
+    }
+
+
 </style>
 <body>
 <div id="head">
-    logout
-    <img src="/static/img/logout.png"/>
-    logout
+    <div id="mypanel">
+        logout
+        <button><img src="/static/img/logout.png"/><span>hello</span></button>
+        logout
+    </div>
+
+    <#--<div id="nima">-->
+        <#--hello-->
+    <#--</div>-->
 </div>
 </body>
 </html>

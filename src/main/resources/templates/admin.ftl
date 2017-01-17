@@ -10,7 +10,7 @@
         admin panel
     </div>
     <span class="mypanel">
-        <button><img src="/static/img/logout.png"/>logout</button>
+        <button><img src="/static/img/logout.png"/><span>logout</span></button>
         <button><img src="/static/img/email.png"/></button>
 
     </span>

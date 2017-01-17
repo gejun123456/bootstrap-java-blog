@@ -29,14 +29,16 @@ div#header{
     font-size: 1.2em;
     color: #ffffff;
     margin-right: 20px;;
+    float: right;
 }
 
 .mypanel button{
     padding: 0;
+    padding-top:4px;
     border: none;
     background: none;
     font-size: 1.0em;;
-
+    vertical-align: top;
     /*height:100%;*/
 }
 
@@ -44,10 +46,18 @@ div#header{
 .mypanel button span{
     color: #ffffff;;
     font-size: 1.2em;;
-    line-height: 0px;;
+    /*line-height: 0px;;*/
     /*line-height: 30px;;*/
     /*height: 31px;;*/
+    display: inline-block;
+    vertical-align: top;
+    /*padding-top:15px;*/
 }
+
+
+/*.mypanel button img{*/
+    /*vertical-align: top;*/
+/*}*/
 
 .mypanel button:focus{
     outline:0;
