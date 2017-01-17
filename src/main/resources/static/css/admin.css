@@ -4,20 +4,18 @@
     padding: 0;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
-
-div#header{
-    width:100%;
+div#header {
+    width: 100%;
     height: 50px;;
     background-color: #2c3e50;
 }
 
-
-.logo{
+.logo {
     float: left;
     margin-top: 4px;;
     font-size: 1.8em;;
@@ -25,16 +23,16 @@ div#header{
     color: #ffffff;
 }
 
-.mypanel{
+.mypanel {
     font-size: 1.2em;
     color: #ffffff;
     margin-right: 20px;;
     float: right;
 }
 
-.mypanel button{
+.mypanel button {
     padding: 0;
-    padding-top:4px;
+    padding-top: 4px;
     border: none;
     background: none;
     font-size: 1.0em;;
@@ -42,8 +40,7 @@ div#header{
     /*height:100%;*/
 }
 
-
-.mypanel button span{
+.mypanel button span {
     color: #ffffff;;
     font-size: 1.2em;;
     /*line-height: 0px;;*/
@@ -54,46 +51,83 @@ div#header{
     /*padding-top:15px;*/
 }
 
-
 /*.mypanel button img{*/
-    /*vertical-align: top;*/
+/*vertical-align: top;*/
 /*}*/
 
-.mypanel button:focus{
-    outline:0;
+.mypanel button:focus {
+    outline: 0;
 }
 
-
-div#sidebar{
+div#sidebar {
     float: left;
     width: 250px;
     height: 100%;
     background-color: #16a085;
 }
 
+div#sidebar ul li a span{
+    display: inline-block;
+    /*vertical-align: top;*/
+    margin-top: 5px;
+}
 
 /*div#sidebar ul{*/
-    /**/
+/**/
 /*}*/
 
-ul li{
-    list-style:none;
+ul li {
+    list-style: none;
 }
 
 ul li a {
     display: block;
     color: #ffffff;;
     font-size: 1.2em;
-    padding:10px;
+    padding: 10px;
     border-bottom: 1px solid;
     text-decoration: none;
 }
 
-ul li a img{
+ul li a img {
     vertical-align: top;
 }
 
-ul li a :hover{
+ul li a:hover {
     background-color: #000000;
 }
 
+#addContent {
+    margin-left: 260px;
+}
+
+#sourceContent {
+    width: 45%;
+    float: left;
+    /*border-right:solid;*/
+}
+
+#markdownContent {
+    margin-left: 50%;
+}
+
+#sourceContentValue {
+    width: 98%;;
+    min-height: 500px;
+}
+
+#sourceContentTitle{
+    width:98%;;
+}
+
+#addContentHeader {
+    height: 30px;;
+    font-size: 20px;
+    color: #9b59b6;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#addContentHeader span{
+    margin-left: 10px;
+}

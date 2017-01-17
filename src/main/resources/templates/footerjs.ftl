@@ -16,7 +16,6 @@
             locale = locale.replace(/-/g, "_");
         }
     }
-    console.log(locale);
     $.holdReady(true);
     if (locale == "zh_CN") {
         $.getScript("/static/js/i18n/zh_CN.js", ready());

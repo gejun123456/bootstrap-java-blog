@@ -1,74 +1,35 @@
 <html>
 <head>
+    <style>
+        #left-part{
+            width: 50%;;
+            border-right: 1px crimson;;
+        }
+
+        #right-part{
+            margin-left:52%;
+            /*float: right;*/
+        }
+    </style>
 </head>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300i,400" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        font-size: 1.2em;
-    }
-
-    * {
-        padding: 0px;;;
-        margin: 0px;;
-    }
-
-    /** {*/
-        /*-webkit-box-sizing: border-box;*/
-        /*-moz-box-sizing: border-box;*/
-        /*box-sizing: border-box;*/
-    /*}*/
-
-    #head {
-        height: 50px;;
-        width: 100%;
-        background-color: #000000;
-        color: #ffff00;;
-    }
-
-    /*#head img{*/
-    /*vertical-align: top;*/
-    /*background-color: #ffffff;*/
-    /*}*/
-
-    /*#head button img {*/
-        /*vertical-align: top;*/
-    /*}*/
-
-    /*#mypanel{*/
-        /*padding-top: 10px;;*/
-    /*}*/
-
-    button span{
-        /*display: inline-block;*/
-        font-size:1.3em;
-        /*vertical-align: top;*/
-        /*padding-top: 10px;*/
-        /*padding-top: 10px;;;*/
-    }
-
-    button img{
-        vertical-align: top;
-    }
-
-
-    #head button{
-        vertical-align: top;
-    }
-
-
-</style>
 <body>
-<div id="head">
-    <div id="mypanel">
-        logout
-        <button><img src="/static/img/logout.png"/><span>hello</span></button>
-        logout
-    </div>
+<div id="left-part">
+    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+    qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
 
-    <#--<div id="nima">-->
-        <#--hello-->
-    <#--</div>-->
+</div>
+
+<div id="right-part">
+    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+    qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
+    distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+    placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut
+    officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+    recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
+    consequatur aut perferendis doloribus asperiores repellat."
 </div>
 </body>
+
 </html>
