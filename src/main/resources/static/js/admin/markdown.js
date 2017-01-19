@@ -2,7 +2,6 @@
  * Created by bruce.ge on 2017/1/19.
  */
 
-
 function getMarkdownContent(title, source) {
     var html = converter.makeHtml(source);
     return "<h2>" + title + "</h2>" + html;
@@ -186,16 +185,20 @@ function dealWithMore(com, start, end) {
 
 function start(title, source, output) {
     var converter = new showdown.Converter();
+    converter.setFlavor('github')
+    var thisConverterSpecificOptions = converter.getOptions();
+    console.log(thisConverterSpecificOptions);
+    converter.setOption("prefixHeaderId",true);
     function refresh() {
-        console.log("in refresh the source val is:"+source.val());
+        console.log("source value is:"+source.val());
         var html = converter.makeHtml(source.val());
+        console.log(html);
         output.html("<h2>" + title.val() + "</h2>" + html);
     }
 
     refresh();
 
     title.bind("keyup",function () {
-        console.log(source.val());
         refresh();
     });
 

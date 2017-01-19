@@ -102,13 +102,15 @@ ul li a:hover {
 }
 
 #sourceContent {
-    width: 45%;
+    width: 48%;
     float: left;
     /*border-right:solid;*/
 }
 
 #markdownContent {
     margin-left: 50%;
+    height: 100%;
+    border:2px solid #eee;
 }
 
 #sourceContentValue {
