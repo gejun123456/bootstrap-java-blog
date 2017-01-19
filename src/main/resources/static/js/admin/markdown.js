@@ -2,7 +2,6 @@
  * Created by bruce.ge on 2017/1/19.
  */
 
-var converter = new showdown.Converter();
 
 function getMarkdownContent(title, source) {
     var html = converter.makeHtml(source);
@@ -15,7 +14,7 @@ function markdownRefresh(title, source, output) {
 }
 
 
-function dealWithTableAndMarkDownShortCut(source,e,linkModal,imageModal) {
+function dealWithTableAndMarkDownShortCut(source, e, linkModal, imageModal) {
     var keyCode = e.keyCode || e.which;
     if (keyCode == 9) {
         e.preventDefault();
@@ -36,38 +35,37 @@ function dealWithTableAndMarkDownShortCut(source,e,linkModal,imageModal) {
         var end = com.prop("selectionEnd");
         if (keyCode == 66) {
             dealWithB(com, start, end);
-        } else if(keyCode==73){
-            dealwithI(com,start,end);
-        } else if(keyCode==72){
+        } else if (keyCode == 73) {
+            dealwithI(com, start, end);
+        } else if (keyCode == 72) {
             e.preventDefault();
-            dealwithHead(com,start,end);
-        } else if(keyCode==76){
+            dealwithHead(com, start, end);
+        } else if (keyCode == 76) {
             e.preventDefault();
             linkModal.modal({
                 keyboard: true
             })
-        } else if(keyCode==71){
+        } else if (keyCode == 71) {
             e.preventDefault();
             imageModal.modal({
                 keyboard: true
             })
-        } else if(keyCode==85){
+        } else if (keyCode == 85) {
             e.preventDefault();
             dealWithUnOrder(com, start, end);
-        } else if(keyCode==79){
+        } else if (keyCode == 79) {
             e.preventDefault();
             dealWithOrder(com, start, end);
-        } else if(keyCode==75){
+        } else if (keyCode == 75) {
             e.preventDefault();
             dealWithCode(com, start, end);
-        } else if(keyCode==81){
+        } else if (keyCode == 81) {
             dealWithQuote(com, start, end);
-        } else if(keyCode==77){
+        } else if (keyCode == 77) {
             dealWithMore(com, start, end);
         }
     }
 }
-
 
 
 function dealWithB(com, start, end) {
@@ -105,7 +103,6 @@ function dealwithHead(com, start, end) {
         com.prop("selectionEnd", end + 3);
     }
 }
-
 
 
 function dealWithUnOrder(com, start, end) {
@@ -185,3 +182,67 @@ function dealWithMore(com, start, end) {
     com.prop("selectionStart", end + 9);
     com.prop("selectionEnd", end + 9);
 };
+
+
+function start(title, source, output) {
+    var converter = new showdown.Converter();
+    function refresh() {
+        console.log("in refresh the source val is:"+source.val());
+        var html = converter.makeHtml(source.val());
+        output.html("<h2>" + title.val() + "</h2>" + html);
+    }
+
+    refresh();
+
+    title.bind("keyup",function () {
+        console.log(source.val());
+        refresh();
+    });
+
+    source.bind("keyup",function () {
+        refresh();
+    });
+
+    source.bind("keydown",function (e) {
+        dealWithTableAndMarkDownShortCut($(this), e, $("#myModal"), $("#imageModal"));
+    })
+
+    $(".markdownbutton").bind("click",function () {
+        var message = $(this).attr('tabindex');
+        var com = source;
+        var start = com.prop("selectionStart");
+        var end = com.prop("selectionEnd");
+        if (message == 1) {
+            //the rest is much the same.
+            dealWithB(com, start, end);
+        } else if (message == 2) {
+            dealwithI(com, start, end);
+        } else if (message == 3) {
+            dealwithHead(com, start, end);
+        } else if (message == 4) {
+            //the link //need to output the modal.
+//                dealWithLink(com,start,end);
+            $('#myModal').modal({
+                keyboard: true
+            })
+            return;
+        } else if (message == 5) {
+            $('#imageModal').modal({
+                keyboard: true
+            })
+            return;
+        } else if (message == 6) {
+            dealWithUnOrder(com, start, end);
+        } else if (message == 7) {
+            dealWithOrder(com, start, end);
+        } else if (message == 9) {
+            dealWithQuote(com, start, end);
+        } else if (message == 8) {
+            dealWithCode(com, start, end);
+        } else if (message == 10) {
+            dealWithMore(com, start, end);
+        }
+        com.focus();
+        refresh();
+    })
+}
