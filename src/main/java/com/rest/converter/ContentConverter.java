@@ -11,8 +11,6 @@ import com.rest.utils.AntiSamyUtils;
 import com.rest.utils.MarkDownUtil;
 import com.rest.vo.ContentVo;
 import com.rest.vo.PageContentVo;
-import org.owasp.validator.html.PolicyException;
-import org.owasp.validator.html.ScanException;
 import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
@@ -41,11 +39,15 @@ public class ContentConverter {
     private static PageContentVo convertToPage(Content s) {
         PageContentVo dto = new PageContentVo();
         dto.setTitle(s.getTitle());
-        dto.setContent(s.getIndex_content());
+        dto.setAddMore(s.getHtml_content().length() != s.getIndex_content().length());
+        if (dto.isAddMore()) {
+            dto.setContent(s.getIndex_content() + "...");
+        } else {
+            dto.setContent(s.getIndex_content());
+        }
         dto.setLink(buildLink(s));
         dto.setStartDate(dateFormat.format(s.getAddtime()));
         //means addmore to check with the thing.
-        dto.setAddMore(s.getHtml_content().length() != s.getIndex_content().length());
         dto.setId(s.getId());
         return dto;
     }
@@ -57,7 +59,7 @@ public class ContentConverter {
     }
 
     //for store.
-    public static Content convertToContent(AddContentRequest request, User user) throws ScanException, PolicyException {
+    public static Content convertToContent(AddContentRequest request, User user) {
         Content content = new Content();
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());

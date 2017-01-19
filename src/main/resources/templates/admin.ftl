@@ -99,13 +99,13 @@
             if (!$("#blogForm").valid()) {
                 return;
             }
-            var markDownHtml = filterXSS($("#sourceContentValue").val());
+            var realSourceContent = $("#sourceContentValue").val().replace("<!-more->","");
+            var markDownHtml = filterXSS(realSourceContent);
             var indexHtml = markDownHtml;
             var index = $("#sourceContentValue").val().indexOf("<!-more->");
             var sourceContent = $("#sourceContentValue").val();
             if (index != -1) {
-                indexHtml = filterXSS($("#sourceContentValue").val().substring(index));
-                sourceContent = sourceContent.substring(0, index) + sourceContent.substring(index + "<!-more->".length);
+                indexHtml = filterXSS($("#sourceContentValue").val().substring(0,index));
             }
             //todo need to validate the length of them.
             var data = {

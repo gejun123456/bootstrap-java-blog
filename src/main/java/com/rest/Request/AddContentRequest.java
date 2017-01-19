@@ -1,7 +1,6 @@
 package com.rest.Request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -9,8 +8,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 /**
  * Created by bruce.ge on 2016/11/6.
  */
-@Setter
-@Getter
+@Data
 public class AddContentRequest {
     @NotEmpty
     @Length(max = 100)

@@ -13,8 +13,6 @@ import com.rest.service.SearchService;
 import com.rest.utils.MarkDownUtil;
 import com.rest.utils.SessionUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.owasp.validator.html.PolicyException;
-import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,16 +40,16 @@ public class ContentAddController {
     @PostMapping("/addContent")
     @ResponseBody
     @NeedAuth
-    public ResponseEntity<?> addContent(@Valid @RequestBody AddContentRequest request) throws ScanException, PolicyException {
+    public ResponseEntity<?> addContent(@Valid @RequestBody AddContentRequest request) {
         //which shall redirect when ok.
         Calendar calendar = Calendar.getInstance();
         User currentUser =
                 SessionUtils.getCurrentUser();
         if (currentUser == null) {
             // TODO: 2017/1/20 fix out weather this will happen if will then fix it in exceptionTranslator
+            log.error("current user session time out the request is {}", request.toString());
             throw new UserSessionTimeOutException();
         }
-
         Content content = ContentConverter.convertToContent(request, currentUser);
         ContentTime time = new ContentTime();
         time.setYear(calendar.get(Calendar.YEAR));
@@ -60,7 +58,7 @@ public class ContentAddController {
         try {
             contentService.saveContent(content, time);
         } catch (Exception e) {
-            log.error("save content fail, the content is {}, the time is {}", content.toString(), time.toString(), e);
+            log.error("save content fail,the request is {}, the content is {}, the time is {}", request.toString(),content.toString(), time.toString(), e);
             throw new TransactionException("add content fail");
         }
         //add data to lucene.
@@ -76,6 +74,7 @@ public class ContentAddController {
 
     @ExceptionHandler(TransactionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
     public String processTransaction(TransactionException e) {
         return e.getMessage();
     }
