@@ -38,22 +38,30 @@
             <span>add content to blog<span>
         </div>
         <div id="sourceContent">
-            <div class="form-group">
-                <label> Title</label>
-                <input type="text" id="sourceContentTitle" class="form-control" placeholder="blog tilte" id="sourceContentId">
-            </div>
-            <div class="form-group">
-                <label> Blog Content</label>
-                <div>
-                    <textarea class="form-control" id="sourceContentValue" placeholder="blogContent"></textarea>
+            <form id="blogForm" action="/">
+                <div class="form-group">
+                    <label> Title</label>
+                    <input type="text" id="sourceContentTitle" class="form-control" placeholder="blog tilte"
+                           id="sourceContentId" name="title" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label> Blog Content</label>
+                    <div>
+                    <#include "markdown_btngroup.ftl">
+                        <textarea class="form-control" id="sourceContentValue" placeholder="blogContent"
+                                  name="value" required></textarea>
+                    </div>
+                </div>
 
-            <div>
-                <button id="sourceContentButton" class="btn btn-default">submit</button>
-            </div>
+                <div>
+                    <button id="sourceContentButton" type="submit" class="btn btn-default">submit</button>
+                </div>
+            </form>
         </div>
 
+    </div>
+    <div class="form-group">
+        <label>markdownText</label>
     </div>
     <div id="markdownContent">
         "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
@@ -67,18 +75,53 @@
         chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no
         resultant pleasure?"
     </div>
-
+<#include "markdown_modal.ftl">
 </div>
 </div>
 </body>
 <#include "footerjs.ftl">
+<script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
+<script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
+<script src="/static/js/admin/markdown.js"></script>
 
 <script type="text/javascript">
-    //    $(document).ready(function () {
-    //       $("#addContentLink").click(function () {
-    //           $("#content div").hide();
-    //           $("#addContent").show();
-    //       })
-    //    })
+    $(document).ready(function () {
+        function refresh() {
+            markdownRefresh($("#sourceContentTitle").val(), $("#sourceContentValue").val(), $("#markdownContent"));
+        }
+
+        $("#blogForm").validate();
+
+
+        refresh();
+        $("#sourceContentTitle").keyup(function () {
+            refresh()
+        })
+
+        $("#sourceContentValue").keyup(function () {
+            refresh()
+        })
+
+        $("#sourceContentValue").keydown(function (e) {
+            //todo may be i can create modal for my own.
+            dealWithTableAndMarkDownShortCut($(this), e, $("#myModal"), $("#imageModal"));
+        })
+
+        $("#blogForm").submit(function (e) {
+            $.ajax({
+                type: 'POST',
+                data: $("#blogForm").serialize(),
+                url: '/register',
+                success: function (response) {
+                    if (response.code != 200) {
+                        $("#register-warn").html(geti18n(response.msg));
+                        $("#register-warn").show();
+                    } else {
+                        window.location.href = "/";
+                    }
+                }
+            })
+        })
+    })
 </script>
 </html>

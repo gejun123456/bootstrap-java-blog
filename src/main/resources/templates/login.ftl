@@ -131,10 +131,6 @@
         });
 
         $("#register-form").submit(function (e) {
-            e.preventDefault();
-            if (!$("#register-form").valid()) {
-                return;
-            }
             $.ajax({
                 type: 'POST',
                 data: $("#register-form").serialize(),

@@ -102,6 +102,7 @@ dependencies {
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.12'
     compile("com.github.pagehelper:pagehelper:5.0.0")
     compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+    compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
