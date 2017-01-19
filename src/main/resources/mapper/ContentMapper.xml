@@ -38,7 +38,7 @@
     </sql>
 
 
-    <insert id="addContent" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert INTO content(title,source_content,html_content,index_content,`user_id`
         ,`status`,updatetime,addtime) VALUES
         (#{title},#{source_content},#{html_content},#{index_content},#{userId},#{status},now(),now())

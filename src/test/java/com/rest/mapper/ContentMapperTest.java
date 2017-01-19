@@ -26,7 +26,7 @@ public class ContentMapperTest extends AbstractTest {
         content.setIndex_content("hehe bitch");
         content.setUserId(1);
         content.setStatus(10);
-        int i = contentMapper.addContent(content);
+        int i = contentMapper.insert(content);
         System.out.println(i);
     }
 }

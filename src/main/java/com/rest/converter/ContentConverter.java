@@ -8,9 +8,9 @@ import com.rest.constant.MarkDownConstant;
 import com.rest.domain.Content;
 import com.rest.enums.StatusEnum;
 import com.rest.utils.AntiSamyUtils;
+import com.rest.utils.MarkDownUtil;
 import com.rest.vo.ContentVo;
 import com.rest.vo.PageContentVo;
-import com.rest.utils.MarkDownUtil;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.util.CollectionUtils;
@@ -61,13 +61,14 @@ public class ContentConverter {
         Content content = new Content();
         content.setTitle(request.getTitle());
         content.setSource_content(request.getSourceContent());
-        content.setHtml_content(MarkDownUtil.convertToHtml(AntiSamyUtils.getCleanHtml(request.getSourceContent())));
-        content.setIndex_content(convertToHeadContent(request.getSourceContent(), content.getHtml_content()));
-        content.setAddtime(new Date());
+        content.setHtml_content(request.getSourceHtml());
         content.setUpdatetime(new Date());
+        content.setAddtime(new Date());
+        content.setIndex_content(request.getIndexHtml());
         content.setUserId(user.getUserId());
         content.setStatus(StatusEnum.ACTIVE.getValue());
         return content;
+
     }
 
     private static String convertToHeadContent(String sourceContent, String html_content) {

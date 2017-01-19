@@ -23,7 +23,7 @@ public class RegisterRequest {
 
     @Email
     @Size(min = 5)
-    @ApiParam(value = "邮箱,最小长度2", required = true)
+    @ApiParam(value = "邮箱,最小长度5", required = true)
     private String email;
 
     private String mobile;

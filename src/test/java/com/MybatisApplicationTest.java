@@ -7,18 +7,11 @@ import com.rest.domain.UserPO;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.mapper.UserPODao;
-import com.rest.utils.GsonUtils;
 import jodd.util.BCrypt;
 import org.junit.ClassRule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.rule.OutputCapture;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 /**
  * Created by bruce.ge on 2016/10/23.
@@ -44,7 +37,7 @@ public class MybatisApplicationTest extends AbstractTest{
         content.setTitle("nimei");
         content.setSource_content("hehe");
         content.setHtml_content("hehe");
-        int i = contentMapper.addContent(content);
+        int i = contentMapper.insert(content);
         System.out.println(content.getId());
     }
 

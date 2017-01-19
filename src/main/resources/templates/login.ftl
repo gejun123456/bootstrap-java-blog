@@ -83,8 +83,8 @@
 
                                 <div class="form-group">
                                     <input type="email" name="email" id="signup_password" tabindex="2"
-                                           class="form-control" placeholder="<@spring.message "email"/>"
-                                           required="true" minlength="5">
+                                           class="form-control" placeholder="<@spring.message "emailPlaceHolder"/>"
+                                           required="true" minlength="5" maxlength="50">
                                 </div>
                             <#--todo can implement more like mobile phone number-->
                             <#--the default is remember-->
@@ -131,21 +131,30 @@
         });
 
         $("#register-form").submit(function (e) {
+            e.preventDefault();
+            if (!$("#register-form").valid()) {
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 data: $("#register-form").serialize(),
                 url: '/register',
                 success: function (response) {
-                    if (response.code != 200) {
-                        $("#register-warn").html(geti18n(response.msg));
+                    alert("success");
+                    window.location.href = "/";
+                },
+                error: function (response) {
+                    console.log(response.responseText.fieldErrors);
+                    if (response.responseText&&!(response.responseText.message)) {
+                        $("#register-warn").html(geti18n(response.responseText));
                         $("#register-warn").show();
-                    } else {
-                        window.location.href = "/";
+                    } else{
+                        //check if there is field error ect, then about the connection error ect.
                     }
+                    //todo when param bind fail.
                 }
             })
         })
-
 
         $("#register-form").validate();
         $("#login-form").validate();
@@ -153,8 +162,6 @@
 
 
 </script>
-
-
 
 
 </html>

@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface ContentMapper {
 
-    int addContent(Content content);
+    int insert(Content content);
 
     List<Content> getPageWithStatus(@Param("status") int status, @Param("start") int start, @Param("limit") int limit);
 

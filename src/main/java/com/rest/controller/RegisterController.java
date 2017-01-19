@@ -5,27 +5,23 @@ import com.rest.bean.User;
 import com.rest.constant.SessionConstants;
 import com.rest.domain.UserPO;
 import com.rest.mapper.UserPODao;
-import com.rest.response.BaseResponse;
-import com.rest.response.CodeConstants;
-import com.rest.response.CodeEnum;
 import com.rest.response.MsgConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import jodd.util.BCrypt;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by bruce.ge on 2016/11/14.
@@ -48,17 +44,11 @@ public class RegisterController {
         }
     }
 
-    @ApiOperation(value = "注册用户", response = BaseResponse.class, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PostMapping("/register")
-    @ApiResponses({@ApiResponse(code = CodeConstants.username_already_exist, message = MsgConstants.username_already_exist),
-            @ApiResponse(code = CodeConstants.validate_fail, message = MsgConstants.validate_fail),
-            @ApiResponse(code = CodeConstants.mobile_already_exist, message = MsgConstants.mobile_already_exist),
-            @ApiResponse(code = CodeConstants.email_already_exist, message = MsgConstants.email_already_exist),
-    })
+    @ApiOperation(value = "注册用户", response = ResponseEntity.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @ResponseBody
-    public BaseResponse register(@Valid @ModelAttribute RegisterRequest registerRequest, HttpSession session) {
-        BaseResponse validateResponse = validate(registerRequest);
-        if (validateResponse != null) return validateResponse;
+    public ResponseEntity<?> register(@Valid @ModelAttribute RegisterRequest registerRequest, HttpSession session) {
+        validate(registerRequest);
         UserPO po = UserPO.builder()
                 .username(registerRequest.getUsername())
                 .email(registerRequest.getEmail())
@@ -88,41 +78,34 @@ public class RegisterController {
         } catch (Exception e) {
             log.info("may exist new user that has the same userName or mobile or email", e);
             //try to recover the reason
-            BaseResponse validate = validate(registerRequest);
-            if (validate != null) {
-                return validate;
-            }
+            validate(registerRequest);
             log.error("register catch exception, the userName is {}, the mobile is {}, the email is {}",
                     registerRequest.getUsername(), registerRequest.getMobile(), registerRequest.getEmail(), e);
-            return BaseResponse.getFromCode(CodeEnum.validate_fail);
+            return ResponseEntity.badRequest().header("").body(MsgConstants.validate_fail);
         }
 
         User sessionUser = User.builder().login(true).userName(po.getUsername()).userId(po.getId()).admin(po.getAuth() == 1).build();
         session.setAttribute(SessionConstants.USER, sessionUser);
 
-        return BaseResponse.success("success");
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    private BaseResponse validate(RegisterRequest registerRequest) {
-        List<UserPO> select =
-                userPODao.findByUsername(registerRequest.getUsername());
-        if (select.size() != 0) {
-            return BaseResponse.getFromCode(CodeEnum.username_already_exist);
+    private void validate(RegisterRequest registerRequest) {
+        Validate.isTrue(userPODao.findByUsername(registerRequest.getUsername()).size() == 0, MsgConstants.username_already_exist);
+
+        if (StringUtils.isNotBlank(registerRequest.getMobile())) {
+            Validate.isTrue(userPODao.findByMobile(registerRequest.getMobile()).size() == 0, MsgConstants.mobile_already_exist);
         }
 
-        if (registerRequest.getMobile() != null) {
-            List<UserPO> byMobile = userPODao.findByMobile(registerRequest.getMobile());
-            if (byMobile.size() != 0) {
-                return BaseResponse.getFromCode(CodeEnum.mobile_already_exist);
-            }
-        }
-
-        if (registerRequest.getEmail() != null) {
-            List<UserPO> byEmail = userPODao.findByEmail(registerRequest.getEmail());
-            if (byEmail.size() != 0) {
-                return BaseResponse.getFromCode(CodeEnum.email_already_exist);
-            }
-        }
-        return null;
+        Validate.isTrue(userPODao.findByUsername(registerRequest.getEmail()).size() == 0, MsgConstants.email_already_exist);
     }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String processIllgealException(IllegalArgumentException exception) {
+        return exception.getMessage();
+    }
+
 }

@@ -38,7 +38,7 @@
             add content to blog
         </div>
         <div id="sourceContent">
-            <form id="blogForm" action="/">
+            <form id="blogForm" action="#">
                 <div class="form-group">
                     <label> Title</label>
                     <input type="text" id="sourceContentTitle" class="form-control" placeholder="blog tilte"
@@ -60,10 +60,10 @@
             </form>
         </div>
 
-        <#--<div class="form-group">-->
-            <#--<label>markdownText</label>-->
-        <#--</div>-->
-        <div id="markdownContent">
+    <#--<div class="form-group">-->
+    <#--<label>markdownText</label>-->
+    <#--</div>-->
+        <div id="markdownContent" class="">
             "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
             I will give you a complete account of the system, and expound the actual teachings of the great explorer of
             the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself,
@@ -85,6 +85,7 @@
 <#include "footerjs.ftl">
 <script src="//cdn.bootcss.com/showdown/1.5.0/showdown.min.js"></script>
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
+<script src="/static/js/xss.js"></script>
 <script src="/static/js/admin/markdown.js"></script>
 
 <script type="text/javascript">
@@ -94,17 +95,38 @@
         start($("#sourceContentTitle"), $("#sourceContentValue"), $("#markdownContent"));
 
         $("#blogForm").submit(function (e) {
+            e.preventDefault();
+            if (!$("#blogForm").valid()) {
+                return;
+            }
+            var markDownHtml = filterXSS($("#sourceContentValue").val());
+            var indexHtml = markDownHtml;
+            var index = $("#sourceContentValue").val().indexOf("<!-more->");
+            var sourceContent = $("#sourceContentValue").val();
+            if (index != -1) {
+                indexHtml = filterXSS($("#sourceContentValue").val().substring(index));
+                sourceContent = sourceContent.substring(0, index) + sourceContent.substring(index + "<!-more->".length);
+            }
+            //todo need to validate the length of them.
+            var data = {
+                'title': filterXSS($("#sourceContentTitle").val()),
+                'sourceContent':sourceContent,
+                'sourceHtml': markDownHtml,
+                'indexHtml': indexHtml
+            };
             $.ajax({
                 type: 'POST',
-                data: $("#blogForm").serialize(),
-                url: '/register',
+                data: JSON.stringify(data),
+                dataType:'json',
+                contentType: 'application/json;charset=utf-8',
+                url: '/addContent',
+
                 success: function (response) {
-                    if (response.code != 200) {
-                        $("#register-warn").html(geti18n(response.msg));
-                        $("#register-warn").show();
-                    } else {
-                        window.location.href = "/";
-                    }
+                    console.log(response);
+
+                },
+                error: function (response) {
+                    console.log(response);
                 }
             })
         })

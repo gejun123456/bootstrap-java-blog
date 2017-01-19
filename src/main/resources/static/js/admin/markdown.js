@@ -190,10 +190,13 @@ function start(title, source, output) {
     console.log(thisConverterSpecificOptions);
     converter.setOption("prefixHeaderId",true);
     function refresh() {
-        console.log("source value is:"+source.val());
-        var html = converter.makeHtml(source.val());
-        console.log(html);
-        output.html("<h2>" + title.val() + "</h2>" + html);
+        var text = source.val();
+        text = text.replace("<!-more->","");
+        console.log("source value is:"+text);
+        var html = converter.makeHtml(text);
+        var cleanSource = filterXSS(html);
+        console.log(cleanSource);
+        output.html("<h2>" + title.val() + "</h2>" + cleanSource);
     }
 
     refresh();

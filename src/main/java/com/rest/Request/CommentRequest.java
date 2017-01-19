@@ -16,6 +16,7 @@ public class CommentRequest {
     private String name;
 
     @NotNull
+    @Length(max = 500)
     @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
     private String content;
 
