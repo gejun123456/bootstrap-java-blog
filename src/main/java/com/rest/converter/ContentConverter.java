@@ -28,7 +28,6 @@ public class ContentConverter {
         if (CollectionUtils.isEmpty(contents)) {
             return pageContentVos;
         }
-
         for (Content s : contents) {
             PageContentVo dto = convertToPage(s);
             pageContentVos.add(dto);

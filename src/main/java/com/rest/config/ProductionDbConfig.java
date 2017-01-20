@@ -16,7 +16,7 @@ public class ProductionDbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUrl("jdbc:mysql://localhost/world?serverTimezone=GMT%2b8");
+        druidDataSource.setUrl("jdbc:mysql://localhost/world?useUnicode:true&amp;characterEncoding:UTF-8");
         druidDataSource.setUsername("bruce");
         druidDataSource.setPassword("root");
         druidDataSource.setInitialSize(3);

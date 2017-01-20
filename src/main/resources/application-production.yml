@@ -1,0 +1,37 @@
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  config-location: classpath:/mybatis-config.xml
+
+spring:
+  freemarker:
+    settings:
+      auto_import: spring.ftl as spring
+    charset: UTF-8
+    cache: true
+
+
+
+logging:
+  file: logs/app.log
+  level: info
+
+#No auth  protected
+endpoints:
+  shutdown:
+    sensitive: false
+    enabled: true
+
+#server.tomcat.remote_ip_header=x-forwarded-for
+server:
+  tomcat:
+    protocol_header: x-forwarded-proto
+  use-forward-headers: true
+
+# config your database config here. 数据库的配置
+db:
+  url: jdbc:mysql://localhost/world?useUnicode:true&amp;characterEncoding:UTF-8"
+  username: bruce
+  password: root
+#set if comment is open.
+blog:
+  comment: true
