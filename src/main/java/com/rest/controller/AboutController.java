@@ -26,14 +26,15 @@ public class AboutController {
         }
         return aboutService.getAbout()
                 .map(about -> {
-                    String content = "";
                     if (about.getSourceContent() != null) {//
-                        content = about.getSourceContent();
-                        view.addObject("aboutContent", content);
+                        view.addObject("aboutContent", about.getSourceContent());
                         return view;
                     }
                     return null;
                 })
-                .orElseGet(() -> view);
+                .orElseGet(() -> {
+                    view.addObject("aboutContent", "");
+                    return view;
+                });
     }
 }
