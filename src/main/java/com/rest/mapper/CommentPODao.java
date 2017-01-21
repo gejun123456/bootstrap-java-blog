@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
+
 @Mapper
 public interface CommentPODao {
 
@@ -12,7 +14,7 @@ public interface CommentPODao {
 
     int insertList(@Param("pojos") List< CommentPO> pojo);
 
-    CommentPO findById(@Param("id")Integer id);
+    Optional<CommentPO> findById(@Param("id")Integer id);
 
     List<CommentPO> findByArticleId(@Param("article_id")Integer article_id);
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * Created by bruce.ge on 2016/11/13.
@@ -105,11 +106,11 @@ public class AuthInterceptor implements HandlerInterceptor {
             httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
         } else {
             //will get lots of thing from database.
-            UserPO dto = loginService.loginByCookie(name, password_cookie);
-            if (dto == null) {
+            Optional<UserPO> userPO = loginService.loginByCookie(name, password_cookie);
+            if(userPO.isPresent()) {
+                httpServletRequest.getSession().setAttribute(SessionConstants.USER, UserConverter.convertToUser(userPO.get()));
+            } else{
                 httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
-            } else {
-                httpServletRequest.getSession().setAttribute(SessionConstants.USER, UserConverter.convertToUser(dto));
             }
         }
     }

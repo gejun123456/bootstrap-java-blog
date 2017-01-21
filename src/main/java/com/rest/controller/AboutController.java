@@ -1,7 +1,6 @@
 package com.rest.controller;
 
 import com.rest.annotation.ExecutionTime;
-import com.rest.domain.AboutPo;
 import com.rest.service.AboutService;
 import com.rest.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,19 @@ public class AboutController {
     @ExecutionTime(logToDatabase = true)
     public ModelAndView getAbout() {
         ModelAndView view = new ModelAndView("about");
-        AboutPo about =
-                aboutService.getAbout();
-        String content = "";
-        if (about != null && about.getSourceContent() != null) {//
-            content = about.getSourceContent();
-        }
         if (SessionUtils.getCurrentUser().isAdmin()) {
             view.addObject("edit", true);
         }
-        view.addObject("aboutContent", content);
-        return view;
+        return aboutService.getAbout()
+                .map(about -> {
+                    String content = "";
+                    if (about.getSourceContent() != null) {//
+                        content = about.getSourceContent();
+                        view.addObject("aboutContent", content);
+                        return view;
+                    }
+                    return null;
+                })
+                .orElseGet(() -> view);
     }
 }

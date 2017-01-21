@@ -39,13 +39,17 @@ public class EditController {
     @NeedAuth(AuthEnum.ADMIN)
 //todo.    when two people edit the same article, how to inform each other. add lock to database?
     public ModelAndView edit(@PathVariable("id") int id) {
-        Content byId = contentMapper.findById(id);
+        return contentMapper.findById(id).map(content -> {
+            ModelAndView edit = new ModelAndView("edit");
+            edit.addObject("title", content.getTitle());
+            edit.addObject("source_content", content.getSource_content());
+            edit.addObject("source_id", id);
+            return edit;
+        }).orElseGet(() -> {
+            return new ModelAndView("articleNotFound");
+        });
         //get the source content.
-        ModelAndView edit = new ModelAndView("edit");
-        edit.addObject("title", byId.getTitle());
-        edit.addObject("source_content", byId.getSource_content());
-        edit.addObject("source_id", id);
-        return edit;
+
     }
 
 

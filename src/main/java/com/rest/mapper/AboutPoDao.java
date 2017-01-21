@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Mapper
@@ -16,5 +17,5 @@ public interface AboutPoDao {
 
     int update(@Param("pojo") AboutPo pojo);
 
-    AboutPo findFirst();
+    Optional<AboutPo> findFirst();
 }

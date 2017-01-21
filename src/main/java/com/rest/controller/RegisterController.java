@@ -91,13 +91,11 @@ public class RegisterController {
     }
 
     private void validate(RegisterRequest registerRequest) {
-        Validate.isTrue(userPODao.findByUsername(registerRequest.getUsername()).size() == 0, MsgConstants.username_already_exist);
-
+        Validate.isTrue(userPODao.findFirstByUsername(registerRequest.getUsername()).isPresent(), MsgConstants.username_already_exist);
         if (StringUtils.isNotBlank(registerRequest.getMobile())) {
-            Validate.isTrue(userPODao.findByMobile(registerRequest.getMobile()).size() == 0, MsgConstants.mobile_already_exist);
+            Validate.isTrue(userPODao.findFirstByMobile(registerRequest.getMobile()).isPresent(), MsgConstants.mobile_already_exist);
         }
-
-        Validate.isTrue(userPODao.findByUsername(registerRequest.getEmail()).size() == 0, MsgConstants.email_already_exist);
+        Validate.isTrue(userPODao.findFirstByEmail(registerRequest.getEmail()).isPresent(), MsgConstants.email_already_exist);
     }
 
 

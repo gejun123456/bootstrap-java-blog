@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * Created by bruce.ge on 2017/1/8.
  */
@@ -15,7 +17,7 @@ public class AboutService {
     private AboutPoDao aboutPoDao;
 
     @Transactional
-    public AboutPo getAbout() {
+    public Optional<AboutPo> getAbout() {
         return aboutPoDao.findFirst();
     }
 }

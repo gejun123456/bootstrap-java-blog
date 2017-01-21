@@ -24,15 +24,12 @@ public class ArchivesController {
     @Autowired
     private ContentTimeMapper contentTimeMapper;
 
-    @Autowired
-    private ContentMapper contentMapper;
-
     @GetMapping("/archive")
     @ExecutionTime(logToDatabase = true)
     public ModelAndView getArchive() {
-        List<Integer> years = Lists.newArrayList();
+        List<Integer> years = contentTimeMapper.getDistinctYears();
         List<String> yearStrings = Lists.newArrayList();
-        years = contentTimeMapper.getDistinctYears();
+
         Map<String, List<ArchiveVo>> archiveMap = Maps.newHashMap();
         for (Integer year : years) {
             List<Archives> byYear =

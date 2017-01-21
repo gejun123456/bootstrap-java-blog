@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by bruce.ge on 2016/11/6.
@@ -18,7 +19,7 @@ public interface ContentMapper {
 
     int getCount();
 
-    Content findById(int id);
+    Optional<Content> findById(int id);
 
     int updateContent(@Param("pojo") Content content);
 
@@ -26,10 +27,10 @@ public interface ContentMapper {
 
     int updateStatusById(@Param("updatedStatus") Integer updatedStatus, @Param("id") Integer id);
 
-    String findUserIdById(@Param("id") Integer id);
+    Optional<String> findUserIdById(@Param("id") Integer id);
 
-    List<Content> findByUserId(@Param("userId")Integer userId);
+    List<Content> findByUserId(@Param("userId") Integer userId);
 
 
-    List<Content> findByStatusOrderByAddtimeDesc(@Param("status")Integer status);
+    List<Content> findByStatusOrderByAddtimeDesc(@Param("status") Integer status);
 }

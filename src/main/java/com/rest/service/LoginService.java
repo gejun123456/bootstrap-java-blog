@@ -6,7 +6,7 @@ import jodd.util.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by bruce.ge on 2016/11/13.
@@ -16,45 +16,25 @@ public class LoginService {
     @Autowired
     private UserPODao userPODao;
 
-    public UserPO login(String userName, String password) {
+    public Optional<UserPO> login(String userName, String password) {
         //logged to system.
-        //todo shall add with database.
-        List<UserPO> select = userPODao.findByUsername(userName);
-        if (select.size() == 0) {
-            return null;
-        }
-        //find from database.  //when it signed, it saved into the database.
-        UserPO selected = select.get(0);
-        boolean checkpw = BCrypt.checkpw(password, selected.getCryptpasswod());
-        if (checkpw) {
-            UserPO.UserPOBuilder builder = UserPO.builder()
-                    .id(selected.getId())
-                    .mobile(selected.getMobile())
-                    .username(selected.getUsername())
-                    .email(selected.getEmail())
-                    .auth(selected.getAuth());
-            return builder.build();
-        }
-        return null;
+        return userPODao.findFirstByUsername(userName)
+                .map((user -> {
+                    boolean checkpw = BCrypt.checkpw(password, user.getCryptpasswod());
+                    if (checkpw) {
+                        return user;
+                    } else {
+                        return null;
+                    }
+                }))
+                ;
     }
 
     //todo the cookie shall alway stay the same, shall change base on time. store in database to check.
 //    try store cookie value in database. then use it to check.
-    public UserPO loginByCookie(String userName, String passwordCookie) {
-        //logged to system.
-        //to check if it equal to the value.
-        //todo shall add with database.
-        List<UserPO> select = userPODao.findByUsernameAndPasswordcookie(userName, passwordCookie);
-        if (select.size() == 0) {
-            return null;
-        }
-        UserPO selected = select.get(0);
-        return UserPO.builder()
-                .id(selected.getId())
-                .mobile(selected.getMobile())
-                .username(selected.getUsername())
-                .email(selected.getEmail())
-                .auth(selected.getAuth()).build();
+
+    public Optional<UserPO> loginByCookie(String userName, String passwordCookie) {
+        return userPODao.findFirstByUsernameAndPasswordcookie(userName, passwordCookie);
 
     }
 

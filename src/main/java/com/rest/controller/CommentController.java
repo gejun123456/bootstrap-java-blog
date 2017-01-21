@@ -120,26 +120,27 @@ public class CommentController {
                     .build();
         }
         Integer replyCommentId = request.getReplyCommentId();
-        CommentPO select = commentPODao.findById(replyCommentId);
-        if (select == null) {
-            logger.info("can't find reply comment");
-            return BaseResponse.builder()
-                    .code(CodeConstants.validate_fail)
-                    .msg("the comment to reply may be deleted")
-                    .build();
-        }
-        String username = select.getUsername();
+        return commentPODao.findById(replyCommentId)
+                .map((commentPO -> {
+                    String username = commentPO.getUsername();
+                    CommentPO po = new CommentPO();
+                    po.setAddtime(new Date());
+                    po.setReply_id(replyCommentId);
+                    po.setArticle_id(request.getArticleId());
+                    po.setUpdatetime(new Date());
+                    po.setUsername(request.getName());
+                    po.setComment_ip(HttpHeaderUtil.getRemoteAddr(servletRequest));
+                    po.setContent("reply to  " + username + " : " + request.getContent());
+                    commentPODao.insert(po);
+                    return BaseResponse.success();
+                })).orElseGet(() -> {
+                    logger.info("can't find reply comment");
+                    return BaseResponse.builder()
+                            .code(CodeConstants.validate_fail)
+                            .msg("the comment to reply may be deleted")
+                            .build();
+                });
 
-        CommentPO po = new CommentPO();
-        po.setAddtime(new Date());
-        po.setReply_id(replyCommentId);
-        po.setArticle_id(request.getArticleId());
-        po.setUpdatetime(new Date());
-        po.setUsername(request.getName());
-        po.setComment_ip(HttpHeaderUtil.getRemoteAddr(servletRequest));
-        po.setContent("reply to  " + username + " : " + request.getContent());
-        commentPODao.insert(po);
-        return BaseResponse.success();
     }
 
 }
