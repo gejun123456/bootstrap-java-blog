@@ -2,6 +2,7 @@ package com.generator;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -40,6 +42,10 @@ public class ProdTemplateGenerator {
         Path parent = path.getParent();
         Path prodPath = parent.resolve(PRODTEMPLATEPATH);
 
+        if (Files.exists(prodPath)) {
+            FileUtils.deleteDirectory(prodPath.toFile());
+        }
+
         File file = path.toFile();
         List<File> freemarkFiles = Lists.newArrayList();
         addToFreeMarker(file, freemarkFiles);
@@ -66,7 +72,6 @@ public class ProdTemplateGenerator {
             m.getParentFile().mkdirs();
             FileOutputStream output = new FileOutputStream(m);
             IOUtils.write(replaceString, output, Charset.defaultCharset());
-            output.flush();
             System.out.println("write to file:" + resolve.toString() + " success");
         }
         stopwatch.stop();
