@@ -1,14 +1,16 @@
 package com.rest.config;
 
+import com.rest.config.Constants;
 import com.rest.intercetors.ExecutionInterceptor;
 import com.rest.local.MyLocaleCookieLocaleResolver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,12 +18,21 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- * Created by bruce.ge on 2016/11/10.
+ * @Author bruce.ge
+ * @Date 2017/1/17
+ * @Description
  */
 @Configuration
-@Profile("product")
-public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
+@Slf4j
+public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
+    @Inject
+    private Environment env;
+
     @Autowired
     @Qualifier("authInterceptor")
     private HandlerInterceptor authInterceptor;
@@ -39,11 +50,15 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(3600 * 24);
-//        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/").setCachePeriod(3600*24);
-//        registry.addResourceHandler("/img/**").setCachePeriod(3600*24);
+        List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+        if (activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION)) {
+            log.info("add resource handle with prod profile");
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(3600 * 24);
+        } else {
+            log.info("add resourcehandler with dev propfile");
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        }
     }
-
 
 
     @Bean(name = "localeResolver")
@@ -56,7 +71,7 @@ public class MyWebappConfigurer extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-        resourceBundleMessageSource.setBasename("MessagesBundle");
+        resourceBundleMessageSource.setBasenames("MessagesBundle", "ValidationMessages");
         return resourceBundleMessageSource;
     }
 }

@@ -7,7 +7,7 @@ spring:
     settings:
       auto_import: spring.ftl as spring
     charset: UTF-8
-    cache: true
+    cache: false
 
 
 

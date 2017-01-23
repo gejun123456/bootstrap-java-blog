@@ -3,6 +3,9 @@ package com.rest.controller;
 import com.rest.Request.RegisterRequest;
 import com.rest.bean.User;
 import com.rest.constant.SessionConstants;
+import com.rest.controller.customException.UserAlreadyExistException;
+import com.rest.controller.errors.ErrorConstants;
+import com.rest.controller.errors.ErrorVM;
 import com.rest.domain.UserPO;
 import com.rest.mapper.UserPODao;
 import com.rest.response.MsgConstants;
@@ -11,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import jodd.util.BCrypt;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,7 +83,7 @@ public class RegisterController {
             validate(registerRequest);
             log.error("register catch exception, the userName is {}, the mobile is {}, the email is {}",
                     registerRequest.getUsername(), registerRequest.getMobile(), registerRequest.getEmail(), e);
-            return ResponseEntity.badRequest().header("").body(MsgConstants.validate_fail);
+            throw e;
         }
 
         User sessionUser = User.builder().login(true).userName(po.getUsername()).userId(po.getId()).admin(po.getAuth() == 1).build();
@@ -91,19 +93,23 @@ public class RegisterController {
     }
 
     private void validate(RegisterRequest registerRequest) {
-        Validate.isTrue(userPODao.findFirstByUsername(registerRequest.getUsername()).isPresent(), MsgConstants.username_already_exist);
+        userPODao.findFirstByUsername(registerRequest.getUsername()).ifPresent(userPO -> {
+            throw new UserAlreadyExistException(MsgConstants.username_already_exist);
+        });
         if (StringUtils.isNotBlank(registerRequest.getMobile())) {
-            Validate.isTrue(userPODao.findFirstByMobile(registerRequest.getMobile()).isPresent(), MsgConstants.mobile_already_exist);
+            userPODao.findFirstByMobile(registerRequest.getMobile()).ifPresent(userPO -> {
+                throw new UserAlreadyExistException(MsgConstants.mobile_already_exist);
+            });
         }
-        Validate.isTrue(userPODao.findFirstByEmail(registerRequest.getEmail()).isPresent(), MsgConstants.email_already_exist);
+        userPODao.findFirstByEmail(registerRequest.getEmail()).ifPresent(userPO -> {
+            throw new UserAlreadyExistException(MsgConstants.email_already_exist);
+        });
     }
 
-
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(UserAlreadyExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public String processIllgealException(IllegalArgumentException exception) {
-        return exception.getMessage();
+    public ErrorVM handleWithAlreadyExist(UserAlreadyExistException ex) {
+        return new ErrorVM(ErrorConstants.ERR_ALREADYEXIST, ex.getMessage());
     }
-
 }

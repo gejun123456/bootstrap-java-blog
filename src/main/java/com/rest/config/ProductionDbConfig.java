@@ -11,7 +11,7 @@ import javax.sql.DataSource;
  * Created by bruce.ge on 2016/11/16.
  */
 @Configuration
-@Profile("production")
+@Profile("prod")
 public class ProductionDbConfig {
     @Bean(initMethod = "init",destroyMethod = "close")
     public DataSource createDateSource(){

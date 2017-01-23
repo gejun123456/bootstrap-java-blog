@@ -144,12 +144,16 @@
                     window.location.href = "/";
                 },
                 error: function (response) {
-                    console.log(response.responseText.fieldErrors);
-                    if (response.responseText&&!(response.responseText.message)) {
-                        $("#register-warn").html(geti18n(response.responseText));
-                        $("#register-warn").show();
-                    } else{
-                        //check if there is field error ect, then about the connection error ect.
+                    if (response.status == 400) {
+                        console.log(response.responseText);
+                        var errorVm = jQuery.parseJSON(response.responseText);
+                        if(errorVm.message=="error.validation"){
+
+                        } else if(errorVm.message="error.userAlreadyExist"){
+
+                        }
+                    } else if(response.status=500){
+                        console.log(geti18n("systemError"));
                     }
                     //todo when param bind fail.
                 }
