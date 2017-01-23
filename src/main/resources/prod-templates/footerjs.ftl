@@ -1,6 +1,6 @@
-<script src="/static/js/jquery-3.1.1.min.js"></script>
-<script src="/static/js/bootstrap.js"></script>
-<script src="/static/js/jquery.validate.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
     var locale = getCookie("LOCALE_KEY");
     //    when cookie not contain use the default lang

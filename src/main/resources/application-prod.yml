@@ -8,7 +8,7 @@ spring:
       auto_import: spring.ftl as spring
     charset: UTF-8
     cache: true
-
+    template-loader-path: ["classpath:/prod-templates/"]
 
 
 logging:

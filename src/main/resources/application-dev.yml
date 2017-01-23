@@ -11,6 +11,7 @@ spring:
 
 
 
+
 logging:
   file: logs/app.log
   level: debug
@@ -20,6 +21,8 @@ endpoints:
   shutdown:
     sensitive: false
     enabled: true
+
+
 
 #server.tomcat.remote_ip_header=x-forwarded-for
 server:
