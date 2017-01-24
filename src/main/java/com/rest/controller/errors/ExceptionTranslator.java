@@ -68,7 +68,7 @@ public class ExceptionTranslator {
         ErrorVM dto = new ErrorVM(ErrorConstants.ERR_VALIDATION);
 
         for (FieldError fieldError : fieldErrors) {
-            dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
+            dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode(),fieldError.getDefaultMessage());
         }
 
         return dto;

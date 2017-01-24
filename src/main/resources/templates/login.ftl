@@ -71,29 +71,50 @@
                             <form id="register-form" action="/register" method="post" role="form"
                                   style="display: none;">
                                 <div class="form-group">
-                                    <i class="glyphicon glyphicon-user"></i>
+                                <#--<i class="glyphicon glyphicon-user"></i>-->
                                     <input type="text" name="username" id="signup_username" tabindex="1"
                                            class="form-control" placeholder="<@spring.message "username"/>" value=""
                                            required="true">
+                                    <div id="register_error_username" class="alert alert-danger alert-dismissible hide"
+                                         role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <span id="register_error_username_text"></span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="signup_password" tabindex="2"
                                            class="form-control" placeholder="<@spring.message "password"/>"
                                            required="true">
+
+                                    <div id="register_error_password" class="alert alert-danger alert-dismissible hide"
+                                         role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <span id="register_error_password_text"></span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <input type="email" name="email" id="signup_password" tabindex="2"
                                            class="form-control" placeholder="<@spring.message "emailPlaceHolder"/>"
                                            required="true" minlength="5" maxlength="50">
+
+                                    <div id="register_error_email" class="alert alert-danger alert-dismissible hide"
+                                         role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <span id="register_error_email_text"></span>
+                                    </div>
                                 </div>
-                            <#--todo can implement more like mobile phone number-->
-                            <#--the default is remember-->
-                            <#--<div class="form-group text-center">-->
-                            <#--<input type="checkbox" tabindex="3" class="" username="remember" id="remember">-->
-                            <#--<label for="remember"> Remember Me</label>-->
-                            <#--</div>-->
-                                <#--<p class="text-center text-danger" id="register-warn" class="hide"></p>-->
+
+                                <div id="register_error_validate" class="alert alert-danger alert-dismissible hide"
+                                     role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <span id="register_error_validate_text"></span>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
@@ -148,12 +169,25 @@
                     if (response.status == 400) {
                         console.log(response.responseText);
                         var errorVm = jQuery.parseJSON(response.responseText);
-                        if(errorVm.message=="error.validation"){
-
-                        } else if(errorVm.message="error.userAlreadyExist"){
-
+                        if (errorVm.message == "error.validation") {
+                            for (var i in errorVm.fieldErrors) {
+                                var fieldError = errorVm.fieldErrors[i];
+                                var fieldErrorDivId = "#register_error_" + fieldError.field;
+                                var errorDiv = $(fieldErrorDivId);
+                                $(fieldErrorDivId + "_text").html(fieldError.defaultMessage);
+                                errorDiv.removeClass("hide");
+                                setTimeout(function () {
+                                    errorDiv.addClass("hide");
+                                }, 4000);
+                            }
+                        } else if (errorVm.message == "error.userAlreadyExist") {
+                            $("#register_error_validate_text").html(geti18n(errorVm.description));
+                            $("#register_error_validate").removeClass("hide");
+                            setTimeout(function () {
+                                $("#register_error_validate").addClass("hide");
+                            }, 4000);
                         }
-                    } else if(response.status=500){
+                    } else if (response.status = 500) {
                         console.log(geti18n("systemError"));
                     }
                     //todo when param bind fail.

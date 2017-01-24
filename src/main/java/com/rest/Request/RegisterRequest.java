@@ -24,7 +24,7 @@ public class RegisterRequest {
     private String password;
 
     @Email
-    @Size(min = 30, max = 50)
+    @Size(min = 5, max = 50)
     @ApiParam(value = "邮箱,最小长度5 最大长度50", required = true)
     private String email;
 

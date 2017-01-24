@@ -12,10 +12,18 @@ public class FieldErrorVM implements Serializable {
 
     private final String message;
 
-    public FieldErrorVM(String dto, String field, String message) {
+    private final String defaultMessage;
+
+    public FieldErrorVM(String dto, String field, String message,String defaultMessage) {
         this.objectName = dto;
         this.field = field;
         this.message = message;
+        this.defaultMessage = defaultMessage;
+    }
+
+
+    public String getDefaultMessage() {
+        return defaultMessage;
     }
 
     public String getObjectName() {

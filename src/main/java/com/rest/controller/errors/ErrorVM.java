@@ -25,17 +25,19 @@ public class ErrorVM implements Serializable {
         this.description = description;
     }
 
+
+
     public ErrorVM(String message, String description, List<FieldErrorVM> fieldErrors) {
         this.message = message;
         this.description = description;
         this.fieldErrors = fieldErrors;
     }
 
-    public void add(String objectName, String field, String message) {
+    public void add(String objectName, String field, String message,String defaultMessage) {
         if (fieldErrors == null) {
             fieldErrors = new ArrayList<>();
         }
-        fieldErrors.add(new FieldErrorVM(objectName, field, message));
+        fieldErrors.add(new FieldErrorVM(objectName, field, message,defaultMessage));
     }
 
     public String getMessage() {

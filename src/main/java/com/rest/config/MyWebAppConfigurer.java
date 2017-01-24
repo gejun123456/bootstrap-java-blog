@@ -74,4 +74,6 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         resourceBundleMessageSource.setBasenames("MessagesBundle", "ValidationMessages");
         return resourceBundleMessageSource;
     }
+
+
 }
