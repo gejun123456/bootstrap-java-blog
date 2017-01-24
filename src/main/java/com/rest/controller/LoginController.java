@@ -15,6 +15,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class LoginController {
 
     @PostMapping(path = "/login", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public LoginResponse login(HttpSession session, HttpServletResponse response, @Valid LoginRequest request
+    public ResponseEntity<LoginResponse> login(HttpSession session, HttpServletResponse response, @Valid LoginRequest request
     ) {
         return loginService.login(request.getUsername(), request.getPassword())
             .map((login) -> {
@@ -59,9 +60,9 @@ public class LoginController {
                 if (attribute != null) {
                     String back = (String) attribute;
                     session.removeAttribute(SessionConstants.AUTHBACKPAGE);
-                    return new LoginResponse(back);
+                    return ResponseEntity.ok().body(new LoginResponse(back));
                 } else {
-                    return new LoginResponse("/");
+                    return ResponseEntity.ok().body(new LoginResponse("/"));
                 }
             }).orElseThrow(() -> new UserNotExistException());
     }

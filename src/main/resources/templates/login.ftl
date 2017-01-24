@@ -220,8 +220,10 @@
                 success: function (response) {
                     console.log(response);
                     $("#login-form :submit").removeAttr("disabled");
+//                    window.location.href = "/";
                 },
                 error: function (response) {
+//                    todo onclick method could change with $(this).parent.hide();
                     var errorButton = "<button type=\"button\" class=\"close\" onclick=\"$('.alert').hide()\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
                     $("#login-form :submit").removeAttr("disabled");
                     if (response.status == 400) {
