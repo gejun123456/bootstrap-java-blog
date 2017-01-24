@@ -31,7 +31,7 @@
         </triggeringPolicy>
     </appender>
 
-    <springProfile name="production">
+    <springProfile name="prod">
         <appender name="Sentry" class="com.getsentry.raven.logback.SentryAppender">
             <dsn>https://7242adf5355c48afa78204877df42eec:bf4f524364fd43d89b854414d465c0e8@sentry.io/115055?options
             </dsn>
@@ -48,6 +48,12 @@
 
     <!--not send evnet to Sentry-->
     <springProfile name="dev">
+
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+
         <logger name="access" level="DEBUG" additivity="false">
             <appender-ref ref="access"/>
         </logger>

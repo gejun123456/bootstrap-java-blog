@@ -23,5 +23,6 @@ var messageStrings = {
     userNameExist: '用戶名已經存在，請重新輸入',
     mobileExist: '手機號已存在，請重新輸入',
     emailExist: '郵箱已存在，請重新輸入',
-    validateFail: "驗證失敗，請重新輸入"
+    validateFail: "驗證失敗，請重新輸入",
+    userNotExist:"user not exist"
 };

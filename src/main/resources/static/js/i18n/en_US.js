@@ -3,5 +3,6 @@ var messageStrings = {
     mobileExist : 'mobile alrady exist, please reinput',
     emailExist: 'email already exist, please reinput',
     validateFail:"validate fail, please reinput",
-    systemError:"system error"
+    systemError:"system error",
+    userNotExist:"user not exist"
 };

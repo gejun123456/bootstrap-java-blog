@@ -1,5 +1,6 @@
 package com.rest.controller.errors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.List;
  * Controller advice to translate the server side exceptions to client-friendly json structures.
  */
 @ControllerAdvice
+@Slf4j
 public class ExceptionTranslator {
 
     @ExceptionHandler(ConcurrencyFailureException.class)
@@ -68,7 +70,7 @@ public class ExceptionTranslator {
         ErrorVM dto = new ErrorVM(ErrorConstants.ERR_VALIDATION);
 
         for (FieldError fieldError : fieldErrors) {
-            dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode(),fieldError.getDefaultMessage());
+            dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode(), fieldError.getDefaultMessage());
         }
 
         return dto;
@@ -83,6 +85,7 @@ public class ExceptionTranslator {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorVM> processRuntimeException(Exception ex) {
+        log.error("catch error exception", ex);
         BodyBuilder builder;
         ErrorVM errorVM;
         ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);

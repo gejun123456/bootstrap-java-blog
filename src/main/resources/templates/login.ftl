@@ -30,24 +30,47 @@
                                 <div class="form-group">
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
                                            placeholder="<@spring.message "username"/>" value="" required="true">
+
+                                    <div id="login_error_username" class="alert alert-danger alert-dismissible hide"
+                                         role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <span id="login_error_username_text"></span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2"
                                            class="form-control" placeholder="<@spring.message "password"/>"
                                            required="true">
+
+                                    <div id="login_error_password" class="alert alert-danger alert-dismissible hide"
+                                         role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <span id="login_error_password_text"></span>
+                                    </div>
                                 </div>
                             <#--the default is remember-->
                                 <div class="form-group text-center">
                                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                     <label for="remember"> <@spring.message "remember"/></label>
                                 </div>
-                            <#if logindd??>
-                                <div>
-                                <#--need to fix with-->
-                                    <p class="text-danger text-center">${logindd}</p>
+                            <#--<#if logindd??>-->
+                                <#--<div>-->
+                                <#--&lt;#&ndash;need to fix with&ndash;&gt;-->
+                                    <#--<p class="text-danger text-center">${logindd}</p>-->
+                                <#--</div>-->
+
+                            <#--</#if>-->
+
+                                <div id="login_error_validate" class="alert alert-danger alert-dismissible hide"
+                                     role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <span id="login_error_validate_text"></span>
                                 </div>
 
-                            </#if>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
@@ -167,7 +190,6 @@
                 },
                 error: function (response) {
                     if (response.status == 400) {
-                        console.log(response.responseText);
                         var errorVm = jQuery.parseJSON(response.responseText);
                         if (errorVm.message == "error.validation") {
                             for (var i in errorVm.fieldErrors) {
@@ -180,15 +202,67 @@
                                     errorDiv.addClass("hide");
                                 }, 4000);
                             }
-                        } else if (errorVm.message == "error.userAlreadyExist") {
-                            $("#register_error_validate_text").html(geti18n(errorVm.description));
+                        } else if (errorVm.message == "error.userNotExist") {
+                            $("#register_error_validate_text").html(geti18n("userNotExist"));
                             $("#register_error_validate").removeClass("hide");
                             setTimeout(function () {
                                 $("#register_error_validate").addClass("hide");
                             }, 4000);
                         }
                     } else if (response.status = 500) {
-                        console.log(geti18n("systemError"));
+                        $("#register_error_validate_text").html(geti18n("systemError"));
+                        $("#register_error_validate").removeClass("hide");
+                        setTimeout(function () {
+                            $("#register_error_validate").addClass("hide");
+                        }, 4000);
+                    }
+                    //todo when param bind fail.
+                }
+            })
+        })
+
+
+        $("#login-form").submit(function (e) {
+            e.preventDefault();
+            if (!$("#login-form").valid()) {
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                data: $("#login-form").serialize(),
+                url: '/login',
+                success: function (response) {
+                    alert("success");
+                    window.location.href = "/";
+                },
+                error: function (response) {
+                    if (response.status == 400) {
+                        console.log(response.responseText);
+                        var errorVm = jQuery.parseJSON(response.responseText);
+                        if (errorVm.message == "error.validation") {
+                            for (var i in errorVm.fieldErrors) {
+                                var fieldError = errorVm.fieldErrors[i];
+                                var fieldErrorDivId = "#login_error_" + fieldError.field;
+                                var errorDiv = $(fieldErrorDivId);
+                                $(fieldErrorDivId + "_text").html(fieldError.defaultMessage);
+                                errorDiv.removeClass("hide");
+                                setTimeout(function () {
+                                    errorDiv.addClass("hide");
+                                }, 4000);
+                            }
+                        } else if (errorVm.message == "error.userAlreadyExist") {
+                            $("#login_error_validate_text").html(geti18n(errorVm.description));
+                            $("#login_error_validate").removeClass("hide");
+                            setTimeout(function () {
+                                $("#login_error_validate").addClass("hide");
+                            }, 4000);
+                        }
+                    } else if (response.status = 500) {
+                        $("#login_error_validate_text").html(geti18n("systemError"));
+                        $("#login_error_validate").removeClass("hide");
+                        setTimeout(function () {
+                            $("#login_error_validate").addClass("hide");
+                        }, 4000);
                     }
                     //todo when param bind fail.
                 }

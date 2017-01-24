@@ -15,4 +15,7 @@ public class MsgConstants {
     public static final String mobile_already_exist = "mobileExist";
 
     public static final String email_already_exist = "emailExist";
+
+
+    public static final String user_not_eixst = "userNotExist";
 }
