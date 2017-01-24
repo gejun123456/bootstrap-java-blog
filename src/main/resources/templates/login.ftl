@@ -31,11 +31,8 @@
                                     <input type="text" name="username" id="username" tabindex="1" class="form-control"
                                            placeholder="<@spring.message "username"/>" value="" required="true">
 
-                                    <div id="login_error_username" class="alert alert-danger alert-dismissible hide"
+                                    <div id="login_error_username" class="alert alert-danger  collapse"
                                          role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <span id="login_error_username_text"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -43,11 +40,8 @@
                                            class="form-control" placeholder="<@spring.message "password"/>"
                                            required="true">
 
-                                    <div id="login_error_password" class="alert alert-danger alert-dismissible hide"
+                                    <div id="login_error_password" class="alert alert-danger  collapse"
                                          role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <span id="login_error_password_text"></span>
                                     </div>
                                 </div>
                             <#--the default is remember-->
@@ -56,14 +50,14 @@
                                     <label for="remember"> <@spring.message "remember"/></label>
                                 </div>
                             <#--<#if logindd??>-->
-                                <#--<div>-->
-                                <#--&lt;#&ndash;need to fix with&ndash;&gt;-->
-                                    <#--<p class="text-danger text-center">${logindd}</p>-->
-                                <#--</div>-->
+                            <#--<div>-->
+                            <#--&lt;#&ndash;need to fix with&ndash;&gt;-->
+                            <#--<p class="text-danger text-center">${logindd}</p>-->
+                            <#--</div>-->
 
                             <#--</#if>-->
 
-                                <div id="login_error_validate" class="alert alert-danger alert-dismissible hide"
+                                <div id="login_error_validate" class="alert alert-danger  collapse"
                                      role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span></button>
@@ -98,11 +92,9 @@
                                     <input type="text" name="username" id="signup_username" tabindex="1"
                                            class="form-control" placeholder="<@spring.message "username"/>" value=""
                                            required="true">
-                                    <div id="register_error_username" class="alert alert-danger alert-dismissible hide"
+                                    <div id="register_error_username"
+                                         class="alert alert-danger  collapse"
                                          role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <span id="register_error_username_text"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -110,11 +102,9 @@
                                            class="form-control" placeholder="<@spring.message "password"/>"
                                            required="true">
 
-                                    <div id="register_error_password" class="alert alert-danger alert-dismissible hide"
+                                    <div id="register_error_password"
+                                         class="alert alert-danger  collapse"
                                          role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <span id="register_error_password_text"></span>
                                     </div>
                                 </div>
 
@@ -123,19 +113,13 @@
                                            class="form-control" placeholder="<@spring.message "emailPlaceHolder"/>"
                                            required="true" minlength="5" maxlength="50">
 
-                                    <div id="register_error_email" class="alert alert-danger alert-dismissible hide"
+                                    <div id="register_error_email" class="alert alert-danger  collapse"
                                          role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <span id="register_error_email_text"></span>
                                     </div>
                                 </div>
 
-                                <div id="register_error_validate" class="alert alert-danger alert-dismissible hide"
+                                <div id="register_error_validate" class="alert alert-danger  collapse"
                                      role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    <span id="register_error_validate_text"></span>
                                 </div>
 
                                 <div class="form-group">
@@ -189,6 +173,7 @@
                     window.location.href = "/";
                 },
                 error: function (response) {
+                    var errorButton = "<button type=\"button\" class=\"close\" onclick=\"$('.alert').hide()\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
                     if (response.status == 400) {
                         var errorVm = jQuery.parseJSON(response.responseText);
                         if (errorVm.message == "error.validation") {
@@ -196,24 +181,24 @@
                                 var fieldError = errorVm.fieldErrors[i];
                                 var fieldErrorDivId = "#register_error_" + fieldError.field;
                                 var errorDiv = $(fieldErrorDivId);
-                                $(fieldErrorDivId + "_text").html(fieldError.defaultMessage);
-                                errorDiv.removeClass("hide");
+                                $(fieldErrorDivId).html(errorButton + fieldError.defaultMessage);
+                                errorDiv.show();
                                 setTimeout(function () {
-                                    errorDiv.addClass("hide");
+                                    errorDiv.hide();
                                 }, 4000);
                             }
-                        } else if (errorVm.message == "error.userNotExist") {
-                            $("#register_error_validate_text").html(geti18n("userNotExist"));
-                            $("#register_error_validate").removeClass("hide");
+                        } else if (errorVm.message == "error.userAlreadyExist") {
+                            $("#register_error_validate").html(errorButton + geti18n(errorVm.description))
+                            $("#register_error_validate").show();
                             setTimeout(function () {
-                                $("#register_error_validate").addClass("hide");
+                                $("#register_error_validate").hide();
                             }, 4000);
                         }
                     } else if (response.status = 500) {
-                        $("#register_error_validate_text").html(geti18n("systemError"));
-                        $("#register_error_validate").removeClass("hide");
+                        $("#register_error_validate").html(errorButton + geti18n("systemError"));
+                        $("#register_error_validate").show();
                         setTimeout(function () {
-                            $("#register_error_validate").addClass("hide");
+                            $("#register_error_validate").hide();
                         }, 4000);
                     }
                     //todo when param bind fail.
@@ -224,6 +209,7 @@
 
         $("#login-form").submit(function (e) {
             e.preventDefault();
+            $("#login-form :submit").attr("disabled", true);
             if (!$("#login-form").valid()) {
                 return;
             }
@@ -232,10 +218,12 @@
                 data: $("#login-form").serialize(),
                 url: '/login',
                 success: function (response) {
-                    alert("success");
-                    window.location.href = "/";
+                    console.log(response);
+                    $("#login-form :submit").removeAttr("disabled");
                 },
                 error: function (response) {
+                    var errorButton = "<button type=\"button\" class=\"close\" onclick=\"$('.alert').hide()\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+                    $("#login-form :submit").removeAttr("disabled");
                     if (response.status == 400) {
                         console.log(response.responseText);
                         var errorVm = jQuery.parseJSON(response.responseText);
@@ -244,24 +232,24 @@
                                 var fieldError = errorVm.fieldErrors[i];
                                 var fieldErrorDivId = "#login_error_" + fieldError.field;
                                 var errorDiv = $(fieldErrorDivId);
-                                $(fieldErrorDivId + "_text").html(fieldError.defaultMessage);
-                                errorDiv.removeClass("hide");
+                                $(fieldErrorDivId).html(errorButton + fieldError.defaultMessage);
+                                errorDiv.show();
                                 setTimeout(function () {
-                                    errorDiv.addClass("hide");
+                                    errorDiv.hide();
                                 }, 4000);
                             }
-                        } else if (errorVm.message == "error.userAlreadyExist") {
-                            $("#login_error_validate_text").html(geti18n(errorVm.description));
-                            $("#login_error_validate").removeClass("hide");
+                        } else if (errorVm.message == "error.userNotExist") {
+                            $("#login_error_validate").html(errorButton + geti18n("userNotExist"));
+                            $("#login_error_validate").show();
                             setTimeout(function () {
-                                $("#login_error_validate").addClass("hide");
+                                $("#login_error_validate").hide();
                             }, 4000);
                         }
                     } else if (response.status = 500) {
-                        $("#login_error_validate_text").html(geti18n("systemError"));
-                        $("#login_error_validate").removeClass("hide");
+                        $("#login_error_validate").html(errorButton + geti18n("systemError"));
+                        $("#login_error_validate").show();
                         setTimeout(function () {
-                            $("#login_error_validate").addClass("hide");
+                            $("#login_error_validate").hide();
                         }, 4000);
                     }
                     //todo when param bind fail.
