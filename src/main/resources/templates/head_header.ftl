@@ -4,3 +4,4 @@
 <title><@spring.message "blogtitle"/></title>
 <link href="/static/css/bootstrap.css" rel="stylesheet">
 <link href="/static/css/blog.css" rel="stylesheet">
+<link href="/static/css/markdown.css" rel="stylesheet">

@@ -1,10 +1,13 @@
 <html>
 <head>
 <#include "head_header.ftl">
-    <link href="/static/css/markdown.css" rel="stylesheet">
 </head>
 <body>
 <#include "header.ftl">
+
+
+
+
 <div class="container">
 
     <div class="row">
@@ -46,14 +49,6 @@
 </div>
 </body>
 <#include "footerjs.ftl">
-<script type="text/javascript">
-    function validate() {
-        //If the form value is "" (nothing)
-        if (document.getElementById("query").value == "") {
-            return false; //Stop the form from submitting
-        }
-        return true;
-    }
-</script>
+
 
 </html>

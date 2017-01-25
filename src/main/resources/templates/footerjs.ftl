@@ -53,6 +53,23 @@
     }
 </script>
 
+<script type="text/javascript">
+    function validate() {
+        //If the form value is "" (nothing)
+        if (document.getElementById("query").value == "") {
+            return false; //Stop the form from submitting
+        }
+        return true;
+    }
+
+
+    $('#searchForm input').keydown(function(e) {
+        if (e.keyCode == 13) {
+            $('#searchForm').submit();
+        }
+    });
+</script>
+
 <#--<script>-->
 <#--$(document).ready(function () {-->
 <#--console.log(messageStrings.userNameExist);-->
