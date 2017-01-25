@@ -4,10 +4,6 @@
 </head>
 <body>
 <#include "header.ftl">
-
-
-
-
 <div class="container">
 
     <div class="row">

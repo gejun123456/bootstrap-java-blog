@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -37,7 +37,7 @@
                     <#elseif thelocale =="en_US">
                         <img src="https://www.v2ex.com/static/img/lang_enus_32.png"/>
                     <#elseif thelocale == "zh_TW">
-                        语言
+                        <span style="line-height: 32px"> 语言</span>
                     <#else>
                         <img src="https://www.v2ex.com/static/img/lang_enus_32.png"/>
                     </#if>
@@ -56,43 +56,4 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
-
-<#--<div class="blog-masthead">-->
-    <#--<div class="container">-->
-        <#--<div class="row">-->
-            <#--<div class="col-md-7">-->
-                <#--<nav>-->
-                    <#--<a class="blog-nav-item" href="/"><@spring.message "home"/></a>-->
-                    <#--<a class="blog-nav-item" id="archives" href="/archive"><@spring.message "archives"/></a>-->
-                    <#--<a class="blog-nav-item" id="about" href="/about"><@spring.message "about"/></a>-->
-                <#--&lt;#&ndash;<a class="blog-nav-right" id="login" href="/login">write</a>&ndash;&gt;-->
-                <#--</nav>-->
-            <#--</div>-->
-            <#--<div class="col-md-5">-->
-                <#--<div class="row">-->
-                <#--&lt;#&ndash;<div class="col-md-3">&ndash;&gt;-->
-                <#--<#if login??>-->
-                    <#--<a class="blog-nav-item" id="my" href="/admin"><@spring.message "manage"/></a>-->
-                    <#--<a class="blog-nav-item" id="logout" href="/logout"><@spring.message "logout"/></a>-->
-                <#--<#else>-->
-                    <#--<a class="blog-nav-item" id="login" href="/loginPage"><@spring.message "manage"/></a>-->
-                <#--</#if>-->
-                <#--&lt;#&ndash;</div>&ndash;&gt;-->
-
-                <#--&lt;#&ndash;<div class="col-md-6">&ndash;&gt;-->
-                    <#--<form class="blog-header-form" action="/search"-->
-                    <#--">-->
-                    <#--<input type="text" id="query" name="query" class="form-control"-->
-                           <#--placeholder="<@spring.message "Search"/>"/>-->
-                    <#--</form>-->
-                <#--&lt;#&ndash;</div>&ndash;&gt;-->
-
-                <#--&lt;#&ndash;<div class="col-md-3">&ndash;&gt;-->
-
-                <#--</div>-->
-            <#--</div>-->
-        <#--</div>-->
-    <#--</div>-->
-<#--</div>-->
 <br>
