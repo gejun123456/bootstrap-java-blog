@@ -220,7 +220,7 @@
                 success: function (response) {
                     console.log(response);
                     $("#login-form :submit").removeAttr("disabled");
-//                    window.location.href = "/";
+                    window.location.href = response.redirectUrl;
                 },
                 error: function (response) {
 //                    todo onclick method could change with $(this).parent.hide();

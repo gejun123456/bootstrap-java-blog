@@ -27,9 +27,36 @@ server:
     protocol_header: x-forwarded-proto
   use-forward-headers: true
 
+server:
+    port: 8080
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
+
+
+spring:
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+#    datasource:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        url: jdbc:mysql://localhost:3306/my_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
+#        name:
+#        username: root
+#        password:
+#        hikari:
+#            data-source-properties:
+#                cachePrepStmts: true
+#                prepStmtCacheSize: 250
+#                prepStmtCacheSqlLimit: 2048
+#                useServerPrepStmts: true
+
 # config your database config here. 数据库的配置
 db:
-  url: jdbc:mysql://localhost/world?useUnicode:true&amp;characterEncoding:UTF-8"
+  url: jdbc:mysql://localhost/world?useUnicode=true&characterEncoding=utf8&useSSL=false
   username: bruce
   password: root
 #set if comment is open.

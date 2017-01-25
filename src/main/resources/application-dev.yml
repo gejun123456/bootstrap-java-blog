@@ -32,7 +32,7 @@ server:
 
 # config your database config here. 数据库的配置
 db:
-  url: jdbc:mysql://localhost/world?useUnicode:true&amp;characterEncoding:UTF-8"
+  url: jdbc:mysql://localhost/world?useUnicode=true&characterEncoding=utf8&useSSL=false
   username: root
   password:
 #set if comment is open.
