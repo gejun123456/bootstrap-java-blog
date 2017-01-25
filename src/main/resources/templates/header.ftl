@@ -17,6 +17,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/"><@spring.message "home"/></a></li>
                 <li><a href="/archive"><@spring.message "archives"/></a></li>
+                <li><a href="/tag"><@spring.message "tag"/></a></li>
                 <li><a href="/about"><@spring.message "about"/></a></li>
             </ul>
             <form class="navbar-form navbar-right" id="searchForm" action="/search" onsubmit="return validate();">
