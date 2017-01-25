@@ -15,7 +15,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/"><@spring.message "home"/> <span class="sr-only">(current)</span></a></li>
+                <li><a href="/"><@spring.message "home"/></a></li>
                 <li><a href="/archive"><@spring.message "archives"/></a></li>
                 <li><a href="/about"><@spring.message "about"/></a></li>
             </ul>
@@ -27,7 +27,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/admin"><@spring.message "admin"/></a></li>
                 <li>
-                    <span class="dropdown" ">
+                    <span class="dropdown">
                     <button class="dropdown-toggle" style="padding: 10px;border: none;background-color: inherit"
                             type="button" id="dropdownMenu1"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

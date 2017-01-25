@@ -87,6 +87,7 @@
 <#include "footerjs.ftl">
 <script type="text/javascript">
     $(document).ready(function () {
+
         $(".reply").click(function (e) {
             $(".reply").show();
             $(".reply-form").hide();

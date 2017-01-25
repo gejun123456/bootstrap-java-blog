@@ -18,4 +18,10 @@
             </div>
 </body>
         <#include "footerjs.ftl">
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".nav a[href='/about']").parent().addClass("active");
+    });
+</script>
 </html>

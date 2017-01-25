@@ -68,6 +68,7 @@
             $('#searchForm').submit();
         }
     });
+
 </script>
 
 <#--<script>-->
