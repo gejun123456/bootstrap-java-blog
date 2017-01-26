@@ -49,4 +49,8 @@ public class TagPoService {
         tagVo.setUpdateTime(tagPo.getUpdateTime());
         return tagVo;
     }
+
+    public void delete(Integer id) {
+        tagPoDao.deleteById(id);
+    }
 }

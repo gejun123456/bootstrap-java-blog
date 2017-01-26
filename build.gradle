@@ -43,12 +43,6 @@ ext {
 //    }
 //}
 
-configurations.all {
-    resolutionStrategy {
-        force "org.springframework:spring-core:3.2.3.RELEASE"
-    }
-}
-
 configurations {
 //    移除logj依赖 使用slf4j+logj
     all*.exclude group: 'log4j', module: 'log4j'

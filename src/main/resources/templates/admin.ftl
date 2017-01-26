@@ -24,16 +24,16 @@
         <li><a href="#"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a></li>
         <li><a href="#" id="addContentLink"><img src="/static/img/add_content.png"/><span>addContent</span></a></li>
         <li><a href="#"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
-        <li><a href="#"><img src="/static/img/tag.png"/><span>tags</span></a></li>
+        <li><a href="#tag" id="tagLink"><img src="/static/img/tag.png"/><span>tags</span></a></li>
         <li><a href="#"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
     </ul>
 </div>
 
 <div id="content">
-    <div class="dashboard" style="display: none">
+    <div id="dashboardContent" class="rightContent">
         <center>good to see you, bro</center>
     </div>
-    <div id="addContent">
+    <div id="addContent" class="rightContent">
         <div id="addContentHeader">
             add content to blog
         </div>
@@ -76,7 +76,26 @@
             resultant pleasure?"
         </div>
     </div>
-</div>
+
+    <div id="tagContent" class="rightContent">
+    <#--display in it-->
+        <div id="tagContentHeader">
+            <center>here are my all tags</center>
+        </div>
+
+        <div id="tagSideBar">
+            <ul>
+                <li> add tag</li>
+                <li> delete tag</li>
+            </ul>
+            <div id="myAllTags">
+
+            </div>
+        </div>
+    </div>
+
+
+
 
 <#include "markdown_modal.ftl">
 </div>
@@ -90,6 +109,21 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var url = window.location.href;
+        var number = url.indexOf('#');
+        if(number==-1){
+            //do for it.
+        }
+
+
+        var hash = url.substring(number + 1);
+        console.log(hash);
+//        alert(hash);
+
+        //todo base on hash to display the vlaue for it.
+
+        $(".rightContent").hide();
+        $("#addContent").show();
         $("#blogForm").validate();
 
         start($("#sourceContentTitle"), $("#sourceContentValue"), $("#markdownContent"));
@@ -99,31 +133,53 @@
             if (!$("#blogForm").valid()) {
                 return;
             }
-            var realSourceContent = $("#sourceContentValue").val().replace("<!-more->","");
+            var realSourceContent = $("#sourceContentValue").val().replace("<!-more->", "");
             var markDownHtml = filterXSS(realSourceContent);
             var indexHtml = markDownHtml;
             var index = $("#sourceContentValue").val().indexOf("<!-more->");
             var sourceContent = $("#sourceContentValue").val();
             if (index != -1) {
-                indexHtml = filterXSS($("#sourceContentValue").val().substring(0,index));
+                indexHtml = filterXSS($("#sourceContentValue").val().substring(0, index));
             }
             //todo need to validate the length of them.
             var data = {
                 'title': filterXSS($("#sourceContentTitle").val()),
-                'sourceContent':sourceContent,
+                'sourceContent': sourceContent,
                 'sourceHtml': markDownHtml,
                 'indexHtml': indexHtml
             };
             $.ajax({
                 type: 'POST',
                 data: JSON.stringify(data),
-                dataType:'json',
+                dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
                 url: '/addContent',
 
                 success: function (response) {
                     console.log(response);
 
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        })
+
+        $("#tagLink").click(function () {
+            $(".rightContent").hide();
+            $("#tagContent").show();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                url: '/getTags',
+                success: function (response) {
+                    if (response.length == 0) {
+                        $("#myAllTags").html("therer is no tags current");
+                    }
+                    for (var i in response) {
+                        console.log(response[i]);
+                    }
                 },
                 error: function (response) {
                     console.log(response);
