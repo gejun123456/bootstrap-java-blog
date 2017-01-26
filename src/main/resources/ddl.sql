@@ -67,3 +67,25 @@ CREATE TABLE IF NOT EXISTS `about_po`(
     `user_id` INT (11) NOT NULL DEFAULT -1 COMMENT 'userId',
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`about_po`';
+
+
+
+CREATE TABLE IF NOT EXISTS `tag_po`(
+  `id` INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `tag_name` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'tagName',
+  `create_time` DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'createTime',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`tag_po`';
+
+
+CREATE TABLE IF NOT EXISTS `content_tag_relation`(
+  `id` INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `content_id` INT (11) NOT NULL DEFAULT -1 COMMENT 'contentId',
+  `tag_id` INT (11) NOT NULL DEFAULT -1 COMMENT 'tagId',
+  `create_time` DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'createTime',
+  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
+  PRIMARY KEY (`id`),
+  key(`content_id`),
+  key(`tag_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`content_tag_relation`';
