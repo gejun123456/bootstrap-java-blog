@@ -1,5 +1,6 @@
 package com.rest.controller.errors;
 
+import com.rest.controller.customException.UserNotAuthRestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
@@ -81,6 +82,13 @@ public class ExceptionTranslator {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ErrorVM processMethodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
         return new ErrorVM(ErrorConstants.ERR_METHOD_NOT_SUPPORTED, exception.getMessage());
+    }
+
+    @ExceptionHandler(UserNotAuthRestException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorVM notAuth(UserNotAuthRestException e) {
+        return new ErrorVM(ErrorConstants.ERR_NOTRESTAUTH, "");
     }
 
     @ExceptionHandler(Exception.class)

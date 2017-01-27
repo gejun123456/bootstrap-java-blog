@@ -4,11 +4,14 @@ import com.rest.annotation.NeedAuth;
 import com.rest.bean.User;
 import com.rest.constant.CookieConstants;
 import com.rest.constant.SessionConstants;
+import com.rest.controller.customException.UserNotAuthRestException;
 import com.rest.converter.UserConverter;
 import com.rest.domain.UserPO;
 import com.rest.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,27 +44,45 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (o instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) o;
             Method method =
-                    handlerMethod.getMethod();
+                handlerMethod.getMethod();
+            Class<? extends HandlerMethod> handlerMethodClass = handlerMethod.getClass();
             if (method.isAnnotationPresent(NeedAuth.class)) {
+
                 NeedAuth auth = method.getAnnotation(NeedAuth.class);
-                return goauth(httpServletRequest, httpServletResponse, user, auth);
+                return goauth(httpServletRequest, httpServletResponse, user, auth,method,handlerMethodClass);
             } else {
-                Class<? extends HandlerMethod> handlerMethodClass = handlerMethod.getClass();
                 if (handlerMethodClass.isAnnotationPresent(NeedAuth.class)) {
+                    if (checkIfRest(method, handlerMethodClass)) {
+                        throw new UserNotAuthRestException();
+                    }
                     NeedAuth auth = handlerMethodClass.getAnnotation(NeedAuth.class);
-                    return goauth(httpServletRequest, httpServletResponse, user, auth);
+                    return goauth(httpServletRequest, httpServletResponse, user, auth,method,handlerMethodClass);
                 }
             }
         }
         return true;
     }
 
-    private boolean goauth(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, User user, NeedAuth auth) throws IOException {
+    private boolean checkIfRest(Method method, Class<? extends HandlerMethod> handlerMethodClass) {
+        if (method.isAnnotationPresent(ResponseBody.class)) {
+            return true;
+        }
+        if (handlerMethodClass.isAnnotationPresent(ResponseBody.class) || handlerMethodClass.isAnnotationPresent(RestController.class)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean goauth(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, User user, NeedAuth auth,Method method,Class handlerMethodClass) throws IOException {
         switch (auth.value()) {
             case LOGIN:
                 if (user.isLogin()) {
                     return true;
                 } else {
+                    if (checkIfRest(method, handlerMethodClass)) {
+                        throw new UserNotAuthRestException();
+                    }
+
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
@@ -74,6 +95,12 @@ public class AuthInterceptor implements HandlerInterceptor {
                 if (user.isAdmin()) {
                     return true;
                 } else {
+
+                    if (checkIfRest(method, handlerMethodClass)) {
+                        throw new UserNotAuthRestException();
+                    }
+
+
                     if (!auth.redirectBack()) {
                         httpServletResponse.sendRedirect(auth.redirectPage());
                     } else {
@@ -107,9 +134,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         } else {
             //will get lots of thing from database.
             Optional<UserPO> userPO = loginService.loginByCookie(name, password_cookie);
-            if(userPO.isPresent()) {
+            if (userPO.isPresent()) {
                 httpServletRequest.getSession().setAttribute(SessionConstants.USER, UserConverter.convertToUser(userPO.get()));
-            } else{
+            } else {
                 httpServletRequest.getSession().setAttribute(SessionConstants.USER, new User());
             }
         }

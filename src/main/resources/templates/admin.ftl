@@ -111,7 +111,7 @@
     $(document).ready(function () {
         var url = window.location.href;
         var number = url.indexOf('#');
-        if(number==-1){
+        if (number == -1) {
             //do for it.
         }
 
@@ -154,13 +154,16 @@
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
                 url: '/addContent',
-
                 success: function (response) {
                     console.log(response);
 
                 },
                 error: function (response) {
-                    console.log(response);
+                    if (response.status == 403) {
+                        window.location.href = "/loginPage";
+                    } else if(response.status==400){
+                        console.log(response);
+                    }
                 }
             })
         })

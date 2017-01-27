@@ -1,6 +1,7 @@
 package com.rest.controller.admin;
 
 import com.rest.Request.AddContentRequest;
+import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.bean.User;
 import com.rest.controller.customException.TransactionException;
@@ -39,7 +40,7 @@ public class ContentAddController {
 
     @PostMapping("/addContent")
     @ResponseBody
-    @NeedAuth
+    @NeedAuth(AuthEnum.ADMIN)
     public ResponseEntity<?> addContent(@Valid @RequestBody AddContentRequest request) {
         //which shall redirect when ok.
         Calendar calendar = Calendar.getInstance();
