@@ -4,5 +4,6 @@ var messageStrings = {
     emailExist: 'email already exist, please reinput',
     validateFail:"validate fail, please reinput",
     systemError:"system error",
-    userNotExist:"user not exist"
+    userNotExist:"user not exist",
+    success:"success"
 };

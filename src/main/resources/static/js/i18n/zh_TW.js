@@ -24,5 +24,6 @@ var messageStrings = {
     mobileExist: '手機號已存在，請重新輸入',
     emailExist: '郵箱已存在，請重新輸入',
     validateFail: "驗證失敗，請重新輸入",
-    userNotExist:"user not exist"
+    userNotExist:"user not exist",
+    success:"成功"
 };

@@ -1,7 +1,6 @@
 package com.rest.controller.admin;
 
 import com.rest.Request.AddContentRequest;
-import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.bean.User;
 import com.rest.controller.customException.TransactionException;
@@ -38,14 +37,14 @@ public class ContentAddController {
     @Autowired
     private SearchService searchService;
 
-    @PostMapping("/addContent")
+    @PostMapping(value = "/addContent")
     @ResponseBody
-    @NeedAuth(AuthEnum.ADMIN)
-    public ResponseEntity<?> addContent(@Valid @RequestBody AddContentRequest request) {
+    @NeedAuth
+    public ResponseEntity<Void> addContent(@Valid @RequestBody AddContentRequest request) {
         //which shall redirect when ok.
         Calendar calendar = Calendar.getInstance();
         User currentUser =
-                SessionUtils.getCurrentUser();
+            SessionUtils.getCurrentUser();
         if (currentUser == null) {
             // TODO: 2017/1/20 fix out weather this will happen if will then fix it in exceptionTranslator
             log.error("current user session time out the request is {}", request.toString());
@@ -59,12 +58,12 @@ public class ContentAddController {
         try {
             contentService.saveContent(content, time);
         } catch (Exception e) {
-            log.error("save content fail,the request is {}, the content is {}, the time is {}", request.toString(),content.toString(), time.toString(), e);
+            log.error("save content fail,the request is {}, the content is {}, the time is {}", request.toString(), content.toString(), time.toString(), e);
             throw new TransactionException("add content fail");
         }
         //add data to lucene.
         new Thread(() -> searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId())).start();
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok().build();
     }
 
     @NeedAuth(redirectBack = true)
