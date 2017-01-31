@@ -45,9 +45,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             HandlerMethod handlerMethod = (HandlerMethod) o;
             Method method =
                 handlerMethod.getMethod();
-            Class<? extends HandlerMethod> handlerMethodClass = handlerMethod.getClass();
+            Class handlerMethodClass = method.getDeclaringClass();
             if (method.isAnnotationPresent(NeedAuth.class)) {
-
                 NeedAuth auth = method.getAnnotation(NeedAuth.class);
                 return goauth(httpServletRequest, httpServletResponse, user, auth,method,handlerMethodClass);
             } else {
@@ -55,7 +54,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     if (checkIfRest(method, handlerMethodClass)) {
                         throw new UserNotAuthRestException();
                     }
-                    NeedAuth auth = handlerMethodClass.getAnnotation(NeedAuth.class);
+                    NeedAuth auth = (NeedAuth) handlerMethodClass.getAnnotation(NeedAuth.class);
                     return goauth(httpServletRequest, httpServletResponse, user, auth,method,handlerMethodClass);
                 }
             }

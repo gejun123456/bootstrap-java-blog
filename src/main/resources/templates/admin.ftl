@@ -14,18 +14,18 @@
         admin panel
     </div>
     <span class="mypanel">
-        <button><img src="/static/img/logout.png"/><span>logout</span></button>
+        <button><a href="/logout"> <img src="/static/img/logout.png"/><span>logout</span></a></button>
         <button><img src="/static/img/email.png"/></button>
     </span>
 </div>
 
 <div id="sidebar">
     <ul>
-        <li><a href="#"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a></li>
-        <li><a href="#" id="addContentLink"><img src="/static/img/add_content.png"/><span>addContent</span></a></li>
-        <li><a href="#"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
+        <li><a href="#dashboard" id="dashBoardLink"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a></li>
+        <li><a href="#addContent" id="addContentLink"><img src="/static/img/add_content.png"/><span>addContent</span></a></li>
+        <li><a href="#editContent"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
         <li><a href="#tag" id="tagLink"><img src="/static/img/tag.png"/><span>tags</span></a></li>
-        <li><a href="#"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
+        <li><a href="#deleted"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
     </ul>
 </div>
 
@@ -64,16 +64,16 @@
     <#--<label>markdownText</label>-->
     <#--</div>-->
         <div id="markdownContent" class="">
-            "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
-            I will give you a complete account of the system, and expound the actual teachings of the great explorer of
-            the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself,
-            because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
-            consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain
-            pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can
-            procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical
-            exercise, except to obtain some advantage from it? But who has any right to find fault with a man who
-            chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no
-            resultant pleasure?"
+            <#--"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and-->
+            <#--I will give you a complete account of the system, and expound the actual teachings of the great explorer of-->
+            <#--the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself,-->
+            <#--because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter-->
+            <#--consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain-->
+            <#--pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can-->
+            <#--procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical-->
+            <#--exercise, except to obtain some advantage from it? But who has any right to find fault with a man who-->
+            <#--chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no-->
+            <#--resultant pleasure?"-->
         </div>
     </div>
 
@@ -111,22 +111,24 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var url = window.location.href;
+        $(".rightContent").hide();
         var number = url.indexOf('#');
         if (number == -1) {
             //do for it.
+            $("#dashboardContent").show();
         }
 
 
         var hash = url.substring(number + 1);
-        console.log(hash);
-//        alert(hash);
 
-        //todo base on hash to display the vlaue for it.
-
-        $(".rightContent").hide();
-        $("#addContent").show();
+        if(hash=="addContent") {
+            $("#addContent").show();
+        } else if(hash=="dashboard"){
+            $("#dashboardContent").show();
+        } else if(hash=="tag"){
+            $("#tagContent").show();
+        }
         $("#blogForm").validate();
-
         start($("#sourceContentTitle"), $("#sourceContentValue"), $("#markdownContent"));
 
         $("#blogForm").submit(function (e) {
@@ -190,6 +192,17 @@
                 }
             })
         })
+
+        $("#dashBoardLink").click(function () {
+            $(".rightContent").hide();
+            $("#dashboardContent").show();
+        })
+
+        $("#addContentLink").click(function () {
+            $(".rightContent").hide();
+            $("#addContent").show();
+        })
+
     })
 </script>
 </html>

@@ -49,10 +49,10 @@
     <!--not send evnet to Sentry-->
     <springProfile name="dev">
 
-        <root level="DEBUG">
-            <appender-ref ref="CONSOLE" />
-            <appender-ref ref="FILE" />
-        </root>
+        <!--<root level="DEBUG">-->
+            <!--<appender-ref ref="CONSOLE" />-->
+            <!--<appender-ref ref="FILE" />-->
+        <!--</root>-->
 
         <logger name="access" level="DEBUG" additivity="false">
             <appender-ref ref="access"/>
