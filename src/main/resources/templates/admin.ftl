@@ -106,7 +106,7 @@
 <script src="//cdn.bootcss.com/autosize.js/3.0.18/autosize.min.js"></script>
 <script src="/static/js/xss.js"></script>
 <script src="/static/js/admin/markdown.js"></script>
-<#--<script src="/static/js/bootbox.min.js"></script>-->
+<script src="/static/js/bootbox.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -156,12 +156,9 @@
                 contentType: 'application/json;charset=utf-8',
                 url: '/addContent',
                 success: function (response) {
-                    console.log(response);
-//                    bootbox.alert(geti18n("success"));
-                    alert("success");
+                    bootbox.alert(geti18n("success"));
                 },
                 error: function (response) {
-                    console.log("error");
                     console.log(response);
                     if (response.status == 403) {
                         window.location.href = "/loginPage";
