@@ -23,17 +23,17 @@
     <ul>
         <li><a href="#dashboard" id="dashBoardLink"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a></li>
         <li><a href="#addContent" id="addContentLink"><img src="/static/img/add_content.png"/><span>addContent</span></a></li>
-        <li><a href="#editContent"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
+        <li><a href="#editContent" id="editContentLink"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
         <li><a href="#tag" id="tagLink"><img src="/static/img/tag.png"/><span>tags</span></a></li>
-        <li><a href="#deleted"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
+        <li><a href="#deleted" id="deleteContentLink"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
     </ul>
 </div>
 
 <div id="content">
-    <div id="dashboardContent" class="rightContent">
+    <div id="dashboardContent" class="rightContent collapse">
         <center>good to see you, bro</center>
     </div>
-    <div id="addContent" class="rightContent">
+    <div id="addContent" class="rightContent collapse">
         <div id="addContentHeader">
             add content to blog
         </div>
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <div id="tagContent" class="rightContent">
+    <div id="tagContent" class="rightContent collapse">
     <#--display in it-->
         <div id="tagContentHeader">
             <center>here are my all tags</center>
@@ -92,6 +92,15 @@
 
             </div>
         </div>
+    </div>
+
+    <div id="editContent" class="rightContent collapse">
+        This are places you can edit content.
+    </div>
+
+
+    <div id="deleteContent" class="rightContent collapse">
+        This are delete content.
     </div>
 
 
@@ -111,7 +120,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var url = window.location.href;
-        $(".rightContent").hide();
         var number = url.indexOf('#');
         if (number == -1) {
             //do for it.
@@ -127,6 +135,10 @@
             $("#dashboardContent").show();
         } else if(hash=="tag"){
             $("#tagContent").show();
+        } else if(hash=="editContent"){
+            $("#editContent").show();
+        } else if(hash=="deleted"){
+            $("#deleteContent").show();
         }
         $("#blogForm").validate();
         start($("#sourceContentTitle"), $("#sourceContentValue"), $("#markdownContent"));
@@ -198,10 +210,22 @@
             $("#dashboardContent").show();
         })
 
+        $("#editContentLink").click(function () {
+            $(".rightContent").hide();
+            $("#editContent").show();
+        })
+
         $("#addContentLink").click(function () {
             $(".rightContent").hide();
             $("#addContent").show();
         })
+
+        $("#deleteContentLink").click(function () {
+            $(".rightContent").hide();
+            $("#deleteContent").show();
+        })
+
+
 
     })
 </script>
