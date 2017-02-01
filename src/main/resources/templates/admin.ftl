@@ -77,22 +77,54 @@
         </div>
     </div>
 
-    <div id="tagContent" class="rightContent collapse">
+    <div id="tagContent" class="rightContent collapse" style="margin-left: 260px;">
     <#--display in it-->
-        <div id="tagContentHeader">
-            <center>here are my all tags</center>
-        </div>
+
+
 
         <div id="tagSideBar">
-            <ul>
-                <li> add tag</li>
-                <li> delete tag</li>
-            </ul>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#tagModal">addTag</button>
             <div id="myAllTags">
 
             </div>
         </div>
+
+
+        <div id="tagContentHeader">
+            <center>here are my all tags</center>
+        </div>
+
+
     </div>
+
+    <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Add New Tag</h4>
+                </div>
+
+                <div class="modal-body">
+                    <#--<form>-->
+                        <div class="form-group">
+                            <label for="tagName">Tag Name</label>
+                            <input type="text" id="newTagName" class="form-control" placeholder="tag name"
+                        </div>
+                    <#--</form>-->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveTag">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <div id="editContent" class="rightContent collapse">
         This are places you can edit content.
@@ -118,6 +150,7 @@
 <script src="/static/js/bootbox.min.js"></script>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         var url = window.location.href;
         var number = url.indexOf('#');
@@ -134,6 +167,8 @@
         } else if(hash=="dashboard"){
             $("#dashboardContent").show();
         } else if(hash=="tag"){
+            //request rest to get all the tag to view.
+            loadTags();
             $("#tagContent").show();
         } else if(hash=="editContent"){
             $("#editContent").show();
@@ -226,6 +261,52 @@
         })
 
 
+        $("#saveTag").click(function () {
+//            console.log($("#newTagName").val());
+            //send vlaue through ajax
+            $("#tagModal").modal('hide');
+            var data = {
+                name:$("#newTagName").val()
+            }
+            $.ajax({
+                type:'Get',
+                data:data,
+                url:'/tag/add',
+                success: function (response) {
+                    console.log(response);
+                    loadTags();
+                },
+                error: function (response){
+                    console.log(response);
+                }
+            })
+        })
+
+
+        function loadTags() {
+            $("#tagContentHeader").html("hello you guys")
+            $.ajax({
+                type:'Post',
+                url:'/getTags',
+                success: function (response) {
+                    var tagContent="";
+                    for(var i in response){
+                        tagContent+="<div style='margin: 20px;background-color:#ecf0f1'>";
+                        tagContent +="<span style='width: 200px; display: inline-block; font-size: 2.0em;'>"+response[i].id+response[i].tagName+"</span>"
+                        tagContent +="<button type='button' class='btn btn-warning'>edit</button>"
+                        tagContent +="<button type='button' class='btn btn-danger'>delete</button>"
+                        tagContent+="</div>"
+                    }
+                    $("#tagContentHeader").html(tagContent);
+
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+
+            })
+
+        }
 
     })
 </script>
