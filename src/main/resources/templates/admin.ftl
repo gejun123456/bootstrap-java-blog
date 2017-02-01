@@ -184,12 +184,12 @@
                 return;
             }
             var realSourceContent = $("#sourceContentValue").val().replace("<!-more->", "");
-            var markDownHtml = filterXSS(realSourceContent);
+            var markDownHtml = filterXSS(converter.makeHtml(realSourceContent));
             var indexHtml = markDownHtml;
             var index = $("#sourceContentValue").val().indexOf("<!-more->");
             var sourceContent = $("#sourceContentValue").val();
             if (index != -1) {
-                indexHtml = filterXSS($("#sourceContentValue").val().substring(0, index));
+                indexHtml = filterXSS(converter.makeHtml($("#sourceContentValue").val().substring(0, index)));
             }
             //todo need to validate the length of them.
             var data = {
@@ -220,24 +220,8 @@
 
         $("#tagLink").click(function () {
             $(".rightContent").hide();
+            loadTags();
             $("#tagContent").show();
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                url: '/getTags',
-                success: function (response) {
-                    if (response.length == 0) {
-                        $("#myAllTags").html("therer is no tags current");
-                    }
-                    for (var i in response) {
-                        console.log(response[i]);
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            })
         })
 
         $("#dashBoardLink").click(function () {

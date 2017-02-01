@@ -7,6 +7,12 @@ function getMarkdownContent(title, source) {
     return "<h2>" + title + "</h2>" + html;
 }
 
+var converter = new showdown.Converter();
+converter.setFlavor('github')
+var thisConverterSpecificOptions = converter.getOptions();
+// console.log(thisConverterSpecificOptions);
+converter.setOption("prefixHeaderId",true);
+
 function markdownRefresh(title, source, output) {
     var html = converter.makeHtml(source);
     output.html("<h2>" + title + "</h2>" + html);
@@ -184,11 +190,11 @@ function dealWithMore(com, start, end) {
 
 
 function start(title, source, output) {
-    var converter = new showdown.Converter();
-    converter.setFlavor('github')
-    var thisConverterSpecificOptions = converter.getOptions();
-    console.log(thisConverterSpecificOptions);
-    converter.setOption("prefixHeaderId",true);
+    // var converter = new showdown.Converter();
+    // converter.setFlavor('github')
+    // var thisConverterSpecificOptions = converter.getOptions();
+    // // console.log(thisConverterSpecificOptions);
+    // converter.setOption("prefixHeaderId",true);
     function refresh() {
         var text = source.val();
         text = text.replace("<!-more->","");
