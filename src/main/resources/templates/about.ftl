@@ -21,7 +21,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".nav a[href='/about']").parent().addClass("active");
+        $("#_aboutLink").parent().addClass("active");
     });
 </script>
 </html>

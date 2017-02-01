@@ -15,10 +15,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/"><@spring.message "home"/></a></li>
-                <li><a href="/archive"><@spring.message "archives"/></a></li>
-                <li><a href="/tag"><@spring.message "tag"/></a></li>
-                <li><a href="/about"><@spring.message "about"/></a></li>
+                <li><a href="/" id="_indexLink"><@spring.message "home"/></a></li>
+                <li><a href="/archive" id="_archiveLink"><@spring.message "archives"/></a></li>
+                <li><a href="/tag" id="_tagLink"><@spring.message "tag"/></a></li>
+                <li><a href="/about" id="_aboutLink"><@spring.message "about"/></a></li>
             </ul>
             <form class="navbar-form navbar-right" id="searchForm" action="/search" onsubmit="return validate();">
                 <div class="form-group">

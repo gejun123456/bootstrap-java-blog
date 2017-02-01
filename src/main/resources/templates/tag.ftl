@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".nav a[href='/tag']").parent().addClass("active");
+        $("#_tagLink").parent().addClass("active");
     });
 </script>
 </html>

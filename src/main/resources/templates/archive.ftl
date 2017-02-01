@@ -27,7 +27,7 @@
 <#include "footerjs.ftl">
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".nav a[href='/archive']").parent().addClass("active");
+        $("#_archiveLink").parent().addClass("active");
     });
 </script>
 </html>
