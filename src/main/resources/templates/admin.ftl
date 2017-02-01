@@ -14,8 +14,9 @@
         admin panel
     </div>
     <span class="mypanel">
+        <button><a href="/"><img src="/static/img/home.png"</a><span>home</span></button>
         <button><a href="/logout"> <img src="/static/img/logout.png"/><span>logout</span></a></button>
-        <button><img src="/static/img/email.png"/></button>
+        <button><img src="/static/img/message-closed-envelope.png"/><span>message</span></button>
     </span>
 </div>
 
@@ -145,7 +146,7 @@
                 <#--<form>-->
                     <div class="form-group">
                         <label for="tagName">Tag Name</label>
-                        <input type="text" id="newTagName" class="form-control" placeholder="tag name"
+                        <input type="text" id="newTagName" class="form-control" placeholder="tag name">
                     </div>
                 <#--</form>-->
                 </div>
@@ -160,14 +161,14 @@
     </div>
 
 
-    <div id="editContent" class="rightContent collapse">
-        This are places you can edit content.
-    </div>
+<div id="editContent" class="rightContent collapse">
+    This are places you can edit content.
+</div>
 
 
-    <div id="deleteContent" class="rightContent collapse">
-        This are delete content.
-    </div>
+<div id="deleteContent" class="rightContent collapse">
+    This are delete content.
+</div>
 
 
 
@@ -306,16 +307,16 @@
             console.log($("#editTagId").val());
             console.log($("#editTagName").val());
             var data = {
-                tagId:$("#editTagId").val(),
-                newTagName:$("#editTagName").val()
+                tagId: $("#editTagId").val(),
+                newTagName: $("#editTagName").val()
             }
 
             $("#editTagModal").modal('hide');
             $.ajax({
-                type:'POST',
-                data:data,
-                url:'/tag/edit',
-                success:function (response) {
+                type: 'POST',
+                data: data,
+                url: '/tag/edit',
+                success: function (response) {
                     loadTags();
                 },
                 error: function (response) {
@@ -338,7 +339,7 @@
                     tagContent += "<div style='margin: 20px;background-color:#ecf0f1'>";
                     tagContent += "<span style='width: 500px; display: inline-block; font-size: 2.0em;'>" + response[i].id + response[i].tagName + "</span>"
                     tagContent += "<button type='button' class='btn btn-info' onclick='showEditTagModal(" + response[i].id + ")'>edit</button>"
-                    tagContent += "<button type='button' class='btn btn-danger' onclick='deleteTag("+response[i].id+")'>delete</button>"
+                    tagContent += "<button type='button' class='btn btn-danger' onclick='deleteTag(" + response[i].id + ")'>delete</button>"
                     tagContent += "</div>"
                 }
                 $("#tagContentHeader").html(tagContent);
@@ -363,15 +364,15 @@
 
     function deleteTag(tagId) {
         bootbox.confirm("Do you really want to delete the tag!", function (result) {
-            if(result==false){
+            if (result == false) {
                 return;
             }
             console.log(tagId);
             $.ajax({
-                type:'POST',
-                url:'/tag/delete',
-                data:{
-                    tagId:tagId
+                type: 'POST',
+                url: '/tag/delete',
+                data: {
+                    tagId: tagId
                 },
                 success: function (response) {
                     loadTags();
