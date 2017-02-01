@@ -27,6 +27,10 @@ public class TagPoService {
         return tagPoDao.update(pojo);
     }
 
+    public int updateTagNameById(String newTagName, Integer id) {
+        return tagPoDao.updateTagNameById(newTagName, id);
+    }
+
     public List<TagVo> findAll() {
         List<TagPo> all = tagPoDao.findAll();
         List<TagVo> vos = convertToVo(all);

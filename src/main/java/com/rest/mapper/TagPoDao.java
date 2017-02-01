@@ -20,6 +20,9 @@ public interface TagPoDao {
 
     TagPo findById(@Param("id")Integer id);
 
+
+    int updateTagNameById(@Param("updatedTagName")String updatedTagName,@Param("id")Integer id);
+
     List<TagPo> findAll();
 
     int delete();

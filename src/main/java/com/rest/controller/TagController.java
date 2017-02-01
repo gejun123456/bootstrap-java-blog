@@ -1,6 +1,8 @@
 package com.rest.controller;
 
 import com.rest.Request.AddTagRequest;
+import com.rest.Request.DeleteTagRequest;
+import com.rest.Request.EditTagRequest;
 import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
 import com.rest.domain.TagPo;
@@ -57,11 +59,11 @@ public class TagController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/tag/delete")
+    @PostMapping("/tag/delete")
     @ResponseBody
     @NeedAuth(AuthEnum.ADMIN)
-    public ResponseEntity<?> deleteTag(@RequestParam(value = "id") Integer tagId) {
-        tagPoService.delete(tagId);
+    public ResponseEntity<?> deleteTag(@Valid DeleteTagRequest request) {
+        tagPoService.delete(request.getTagId());
         return ResponseEntity.ok().build();
     }
 
@@ -70,8 +72,8 @@ public class TagController {
     @ResponseBody
     @NeedAuth(AuthEnum.ADMIN)
     // TODO: 2017/1/25 fix it with request
-    public ResponseEntity<?> editTag() {
-
+    public ResponseEntity<?> editTag(@Valid EditTagRequest editTagRequest) {
+        int i = tagPoService.updateTagNameById(editTagRequest.getNewTagName(), editTagRequest.getTagId());
         return ResponseEntity.ok().build();
     }
 }

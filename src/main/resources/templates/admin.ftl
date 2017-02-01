@@ -21,11 +21,15 @@
 
 <div id="sidebar">
     <ul>
-        <li><a href="#dashboard" id="dashBoardLink"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a></li>
-        <li><a href="#addContent" id="addContentLink"><img src="/static/img/add_content.png"/><span>addContent</span></a></li>
-        <li><a href="#editContent" id="editContentLink"><img src="/static/img/edit-content.png"/><span>editContent</span></a></li>
+        <li><a href="#dashboard" id="dashBoardLink"><img src="/static/img/dashboard.png"/><span>DashBoard</span></a>
+        </li>
+        <li><a href="#addContent" id="addContentLink"><img
+                src="/static/img/add_content.png"/><span>addContent</span></a></li>
+        <li><a href="#editContent" id="editContentLink"><img
+                src="/static/img/edit-content.png"/><span>editContent</span></a></li>
         <li><a href="#tag" id="tagLink"><img src="/static/img/tag.png"/><span>tags</span></a></li>
-        <li><a href="#deleted" id="deleteContentLink"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a></li>
+        <li><a href="#deleted" id="deleteContentLink"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a>
+        </li>
     </ul>
 </div>
 
@@ -64,7 +68,7 @@
     <#--<label>markdownText</label>-->
     <#--</div>-->
         <div id="markdownContent" class="">
-            <#--"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and-->
+        <#--"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and-->
             <#--I will give you a complete account of the system, and expound the actual teachings of the great explorer of-->
             <#--the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself,-->
             <#--because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter-->
@@ -83,7 +87,8 @@
 
 
         <div id="tagSideBar">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#tagModal">addTag</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#tagModal">addTag
+            </button>
             <div id="myAllTags">
 
             </div>
@@ -97,6 +102,35 @@
 
     </div>
 
+    <div class="modal fade" id="editTagModal" tabindex="6" role="dialog" aria-labelledby="editTagModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editTagModalLabel">Edit Tag</h4>
+                </div>
+
+                <div class="modal-body">
+                <#--<form>-->
+                    <div class="form-group">
+                        <input type="hidden" id="editTagId">
+                        <label for="tagName">Tag Name</label>
+                        <input type="text" id="editTagName" class="form-control" placeholder="new tag name">
+                    </div>
+                <#--</form>-->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveEditTag">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -108,12 +142,12 @@
                 </div>
 
                 <div class="modal-body">
-                    <#--<form>-->
-                        <div class="form-group">
-                            <label for="tagName">Tag Name</label>
-                            <input type="text" id="newTagName" class="form-control" placeholder="tag name"
-                        </div>
-                    <#--</form>-->
+                <#--<form>-->
+                    <div class="form-group">
+                        <label for="tagName">Tag Name</label>
+                        <input type="text" id="newTagName" class="form-control" placeholder="tag name"
+                    </div>
+                <#--</form>-->
                 </div>
 
                 <div class="modal-footer">
@@ -152,6 +186,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+
         var url = window.location.href;
         var number = url.indexOf('#');
         if (number == -1) {
@@ -162,17 +198,17 @@
 
         var hash = url.substring(number + 1);
 
-        if(hash=="addContent") {
+        if (hash == "addContent") {
             $("#addContent").show();
-        } else if(hash=="dashboard"){
+        } else if (hash == "dashboard") {
             $("#dashboardContent").show();
-        } else if(hash=="tag"){
+        } else if (hash == "tag") {
             //request rest to get all the tag to view.
             loadTags();
             $("#tagContent").show();
-        } else if(hash=="editContent"){
+        } else if (hash == "editContent") {
             $("#editContent").show();
-        } else if(hash=="deleted"){
+        } else if (hash == "deleted") {
             $("#deleteContent").show();
         }
         $("#blogForm").validate();
@@ -250,48 +286,104 @@
             //send vlaue through ajax
             $("#tagModal").modal('hide');
             var data = {
-                name:$("#newTagName").val()
+                name: $("#newTagName").val()
             }
             $.ajax({
-                type:'Get',
-                data:data,
-                url:'/tag/add',
+                type: 'GET',
+                data: data,
+                url: '/tag/add',
                 success: function (response) {
                     console.log(response);
                     loadTags();
                 },
-                error: function (response){
+                error: function (response) {
                     console.log(response);
                 }
             })
         })
 
+        $("#saveEditTag").click(function (e) {
+            console.log($("#editTagId").val());
+            console.log($("#editTagName").val());
+            var data = {
+                tagId:$("#editTagId").val(),
+                newTagName:$("#editTagName").val()
+            }
 
-        function loadTags() {
-            $("#tagContentHeader").html("hello you guys")
+            $("#editTagModal").modal('hide');
             $.ajax({
-                type:'Post',
-                url:'/getTags',
-                success: function (response) {
-                    var tagContent="";
-                    for(var i in response){
-                        tagContent+="<div style='margin: 20px;background-color:#ecf0f1'>";
-                        tagContent +="<span style='width: 200px; display: inline-block; font-size: 2.0em;'>"+response[i].id+response[i].tagName+"</span>"
-                        tagContent +="<button type='button' class='btn btn-warning'>edit</button>"
-                        tagContent +="<button type='button' class='btn btn-danger'>delete</button>"
-                        tagContent+="</div>"
-                    }
-                    $("#tagContentHeader").html(tagContent);
-
+                type:'POST',
+                data:data,
+                url:'/tag/edit',
+                success:function (response) {
+                    loadTags();
                 },
                 error: function (response) {
                     console.log(response);
+                    alert("fail");
+
                 }
-
             })
-
-        }
-
+        })
     })
+
+    function loadTags() {
+        $("#tagContentHeader").html("hello you guys")
+        $.ajax({
+            type: 'Post',
+            url: '/getTags',
+            success: function (response) {
+                var tagContent = "";
+                for (var i in response) {
+                    tagContent += "<div style='margin: 20px;background-color:#ecf0f1'>";
+                    tagContent += "<span style='width: 500px; display: inline-block; font-size: 2.0em;'>" + response[i].id + response[i].tagName + "</span>"
+                    tagContent += "<button type='button' class='btn btn-info' onclick='showEditTagModal(" + response[i].id + ")'>edit</button>"
+                    tagContent += "<button type='button' class='btn btn-danger' onclick='deleteTag("+response[i].id+")'>delete</button>"
+                    tagContent += "</div>"
+                }
+                $("#tagContentHeader").html(tagContent);
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+
+        })
+
+    }
+
+    function showEditTagModal(tagId) {
+//        console.log(e);
+        $("#editTagId").val(tagId);
+        $('#editTagModal').modal({
+            keyboard: false
+        })
+    }
+
+
+    function deleteTag(tagId) {
+        bootbox.confirm("Do you really want to delete the tag!", function (result) {
+            if(result==false){
+                return;
+            }
+            console.log(tagId);
+            $.ajax({
+                type:'POST',
+                url:'/tag/delete',
+                data:{
+                    tagId:tagId
+                },
+                success: function (response) {
+                    loadTags();
+                    console.log(response);
+                },
+                error: function (response) {
+                    alert("fail");
+                    console.log(response);
+                }
+            })
+        })
+    }
+
 </script>
 </html>
