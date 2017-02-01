@@ -7,12 +7,18 @@
 <body>
 <#include "header.ftl">
 <div class="container">
-    <div class="col-sm-8 blog-main">
+    <div class="col-sm-12 col-md-12 blog-main">
         <div id="blogdata">
         <#--adddata to this position-->
-            <div class="blog-post">
-                <h2 class="blog-post-title">${vo.title}</h2>
-                <p class="blog-post-meta">${vo.addtime}</p>
+            <div id="article-title">
+                <div id="artilce_title_title">
+                    <h1>${vo.title}</h1>
+                </div>
+                <div id="article_time">
+                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}
+                </div>
+            </div>
+            <div id="article-content">
             ${vo.content}
             </div>
         </div>

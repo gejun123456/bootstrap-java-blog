@@ -6,7 +6,7 @@
 <#include "header.ftl">
 <div class="container">
     <div class="row">
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-12 col-md-12 blog-main">
             <div id="blogdata">
             <#--adddata to this position-->
             <#list tags as tag>
