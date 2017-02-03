@@ -59,7 +59,7 @@ public class ContentAddController {
             contentService.saveContent(content, time);
         } catch (Exception e) {
             log.error("save content fail,the request is {}, the content is {}, the time is {}", request.toString(), content.toString(), time.toString(), e);
-            throw new TransactionException("add content fail");
+            throw new TransactionException("add content fail",e);
         }
         //add data to lucene.
         new Thread(() -> searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId())).start();
