@@ -12,17 +12,18 @@
                 <h2>${year}</h2>
             </div>
             <#list archiveMap[year] as yearac>
-                <p>${yearac.adddate} >> <a href="${yearac.link}">${yearac.title}</a>
-                    <#if admin??>
-                        <a href="/edit/${yearac.id}">[<@spring.message "edit"/>]</a>
-                        <a href="/delete/${yearac.id}">[<@spring.message "delete"/>]</a>
-                    </#if>
-                </p>
+            <div>
+            <img src="/static/img/folded-newspaper%20(1).png"> ${yearac.adddate} >> <a href="${yearac.link}">${yearac.title}</a>
+                <#if admin??>
+                    <a href="/edit/${yearac.id}"><button class="btn btn-warning"> <@spring.message "edit"/></button></a>
+                    <a href="/delete/${yearac.id}"><button class="btn btn-danger"> <@spring.message "delete"/></button></a>
+                </#if>
+            <div>
             </#list>
         </#list>
         </div>
-    </div>
-</div>
+        </div>
+        </div>
 </body>
 <#include "footerjs.ftl">
 <script type="text/javascript">

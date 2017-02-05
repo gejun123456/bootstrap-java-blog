@@ -15,8 +15,8 @@
         <#list contents as co>
             <div class="blog-post">
                 <div id="blogTitle">
-                    <h2><a href="/getArticle/${co.id}"><img width="32" src="/static/img/article-marketing-black.png">${co.title}</a></h2>
-                Post By Bruce <img src="/static/img/calendar%20(1).png"> ${co.startDate}
+                    <h2><a href="/getArticle/${co.id}"><img width="32" src="/static/img/folded-newspaper%20(1).png">${co.title}</a></h2>
+                Post By Bruce <img src="/static/img/calendar%20(1).png"> ${co.startDate} <img src="/static/img/price-tag.png">language
                 </div>
             <#--<p class="blog-post-meta">-->
             <#--<#if admin??>-->

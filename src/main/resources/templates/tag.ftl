@@ -10,7 +10,9 @@
             <div id="blogdata">
             <#--adddata to this position-->
             <#list tags as tag>
-                <li><a id="tag${tag.id}">${tag.tagName}</a> </li>
+            <div style="margin: 40px;">
+                <img src="/static/img/price-tag.png"><a id="tag${tag.id}">${tag.tagName}</a>
+            </div>
             </#list>
 
             <#--test build.-->

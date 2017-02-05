@@ -33,4 +33,7 @@ public interface ContentMapper {
 
 
     List<Content> findByStatusOrderByAddtimeDesc(@Param("status") Integer status);
+
+
+    List<Content> findOrderByIdDesc();
 }

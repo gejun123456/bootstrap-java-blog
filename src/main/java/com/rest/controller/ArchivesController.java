@@ -5,12 +5,14 @@ import com.google.common.collect.Maps;
 import com.rest.annotation.ExecutionTime;
 import com.rest.converter.AriveConverter;
 import com.rest.domain.Archives;
+import com.rest.domain.Content;
 import com.rest.mapper.ContentMapper;
 import com.rest.mapper.ContentTimeMapper;
 import com.rest.vo.ArchiveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class ArchivesController {
     @Autowired
     private ContentTimeMapper contentTimeMapper;
 
+    @Autowired
+    private ContentMapper contentMapper;
+
     @GetMapping("/archive")
     @ExecutionTime(logToDatabase = true)
     public ModelAndView getArchive() {
@@ -33,7 +38,7 @@ public class ArchivesController {
         Map<String, List<ArchiveVo>> archiveMap = Maps.newHashMap();
         for (Integer year : years) {
             List<Archives> byYear =
-                    contentTimeMapper.findByYear(year);
+                contentTimeMapper.findByYear(year);
             String a = String.valueOf(year);
             yearStrings.add(a);
             archiveMap.put(a, AriveConverter.converetToVo(byYear));
@@ -42,5 +47,13 @@ public class ArchivesController {
         archive.addObject("years", yearStrings);
         archive.addObject("archiveMap", archiveMap);
         return archive;
+    }
+
+
+    @GetMapping("/getEditArchives")
+    @ResponseBody
+    public List<Content> getEditArchives() {
+        List<Content> orderByIdDesc = contentMapper.findOrderByIdDesc();
+        return orderByIdDesc;
     }
 }

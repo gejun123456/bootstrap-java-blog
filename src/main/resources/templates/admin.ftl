@@ -186,6 +186,7 @@
 
 <script type="text/javascript">
 
+
     $(document).ready(function () {
 
 
@@ -208,6 +209,7 @@
             loadTags();
             $("#tagContent").show();
         } else if (hash == "editContent") {
+            loadEditContents();
             $("#editContent").show();
         } else if (hash == "deleted") {
             $("#deleteContent").show();
@@ -349,6 +351,23 @@
                 console.log(response);
             }
 
+        })
+
+    }
+
+    function loadEditContents() {
+        var editContentHtml = "<div>";
+        $.ajax({
+            type:'GET',
+            url:'/getEditArchives',
+            success:function (response) {
+                console.log(response.length);
+                for(var i in response){
+                    editContentHtml+="<div style='margin-left: 260px; margin-bottom: 20px; font-size: 20px'>"+"<a href='/edit/"+ response[i].id+"'>"+response[i].title+"</a></div>";
+                }
+                editContentHtml+="</div>";
+                $("#editContent").html(editContentHtml);
+            }
         })
 
     }

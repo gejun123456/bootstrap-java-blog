@@ -15,7 +15,7 @@
                     <h1>${vo.title}</h1>
                 </div>
                 <div id="article_time">
-                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}
+                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}<img src="/static/img/price-tag.png">language
                 </div>
             </div>
             <div id="article-content">
