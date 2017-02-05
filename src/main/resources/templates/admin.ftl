@@ -161,14 +161,13 @@
     </div>
 
 
-<div id="editContent" class="rightContent collapse">
-    This are places you can edit content.
-</div>
+    <div id="editContent" class="rightContent collapse">
+    </div>
 
 
-<div id="deleteContent" class="rightContent collapse">
-    This are delete content.
-</div>
+    <div id="deleteContent" class="rightContent collapse">
+        This are delete content.
+    </div>
 
 
 
@@ -356,16 +355,20 @@
     }
 
     function loadEditContents() {
-        var editContentHtml = "<div>";
+        var editContentHtml = "<div style='margin-top: 20px;'>";
         $.ajax({
-            type:'GET',
-            url:'/getEditArchives',
-            success:function (response) {
+            type: 'GET',
+            url: '/getEditArchives',
+            success: function (response) {
                 console.log(response.length);
-                for(var i in response){
-                    editContentHtml+="<div style='margin-left: 260px; margin-bottom: 20px; font-size: 20px'>"+"<a href='/edit/"+ response[i].id+"'>"+response[i].title+"</a></div>";
+                for (var i in response) {
+                    editContentHtml += "<div style='margin-left: 260px; margin-bottom: 20px; font-size: 20px'>" +
+                            "<a href='/edit/" + response[i].id + "'><button class='btn btn-warning'>edit</button></a>"+
+                                    "<a href='/delete/" + response[i].id + "'><button class='btn btn-danger'>delete</button></a>"
+                            + response[i].title +
+                            "</div>";
                 }
-                editContentHtml+="</div>";
+                editContentHtml += "</div>";
                 $("#editContent").html(editContentHtml);
             }
         })
