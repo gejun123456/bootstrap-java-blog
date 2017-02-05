@@ -36,7 +36,7 @@
 
 <div id="content">
     <div id="dashboardContent" class="rightContent collapse">
-        <center>good to see you, bro</center>
+        <h1>Here are the dashBoard</h1>
     </div>
     <div id="addContent" class="rightContent collapse">
         <div id="addContentHeader">
@@ -269,6 +269,7 @@
 
         $("#editContentLink").click(function () {
             $(".rightContent").hide();
+            loadEditContents()
             $("#editContent").show();
         })
 
@@ -354,6 +355,7 @@
 
     }
 
+//    may be need to show with pagnition.
     function loadEditContents() {
         var editContentHtml = "<div style='margin-top: 20px;'>";
         $.ajax({
