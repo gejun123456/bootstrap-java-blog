@@ -15,7 +15,11 @@
                     <h1>${vo.title}</h1>
                 </div>
                 <div id="article_time">
-                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}<img src="/static/img/price-tag.png">language
+                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}
+                    <#if vo.tags?has_content>
+                    <img src="/static/img/price-tag.png">
+                    ${vo.tags}
+                    </#if>
                 </div>
             </div>
             <div id="article-content">

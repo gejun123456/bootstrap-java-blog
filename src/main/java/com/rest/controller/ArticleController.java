@@ -1,11 +1,13 @@
 package com.rest.controller;
 
+import com.google.common.base.Joiner;
 import com.rest.config.BlogProperty;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.CommentPO;
 import com.rest.mapper.CommentPODao;
 import com.rest.mapper.ContentMapper;
 import com.rest.service.MessageSourceService;
+import com.rest.service.TagPoService;
 import com.rest.vo.CommentVo;
 import com.rest.vo.ContentVo;
 import org.jetbrains.annotations.NotNull;
@@ -39,10 +41,14 @@ public class ArticleController {
     @Autowired
     private CommentPODao commentPODao;
 
+    @Autowired
+    private TagPoService tagPoService;
+
     @GetMapping("/getArticle/{id}")
     public ModelAndView getArticle(@PathVariable("id") int id) {
         return contentMapper.findById(id).map(content -> {
             ContentVo vo = ContentConverter.convetToVo(content);
+            vo.setTags(Joiner.on(",").join(tagPoService.findTagsForContent(vo.getId())));
             ModelAndView article = new ModelAndView("article");
             article.addObject("vo", vo);
             //打开了评论 显示评论的区域

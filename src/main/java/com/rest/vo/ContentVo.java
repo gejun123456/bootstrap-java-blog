@@ -1,8 +1,13 @@
 package com.rest.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by bruce.ge on 2016/11/7.
  */
+@Getter
+@Setter
 public class ContentVo {
 
     private int id;
@@ -12,36 +17,6 @@ public class ContentVo {
 
     private String content;
 
+    private String tags;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(String addtime) {
-        this.addtime = addtime;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
