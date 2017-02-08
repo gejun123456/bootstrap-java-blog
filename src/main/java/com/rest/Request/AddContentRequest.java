@@ -29,4 +29,7 @@ public class AddContentRequest {
     @Length(max = 2000)
     private String indexHtml;
 
+
+    private String tagValue;
+
 }

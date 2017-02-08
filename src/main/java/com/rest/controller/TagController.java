@@ -5,18 +5,22 @@ import com.rest.Request.DeleteTagRequest;
 import com.rest.Request.EditTagRequest;
 import com.rest.annotation.AuthEnum;
 import com.rest.annotation.NeedAuth;
+import com.rest.controller.response.TextAndValue;
 import com.rest.domain.TagPo;
 import com.rest.service.TagPoService;
 import com.rest.vo.TagVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author bruce.ge
@@ -43,6 +47,19 @@ public class TagController {
     public List<TagVo> getAllTags() {
         List<TagVo> all = tagPoService.findAll();
         return all;
+    }
+
+
+    @GetMapping("/listTagNames")
+    @ResponseBody
+    public List<TextAndValue> listTagNames() {
+        List<TagVo> all = tagPoService.findAll();
+        return all.stream().map(tagVo -> {
+            TextAndValue textAndValue = new TextAndValue();
+            textAndValue.setText(tagVo.getTagName());
+            textAndValue.setValue(tagVo.getId().toString());
+            return textAndValue;
+        }).collect(Collectors.toList());
     }
 
 

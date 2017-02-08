@@ -6,6 +6,7 @@
 <#include "header_admin.ftl">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/fastselect.css"/>
 
 </head>
 <body>
@@ -46,8 +47,8 @@
             <form id="blogForm" action="#">
                 <div class="form-group">
                     <label> Title</label>
-                    <input type="text" id="sourceContentTitle" class="form-control" placeholder="blog tilte"
-                           id="sourceContentId" name="title" required>
+                    <input type="text" id="sourceContentTitle" class="form-control" placeholder="blog title"
+                           id="sourceContentId" name="title" required/>
                 </div>
                 <div class="form-group">
                     <label> Blog Content</label>
@@ -56,6 +57,13 @@
                     <#include "markdown_btngroup.ftl">
                         <textarea class="form-control" id="sourceContentValue" placeholder="blogContent"
                                   name="value" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tags</label>
+                    <div id="formTagNameDiv">
+                        <input id="tagNameValues" type="text"  class="multipleInputDynamic" multiple name="tagNames" data-url="/listTagNames" / >
                     </div>
                 </div>
 
@@ -118,7 +126,7 @@
                     <div class="form-group">
                         <input type="hidden" id="editTagId">
                         <label for="tagName">Tag Name</label>
-                        <input type="text" id="editTagName" class="form-control" placeholder="new tag name">
+                        <input type="text" id="editTagName" class="form-control" placeholder="new tag name"/>
                     </div>
                 <#--</form>-->
                 </div>
@@ -146,7 +154,7 @@
                 <#--<form>-->
                     <div class="form-group">
                         <label for="tagName">Tag Name</label>
-                        <input type="text" id="newTagName" class="form-control" placeholder="tag name">
+                        <input type="text" id="newTagName" class="form-control" placeholder="tag name"/>
                     </div>
                 <#--</form>-->
                 </div>
@@ -182,11 +190,62 @@
 <script src="/static/js/xss.js"></script>
 <script src="/static/js/admin/markdown.js"></script>
 <script src="/static/js/bootbox.min.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+
+
+<script src="/static/js/fastsearch.js"></script>
+
+<script src="/static/js/fastselect.js"></script>
+<script src="/static/js/fastselect.standalone.js"></script>
+
+
+<#--<script src="/static/js/bootstrap3-typeahead.js"></script>-->
+<#--<script src="/static/js/bootstrap-tagsinput.js"></script>-->
+
+<script>
+    //    var citynames = new Bloodhound({
+    //        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    //        queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //        prefetch: {
+    //            url: 'assets/citynames.json',
+    //            filter: function(list) {
+    //                return $.map(list, function(cityname) {
+    //                    return { name: cityname }; });
+    //            }
+    //        }
+    //    });
+    //    citynames.initialize();
+    //
+    //    $('#tagNames').tagsinput({
+    //        typeaheadjs: {
+    //            name: 'tags',
+    //            displayKey: 'name',
+    //            valueKey: 'name',
+    //            source: citynames.ttAdapter()
+    //        }
+    //    });
+
+</script>
+
 
 <script type="text/javascript">
+    //    $("#formTagNameDiv").on("keypress", function (event) {
+    //        console.log($("#tagNames").val());
+    //        return event.keyCode != 13;
+    //    })
+    //
+    //    $('#tagNames').tagsinput({
+    //        typeahead: {
+    //            source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+    //        }
+    //    });
+
 
 
     $(document).ready(function () {
+
+        $('.multipleInputDynamic').fastselect();
+
 
 
         var url = window.location.href;
@@ -229,12 +288,14 @@
             if (index != -1) {
                 indexHtml = filterXSS(converter.makeHtml($("#sourceContentValue").val().substring(0, index)));
             }
+            console.log($("#tagNameValues").val());
             //todo need to validate the length of them.
             var data = {
                 'title': filterXSS($("#sourceContentTitle").val()),
                 'sourceContent': sourceContent,
                 'sourceHtml': markDownHtml,
-                'indexHtml': indexHtml
+                'indexHtml': indexHtml,
+                'tagValue':$("#tagNameValues").val()
             };
             $.ajax({
                 type: 'POST',
@@ -255,6 +316,7 @@
                 }
             })
         })
+
 
         $("#tagLink").click(function () {
             $(".rightContent").hide();
@@ -355,7 +417,7 @@
 
     }
 
-//    may be need to show with pagnition.
+    //    may be need to show with pagnition.
     function loadEditContents() {
         var editContentHtml = "<div style='margin-top: 20px;'>";
         $.ajax({
@@ -365,8 +427,8 @@
                 console.log(response.length);
                 for (var i in response) {
                     editContentHtml += "<div style='margin-left: 260px; margin-bottom: 20px; font-size: 20px'>" +
-                            "<a href='/edit/" + response[i].id + "'><button class='btn btn-warning'>edit</button></a>"+
-                                    "<a href='/delete/" + response[i].id + "'><button class='btn btn-danger'>delete</button></a>"
+                            "<a href='/edit/" + response[i].id + "'><button class='btn btn-warning'>edit</button></a>" +
+                            "<a href='/delete/" + response[i].id + "'><button class='btn btn-danger'>delete</button></a>"
                             + response[i].title +
                             "</div>";
                 }

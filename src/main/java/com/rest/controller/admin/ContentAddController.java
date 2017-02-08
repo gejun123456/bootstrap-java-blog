@@ -1,5 +1,7 @@
 package com.rest.controller.admin;
 
+import com.google.common.collect.Lists;
+
 import com.rest.Request.AddContentRequest;
 import com.rest.annotation.NeedAuth;
 import com.rest.bean.User;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by bruce.ge on 2016/11/6.
@@ -28,7 +31,6 @@ import java.util.Calendar;
 @Controller
 @Slf4j
 public class ContentAddController {
-
 
     @Autowired
     private ContentService contentService;
@@ -55,15 +57,25 @@ public class ContentAddController {
         time.setYear(calendar.get(Calendar.YEAR));
         time.setMonth(calendar.get(Calendar.MONTH) + 1);
         time.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+        List<Integer> tags = extractTagFromValue(request.getTagValue());
         try {
-            contentService.saveContent(content, time);
+            contentService.saveContent(content, time,tags);
         } catch (Exception e) {
             log.error("save content fail,the request is {}, the content is {}, the time is {}", request.toString(), content.toString(), time.toString(), e);
-            throw new TransactionException("add content fail",e);
+            throw new TransactionException("add content fail", e);
         }
         //add data to lucene.
         new Thread(() -> searchService.addSource(request.getTitle(), MarkDownUtil.removeMark(request.getSourceContent()), content.getId())).start();
         return ResponseEntity.ok().build();
+    }
+
+    private List<Integer> extractTagFromValue(String tagValue) {
+        List<Integer> tagList = Lists.newArrayList();
+        String[] split = tagValue.split(",");
+        for (String s : split) {
+            tagList.add(Integer.parseInt(s));
+        }
+        return tagList;
     }
 
     @NeedAuth(redirectBack = true)

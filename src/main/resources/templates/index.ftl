@@ -16,7 +16,10 @@
             <div class="blog-post">
                 <div id="blogTitle">
                     <h2><a href="/getArticle/${co.id}"><img width="32" src="/static/img/folded-newspaper%20(1).png">${co.title}</a></h2>
-                Post By Bruce <img src="/static/img/calendar%20(1).png"> ${co.startDate} <img src="/static/img/price-tag.png">language
+                Post By Bruce <img src="/static/img/calendar%20(1).png"> ${co.startDate}
+                    <#if co.tags ??>
+                        <img src="/static/img/price-tag.png">${co.tags}
+                    </#if>
                 </div>
             <#--<p class="blog-post-meta">-->
             <#--<#if admin??>-->

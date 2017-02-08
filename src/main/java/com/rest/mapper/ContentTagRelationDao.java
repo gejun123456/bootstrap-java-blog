@@ -18,4 +18,6 @@ public interface ContentTagRelationDao {
     int delete();
 
     int deleteById(@Param("id")Integer id);
+
+    List<Integer> findTagIdByContentId(@Param("contentId")Integer contentId);
 }

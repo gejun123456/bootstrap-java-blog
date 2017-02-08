@@ -25,6 +25,15 @@ public interface TagPoDao {
 
     List<TagPo> findAll();
 
+
+    List<TagPo> findIdAndTagName();
+
     int delete();
+
+
+    List<String> findTagName();
+
+
+    List<String> findTagNameByIdIn(@Param("idList")List<Integer> idList);
 
 }

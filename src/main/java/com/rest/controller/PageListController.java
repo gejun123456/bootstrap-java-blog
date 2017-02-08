@@ -2,12 +2,14 @@ package com.rest.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.rest.annotation.ExecutionTime;
 import com.rest.converter.ContentConverter;
 import com.rest.domain.Content;
 import com.rest.enums.StatusEnum;
 import com.rest.mapper.ContentMapper;
+import com.rest.service.TagPoService;
 import com.rest.vo.PageContentVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,14 @@ public class PageListController {
     @Autowired
     private ContentMapper contentMapper;
 
+
+    @Autowired
+    private TagPoService tagPoService;
+
+
     @GetMapping("/getPage")
+
+    @Deprecated
     //穿一个page参数
     public List<PageContentVo> getList(@RequestParam("page") int page, @RequestParam(value = "pagesize", defaultValue = "10") int pageSize) {
         //shiro test code.
@@ -35,6 +44,9 @@ public class PageListController {
         int limit = pageSize;
         List<Content> pages = contentMapper.getPageWithStatus(StatusEnum.ACTIVE.getValue(), start, limit);
         List<PageContentVo> pageContentVos = ContentConverter.convetToPageDto(pages);
+        for (PageContentVo pageContentVo : pageContentVos) {
+            pageContentVo.setTags(Joiner.on(",").join(tagPoService.findTagsForContent(pageContentVo.getId())));
+        }
         return pageContentVos;
     }
 
@@ -53,6 +65,9 @@ public class PageListController {
         List<PageContentVo> pageContentVos = Lists.newArrayList();
         List<Content> activeContent = contentMapper.findByStatusOrderByAddtimeDesc(StatusEnum.ACTIVE.getValue());
         pageContentVos = ContentConverter.convetToPageDto(activeContent);
+        for (PageContentVo pageContentVo : pageContentVos) {
+            pageContentVo.setTags(Joiner.on(",").join(tagPoService.findTagsForContent(pageContentVo.getId())));
+        }
         Page page = (Page) activeContent;
         int pages = page.getPages();
         ModelAndView s = new ModelAndView("index");
