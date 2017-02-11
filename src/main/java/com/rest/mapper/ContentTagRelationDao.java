@@ -20,4 +20,11 @@ public interface ContentTagRelationDao {
     int deleteById(@Param("id")Integer id);
 
     List<Integer> findTagIdByContentId(@Param("contentId")Integer contentId);
+
+
+    List<Integer> findContentIdByTagId(@Param("tagId")Integer tagId);
+
+
+    List<ContentTagRelation> findByTagIdIn(@Param("tagIdList")List<Integer> tagIdList);
+
 }

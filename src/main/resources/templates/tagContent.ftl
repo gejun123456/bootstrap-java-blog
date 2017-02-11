@@ -9,10 +9,10 @@
         <div class="col-sm-12 col-md-12 blog-main">
             <div id="blogdata">
             <#--adddata to this position-->
-            <#list tags as tag>
-            <div style="margin: 40px;">
-                <img src="/static/img/price-tag.png"><a href="/tag/${tag.id}">${tag.tagName}</a>
-            </div>
+            <#list tagContentVos as tagVo>
+                <div style="margin: 40px;">
+                    <a href="${tagVo.contentUrl}">${tagVo.contentTitle} ${tagVo.addTime}</a>
+                </div>
             </#list>
 
             <#--test build.-->

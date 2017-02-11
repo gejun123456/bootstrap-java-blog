@@ -36,4 +36,22 @@ public interface ContentMapper {
 
 
     List<Content> findOrderByIdDesc();
+
+    String findTitleById(@Param("id")Integer id);
+
+
+    Content findTitleAndAddtimeById(@Param("id")Integer id);
+
+
+    List<Content> findTitleAndAddtimeByIdInAndStatus(@Param("idList")List<Integer> idList,@Param("status")Integer status);
+
+
+    List<Content> findByIdInAndStatus(@Param("idList")List<Integer> idList,@Param("status")Integer status);
+
+
+    Integer countByIdInAndStatus(@Param("idList")List<Integer> idList,@Param("status")Integer status);
+
+
+    List<Content> findIdAndTitleAndAddtimeByIdInAndStatus(@Param("idList")List<Integer> idList,@Param("status")Integer status);
+
 }
