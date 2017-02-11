@@ -134,6 +134,6 @@ public class TagPoService {
 
     private static String formatDate(Date addtime) {
         LocalDate localDateTime = addtime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return localDateTime.format(DateTimeFormatter.BASIC_ISO_DATE);
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

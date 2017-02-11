@@ -5,23 +5,29 @@
     <link href="/static/css/comment.css" rel="stylesheet">
 </head>
 <body>
+
+<div id="headAndTitle">
 <#include "header.ftl">
+    <div id="article-title">
+        <div id="artilce_title_title">
+            <h1>${vo.title}</h1>
+        </div>
+        <div id="article_time">
+            Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}
+        <#if vo.tags?has_content>
+            <img src="/static/img/price-tag.png">
+        ${vo.tags}
+        </#if>
+        </div>
+    </div>
+</div>
+
+
 <div class="container">
     <div class="col-sm-12 col-md-12 blog-main">
         <div id="blogdata">
         <#--adddata to this position-->
-            <div id="article-title">
-                <div id="artilce_title_title">
-                    <h1>${vo.title}</h1>
-                </div>
-                <div id="article_time">
-                    Post By Bruce <img src="/static/img/calendar%20(1).png"> ${vo.addtime}
-                    <#if vo.tags?has_content>
-                    <img src="/static/img/price-tag.png">
-                    ${vo.tags}
-                    </#if>
-                </div>
-            </div>
+
             <div id="article-content">
             ${vo.content}
             </div>

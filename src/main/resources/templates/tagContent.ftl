@@ -11,7 +11,7 @@
             <#--adddata to this position-->
             <#list tagContentVos as tagVo>
                 <div style="margin: 40px;">
-                    <a href="${tagVo.contentUrl}">${tagVo.contentTitle} ${tagVo.addTime}</a>
+                    <img src="/static/img/calendar%20(1).png"> ${tagVo.addTime}<a href="${tagVo.contentUrl}"> >> <img src="/static/img/folded-newspaper%20(1).png"> ${tagVo.contentTitle} </a>
                 </div>
             </#list>
 

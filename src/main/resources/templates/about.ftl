@@ -10,10 +10,6 @@
             <div id="blogdata">
             <#--adddata to this position-->
             ${aboutContent}
-
-            <#if edit??>
-                <a href="/editAbout">edit</a>
-            </#if>
             <#--test build.-->
             </div>
 </body>

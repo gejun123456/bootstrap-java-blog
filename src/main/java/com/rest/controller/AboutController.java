@@ -2,7 +2,6 @@ package com.rest.controller;
 
 import com.rest.annotation.ExecutionTime;
 import com.rest.service.AboutService;
-import com.rest.utils.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +20,6 @@ public class AboutController {
     @ExecutionTime(logToDatabase = true)
     public ModelAndView getAbout() {
         ModelAndView view = new ModelAndView("about");
-        if (SessionUtils.getCurrentUser().isAdmin()) {
-            view.addObject("edit", true);
-        }
         return aboutService.getAbout()
                 .map(about -> {
                     if (about.getSourceContent() != null) {//
