@@ -1,16 +1,17 @@
 package com.rest.config;
 
-import com.rest.config.Constants;
 import com.rest.intercetors.ExecutionInterceptor;
 import com.rest.local.MyLocaleCookieLocaleResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.inject.Inject;
+import javax.servlet.Filter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,5 +77,16 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         return resourceBundleMessageSource;
     }
 
+
+    @Bean
+    public FilterRegistrationBean myFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        CharacterEncodingFilter characterEncodingFilter  = new CharacterEncodingFilter();
+        characterEncodingFilter.setForceEncoding(true);
+        characterEncodingFilter.setEncoding("UTF-8");
+        registration.setFilter(characterEncodingFilter);
+        registration.addUrlPatterns("/*");
+        return registration;
+    }
 
 }
