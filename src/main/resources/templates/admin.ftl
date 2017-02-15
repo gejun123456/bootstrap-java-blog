@@ -30,6 +30,7 @@
         <li><a href="#editContent" id="editContentLink"><img
                 src="/static/img/edit-content.png"/><span>editContent</span></a></li>
         <li><a href="#tag" id="tagLink"><img src="/static/img/tag.png"/><span>tags</span></a></li>
+        <li><a href="#about" id="editAboutLink"><img src="/static/img/user.png"/><span>editAbout</span></a>
         <li><a href="#deleted" id="deleteContentLink"><img src="/static/img/rubbish-bin.png"/><span>deleted</span></a>
         </li>
     </ul>
@@ -38,6 +39,27 @@
 <div id="content">
     <div id="dashboardContent" class="rightContent collapse">
         <h1>Here are the dashBoard</h1>
+    </div>
+    <div id="editAboutLinkContent" class="rightContent collapse">
+        <h1>here you can edit your about</h1>
+        <div id="aboutSourceContent">
+            <form id="editAboutForm">
+                <div class="form-group">
+                <#include "markdown_btngroup.ftl">
+                    <textarea class="form-control" id="editAboutValue" placeholder="about"
+                              name="aboutContent" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="editAboutSubmitButton" type="submit" class="btn btn-default">submit</button>
+                </div>
+            <#--</div>-->
+            <#--<div class="form-group">-->
+
+            </form>
+        </div>
+        <div id="aboutMarkDownContent">
+        </div>
+
     </div>
     <div id="addContent" class="rightContent collapse">
         <div id="addContentHeader">
@@ -63,7 +85,8 @@
                 <div class="form-group">
                     <label>Tags</label>
                     <div id="formTagNameDiv">
-                        <input id="tagNameValues" type="text"  class="multipleInputDynamic" multiple name="tagNames" data-url="/listTagNames" / >
+                        <input id="tagNameValues" type="text" class="multipleInputDynamic" multiple name="tagNames"
+                               data-url="/listTagNames" / >
                     </div>
                 </div>
 
@@ -241,11 +264,9 @@
     //    });
 
 
-
     $(document).ready(function () {
 
         $('.multipleInputDynamic').fastselect();
-
 
 
         var url = window.location.href;
@@ -271,9 +292,17 @@
             $("#editContent").show();
         } else if (hash == "deleted") {
             $("#deleteContent").show();
+        } else if (hash == "about") {
+            loadUserAbout();
+            $("#editAboutLinkContent").show();
         }
         $("#blogForm").validate();
         start($("#sourceContentTitle"), $("#sourceContentValue"), $("#markdownContent"));
+
+
+        $("#editAboutForm").validate();
+        startContent($("#editAboutValue"), $("#aboutMarkDownContent"))
+
 
         $("#blogForm").submit(function (e) {
             e.preventDefault();
@@ -295,7 +324,7 @@
                 'sourceContent': sourceContent,
                 'sourceHtml': markDownHtml,
                 'indexHtml': indexHtml,
-                'tagValue':$("#tagNameValues").val()
+                'tagValue': $("#tagNameValues").val()
             };
             $.ajax({
                 type: 'POST',
@@ -303,6 +332,38 @@
 //                dataType: 'json',
                 contentType: 'application/json;charset=utf-8',
                 url: '/addContent',
+                success: function (response) {
+                    bootbox.alert(geti18n("success"));
+                },
+                error: function (response) {
+                    console.log(response);
+                    if (response.status == 403) {
+                        window.location.href = "/loginPage";
+                    } else if (response.status == 400) {
+                        console.log(response);
+                    }
+                }
+            })
+        })
+
+
+        $("#editAboutForm").submit(function (e) {
+            e.preventDefault();
+            if (!$("#editAboutForm").valid()) {
+                return;
+            }
+            var realSourceContent = $("#editAboutValue").val();
+            var markDownHtml = filterXSS(converter.makeHtml(realSourceContent));
+            var data = {
+                'sourceContent': realSourceContent,
+                'sourceHtml': markDownHtml,
+            };
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json;charset=utf-8',
+                url: '/editAbout',
                 success: function (response) {
                     bootbox.alert(geti18n("success"));
                 },
@@ -390,6 +451,12 @@
                 }
             })
         })
+
+        $("#editAboutLink").click(function (e) {
+            loadUserAbout();
+            $(".rightContent").hide();
+            $("#editAboutLinkContent").show();
+        })
     })
 
     function loadTags() {
@@ -444,6 +511,23 @@
         $("#editTagId").val(tagId);
         $('#editTagModal').modal({
             keyboard: false
+        })
+    }
+
+
+    function loadUserAbout() {
+        $.ajax({
+            type: 'GET',
+            url: '/loadUserAbout',
+            success: function (response) {
+                console.log(response);
+                $("#editAboutValue").val(response);
+                $("#aboutMarkDownContent").html(filterXSS(converter.makeHtml(response)));
+            },
+            error: function (response) {
+                alert("fail");
+                console.log(response);
+            }
         })
     }
 

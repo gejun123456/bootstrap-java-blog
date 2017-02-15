@@ -104,12 +104,27 @@ ul li a:hover {
     margin-left: 260px;
 }
 
+#editAboutLinkContent{
+    margin-left: 260px;
+}
+
 #sourceContent {
     width: 48%;
     float: left;
     /*border-right:solid;*/
 }
 
+#aboutSourceContent{
+    width: 48%;
+    float: left;
+}
+
+#aboutMarkDownContent{
+    margin-left: 50%;
+    height: 80%;
+    overflow-y: scroll;
+    border:2px solid #eee;
+}
 #markdownContent {
     margin-left: 50%;
     height: 80%;
@@ -118,6 +133,12 @@ ul li a:hover {
 }
 
 #sourceContentValue {
+    width: 98%;;
+    min-height: 65%;
+    overflow-y: scroll;
+}
+
+#editAboutValue{
     width: 98%;;
     min-height: 65%;
     overflow-y: scroll;

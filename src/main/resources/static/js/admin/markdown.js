@@ -188,6 +188,67 @@ function dealWithMore(com, start, end) {
     com.prop("selectionEnd", end + 9);
 };
 
+function startContent(source,output) {
+    function refresh() {
+        var text = source.val();
+        text = text.replace("<!-more->","");
+        console.log("source value is:"+text);
+        var html = converter.makeHtml(text);
+        var cleanSource = filterXSS(html);
+        console.log(cleanSource);
+        output.html(cleanSource);
+    }
+
+    refresh();
+
+    source.bind("keyup",function () {
+        refresh();
+    });
+
+    source.bind("keydown",function (e) {
+        dealWithTableAndMarkDownShortCut($(this), e, $("#myModal"), $("#imageModal"));
+    })
+
+    $(".markdownbutton").bind("click",function () {
+        var message = $(this).attr('tabindex');
+        var com = source;
+        var start = com.prop("selectionStart");
+        var end = com.prop("selectionEnd");
+        if (message == 1) {
+            //the rest is much the same.
+            dealWithB(com, start, end);
+        } else if (message == 2) {
+            dealwithI(com, start, end);
+        } else if (message == 3) {
+            dealwithHead(com, start, end);
+        } else if (message == 4) {
+            //the link //need to output the modal.
+//                dealWithLink(com,start,end);
+            $('#myModal').modal({
+                keyboard: true
+            })
+            return;
+        } else if (message == 5) {
+            $('#imageModal').modal({
+                keyboard: true
+            })
+            return;
+        } else if (message == 6) {
+            dealWithUnOrder(com, start, end);
+        } else if (message == 7) {
+            dealWithOrder(com, start, end);
+        } else if (message == 9) {
+            dealWithQuote(com, start, end);
+        } else if (message == 8) {
+            dealWithCode(com, start, end);
+        } else if (message == 10) {
+            dealWithMore(com, start, end);
+        }
+        com.focus();
+        refresh();
+    })
+
+}
 
 function start(title, source, output) {
     // var converter = new showdown.Converter();

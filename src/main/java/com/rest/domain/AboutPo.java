@@ -20,6 +20,9 @@ public class AboutPo {
     //use markdown to diplay all the info for it.
     private String sourceContent;
 
+
+    private String markdownHtml;
+
     private Date createTime;
 
     private Date updateTime;

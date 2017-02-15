@@ -17,5 +17,7 @@ public interface AboutPoDao {
 
     int update(@Param("pojo") AboutPo pojo);
 
+    Optional<AboutPo> findFirstOrderByCreateTimeDesc();
+
     Optional<AboutPo> findFirst();
 }

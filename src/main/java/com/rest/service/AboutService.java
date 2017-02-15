@@ -18,6 +18,11 @@ public class AboutService {
 
     @Transactional
     public Optional<AboutPo> getAbout() {
-        return aboutPoDao.findFirst();
+        return aboutPoDao.findFirstOrderByCreateTimeDesc();
+    }
+
+    @Transactional
+    public int insert(AboutPo aboutPo){
+        return aboutPoDao.insert(aboutPo);
     }
 }
