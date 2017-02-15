@@ -58,15 +58,15 @@ CREATE TABLE IF NOT EXISTS `execution_time_log`(
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`execution_time_log`';
 
-
 CREATE TABLE IF NOT EXISTS `about_po` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `source_content` text NOT NULL COMMENT 'sourceContent',
   `create_time` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'createTime',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
   `user_id` int(11) NOT NULL DEFAULT '-1' COMMENT 'userId',
+  `markdown_html` text NOT NULL COMMENT 'markdownHtml',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='`about_po`';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='`about_po`';
 
 
 
