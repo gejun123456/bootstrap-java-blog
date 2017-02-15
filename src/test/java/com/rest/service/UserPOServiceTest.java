@@ -1,6 +1,6 @@
 package com.rest.service;
 
-import com.SampleController;
+import com.App;
 import com.rest.mapper.UserPODao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Created by bruce.ge on 2016/11/13.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SampleController.class)
+@SpringBootTest(classes = App.class)
 public class UserPOServiceTest {
 
     @Autowired

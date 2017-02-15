@@ -18,7 +18,6 @@ apply plugin: 'idea'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 repositories {
     mavenLocal()
     maven { url "http://repo.maven.apache.org/maven2" }
@@ -29,6 +28,10 @@ ext {
     luceneVersion = '6.2.1'
     swaggerVersion = '2.6.1'
     logbackVersion = '1.1.8'
+}
+
+springBoot {
+    mainClass = "com.App"
 }
 
 //configurations.all {
@@ -101,10 +104,6 @@ dependencies {
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
     compile("org.mybatis:github.mybatisJava8:3.4.3-SNAPSHOT")
     compile 'javax.inject:javax.inject:1'
-    
-    
-    
-
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

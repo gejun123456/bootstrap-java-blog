@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.inject.Inject;
 
 /**
  * Created by bruce.ge on 2016/10/23.
@@ -23,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //})
 @ComponentScan
 @EnableAspectJAutoProxy
-public class SampleController {
+public class App {
+
+    @Inject
+    private Environment env;
 
     @RequestMapping("/")
     String home() {
@@ -31,8 +37,7 @@ public class SampleController {
     }
 
     public static void main(String[] args) {
-
-        SpringApplication.run(SampleController.class, args);
+        SpringApplication.run(App.class, args);
     }
 
     @Bean

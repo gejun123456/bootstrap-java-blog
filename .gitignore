@@ -7,3 +7,4 @@
 *.log
 *.iml
 /node_modules/
+/src/main/resources/prod-templates/
