@@ -22,7 +22,7 @@ targetCompatibility = 1.8
 repositories {
     mavenLocal()
     maven { url "http://repo.maven.apache.org/maven2" }
-    maven { url "http://45.76.98.167:8081/nexus/content/repositories/snapshots/"}
+    maven { url "https://mymavenrepo.com/repo/Y9am8a0b6ZJhVJVVJvOU/"}
 }
 
 ext {
