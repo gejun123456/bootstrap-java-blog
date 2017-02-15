@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `about_po` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
   `user_id` int(11) NOT NULL DEFAULT '-1' COMMENT 'userId',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='`about_po`'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='`about_po`';
 
 
 
