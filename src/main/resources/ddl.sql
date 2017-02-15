@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS `execution_time_log`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`execution_time_log`';
 
 
-CREATE TABLE IF NOT EXISTS `about_po`(
-    `id` INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `source_content` TEXT NOT NULL COMMENT 'sourceContent',
-    `create_time` DATETIME NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'createTime',
-    `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
-    `user_id` INT (11) NOT NULL DEFAULT -1 COMMENT 'userId',
-    PRIMARY KEY (`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '`about_po`';
+CREATE TABLE IF NOT EXISTS `about_po` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `source_content` text NOT NULL COMMENT 'sourceContent',
+  `create_time` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' COMMENT 'createTime',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updateTime',
+  `user_id` int(11) NOT NULL DEFAULT '-1' COMMENT 'userId',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='`about_po`'
 
 
 
