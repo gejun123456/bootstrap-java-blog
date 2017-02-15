@@ -15,6 +15,7 @@ import com.rest.service.SearchService;
 import com.rest.utils.MarkDownUtil;
 import com.rest.utils.SessionUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,9 +72,11 @@ public class ContentAddController {
 
     private List<Integer> extractTagFromValue(String tagValue) {
         List<Integer> tagList = Lists.newArrayList();
-        String[] split = tagValue.split(",");
-        for (String s : split) {
-            tagList.add(Integer.parseInt(s));
+        if(StringUtils.isNotBlank(tagValue)){
+            String[] split = tagValue.split(",");
+            for (String s : split) {
+                tagList.add(Integer.parseInt(s));
+            }
         }
         return tagList;
     }
