@@ -209,10 +209,10 @@
 
         $("#login-form").submit(function (e) {
             e.preventDefault();
-            $("#login-form :submit").attr("disabled", true);
             if (!$("#login-form").valid()) {
                 return;
             }
+            $("#login-form :submit").attr("disabled", true);
             $.ajax({
                 type: 'POST',
                 data: $("#login-form").serialize(),
