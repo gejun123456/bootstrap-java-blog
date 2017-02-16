@@ -31,20 +31,20 @@
         </triggeringPolicy>
     </appender>
 
-    <springProfile name="prod">
-        <appender name="Sentry" class="com.getsentry.raven.logback.SentryAppender">
-            <dsn>https://7242adf5355c48afa78204877df42eec:bf4f524364fd43d89b854414d465c0e8@sentry.io/115055?options
-            </dsn>
-            <tags>tag1:value1,tag2:value2</tags>
-            <!-- Optional, allows to select the ravenFactory -->
-            <!--<ravenFactory>com.getsentry.raven.DefaultRavenFactory</ravenFactory>-->
-        </appender>
+    <!--<springProfile name="prod">-->
+        <!--<appender name="Sentry" class="com.getsentry.raven.logback.SentryAppender">-->
+            <!--<dsn>https://7242adf5355c48afa78204877df42eec:bf4f524364fd43d89b854414d465c0e8@sentry.io/115055?options-->
+            <!--</dsn>-->
+            <!--<tags>tag1:value1,tag2:value2</tags>-->
+            <!--&lt;!&ndash; Optional, allows to select the ravenFactory &ndash;&gt;-->
+            <!--&lt;!&ndash;<ravenFactory>com.getsentry.raven.DefaultRavenFactory</ravenFactory>&ndash;&gt;-->
+        <!--</appender>-->
 
-        <logger name="access" level="DEBUG" additivity="false">
-            <appender-ref ref="access"/>
-            <appender-ref ref="Sentry"/>
-        </logger>
-    </springProfile>
+        <!--<logger name="access" level="DEBUG" additivity="false">-->
+            <!--<appender-ref ref="access"/>-->
+            <!--<appender-ref ref="Sentry"/>-->
+        <!--</logger>-->
+    <!--</springProfile>-->
 
     <!--not send evnet to Sentry-->
     <springProfile name="dev">
@@ -53,7 +53,6 @@
             <!--<appender-ref ref="CONSOLE" />-->
             <!--<appender-ref ref="FILE" />-->
         <!--</root>-->
-
         <logger name="access" level="DEBUG" additivity="false">
             <appender-ref ref="access"/>
         </logger>

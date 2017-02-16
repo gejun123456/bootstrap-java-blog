@@ -59,6 +59,27 @@ configurations {
 }
 
 
+//task build <<{
+//    println 'build'
+//}
+
+task updateResource << {
+    if(project.hasProperty("active")){
+        println "current environment is "+active
+        println "gonna move template files to prod-templates"
+    } else {
+        println "current environment is dev";
+    }
+}
+
+task updateProd(type: JavaExec) {
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.generator.ProdTemplateGenerator"
+//    args "arg1", "arg2"
+}
+
+
+//processResources.dependsOn updateResource
 
 
 dependencies {

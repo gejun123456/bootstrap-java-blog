@@ -5,7 +5,6 @@ import com.rest.utils.DbUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
@@ -13,7 +12,6 @@ import javax.sql.DataSource;
  * Created by bruce.ge on 2016/10/23.
  */
 @Configuration
-@Profile("dev")
 public class DevDbConfig {
     @Value("${db.url}")
     private String dbUrl;

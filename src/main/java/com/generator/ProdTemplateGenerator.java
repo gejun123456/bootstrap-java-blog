@@ -33,7 +33,7 @@ public class ProdTemplateGenerator {
 
     public static final String PRODTEMPLATEPATH = "prod-templates";
 
-    public static void generate(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Path path
                 = Paths.get("src/main/resources/" + DEVTEMPLATEPATH);

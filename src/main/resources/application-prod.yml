@@ -2,15 +2,6 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   config-location: classpath:/mybatis-config.xml
 
-spring:
-  freemarker:
-    settings:
-      auto_import: spring.ftl as spring
-    charset: UTF-8
-    cache: true
-    template-loader-path: ["classpath:/prod-templates/"]
-
-
 logging:
   file: logs/app.log
   level: info
@@ -22,20 +13,27 @@ endpoints:
     enabled: true
 
 #server.tomcat.remote_ip_header=x-forwarded-for
+
 server:
   tomcat:
     protocol_header: x-forwarded-proto
-  use-forward-headers: true
+    use-forward-headers: true
+  port: 8080
+  compression:
+      enabled: true
+      mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+      min-response-size: 1024
 
-server:
-    port: 8080
-    compression:
-        enabled: true
-        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
-        min-response-size: 1024
 
 
 spring:
+  freemarker:
+    settings:
+      auto_import: spring.ftl as spring
+    charset: UTF-8
+    cache: true
+    template-loader-path: ["classpath:/prod-templates/"]
+
     devtools:
         restart:
             enabled: false
@@ -57,8 +55,8 @@ spring:
 # config your database config here. 数据库的配置
 db:
   url: jdbc:mysql://localhost/world?useUnicode=true&characterEncoding=utf8&useSSL=false
-  username: bruce
-  password: root
+  username: root
+  password:
 #set if comment is open.
 blog:
   comment: true
