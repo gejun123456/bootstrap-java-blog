@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -35,17 +34,6 @@ public class RegisterController {
     @Autowired
     private UserPODao userPODao;
 
-    private static int existUser = 0;
-
-    @PostConstruct
-    public void init() {
-        //go to check the talbe contains content.
-        int count = userPODao.getCount();
-        if (count > 0) {
-            existUser = 1;
-        }
-    }
-
     @ApiOperation(value = "注册用户", response = ResponseEntity.class, produces = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(path = "/register", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @ResponseBody
@@ -57,17 +45,17 @@ public class RegisterController {
                 .cryptpasswod(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt()))
                 .build();
         po.setAuth(0);
+        int count = userPODao.getCount();
         try {
-            if (existUser == 0) {
+            if (count == 0) {
                 synchronized (this.getClass()) {
-                    if (existUser == 0) {
+                    if (count == 0) {
                         //第一个创建的用户权限为admin
                         po.setAuth(1);
                         //只有插入成功了才行。
                         //这个阶段不可能出错。
                         userPODao.insert(po);
                         //add with session.
-                        existUser = 1;
                     } else {
                         //可能出出错
                         userPODao.insert(po);
