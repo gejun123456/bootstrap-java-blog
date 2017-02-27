@@ -20,8 +20,8 @@ msgLogFileCreated="$logFile created"
 msgAppStarted="Application Started... exiting buffer!"
 
 ### Functions
-#######
 
+#######
 function deleteFiles(){
     echo "Deleting files"
     rm -rf *

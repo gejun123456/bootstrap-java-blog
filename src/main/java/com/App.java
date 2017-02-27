@@ -1,6 +1,7 @@
 package com;
 
 import com.rest.storage.StorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 //})
 @ComponentScan
 @EnableAspectJAutoProxy
+@Slf4j
 public class App {
 
     @Inject
@@ -46,7 +48,9 @@ public class App {
             @Override
             public void run(String... args) throws Exception {
 //                no need to delete file.
+                log.info("start to init storage service");
                 storageService.init();
+                log.info("storage service inited");
             }
         };
     }

@@ -47,15 +47,7 @@ springBoot {
 //}
 
 configurations {
-//    移除logj依赖 使用slf4j+logj
-    all*.exclude group: 'log4j', module: 'log4j'
-    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-core'
-    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
-    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
-    //移除api依赖 使用log4j-slf4j的adapter
-    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-api'
     all*.exclude group: 'org.mybatis',module: 'mybatis'
-
 }
 
 

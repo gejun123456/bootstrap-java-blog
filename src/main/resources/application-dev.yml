@@ -28,6 +28,7 @@ server:
   tomcat:
     protocol_header: x-forwarded-proto
   use-forward-headers: true
+  port: 9098
 
 # config your database config here. 数据库的配置
 db:

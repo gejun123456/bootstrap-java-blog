@@ -56,6 +56,7 @@ public class SearchService {
         directory = FSDirectory.open(Paths.get("/tmp/testindex"));
         indexWriterConfig = new IndexWriterConfig(analyzer);
         indexWriter = new IndexWriter(directory, indexWriterConfig);
+        log.info("lucene inited success");
     }
 
     @PreDestroy
