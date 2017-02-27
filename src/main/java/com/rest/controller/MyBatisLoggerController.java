@@ -59,7 +59,7 @@ public class MyBatisLoggerController {
         ModelAndView viewPage = new ModelAndView("mybatisLogView");
         PageHelper.startPage(page, 50);
         List<MyBatisLog> myBatisPo =
-            myBatisLogDao.find();
+            myBatisLogDao.findOrderByCreateTimeDesc();
         List<MyBatisLogVo> myBatisLogs = convertToVo(myBatisPo);
         Page logPages = (Page) myBatisPo;
         int pages = logPages.getPages();

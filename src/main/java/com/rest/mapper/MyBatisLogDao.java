@@ -17,4 +17,7 @@ public interface MyBatisLogDao {
     int update(@Param("pojo") MyBatisLog pojo);
 
     List<MyBatisLog> find();
+
+
+    List<MyBatisLog> findOrderByCreateTimeDesc();
 }
